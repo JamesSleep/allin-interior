@@ -5,7 +5,7 @@ import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
 import { TouchableWithoutFeedback, Keyboard, Platform } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
@@ -32,6 +32,7 @@ const Login = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                onPress={()=>navigation.navigate("SignUp")}
               >
                 <Text size={_WIDTH/23} color={buttonColor}>회원가입</Text>
               </TouchableOpacity>
