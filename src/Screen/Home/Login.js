@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
-import { backgroundColor, _WIDTH, buttonColor } from "../../../theme";
+import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../../theme";
 import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
-import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { TouchableWithoutFeedback, Keyboard, Platform } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Login = () => {
   return (
@@ -21,26 +22,65 @@ const Login = () => {
               <TextInput placeholder="비밀번호" placeholderTextColor="gray" secureTextEntry/>
             </Input>
             <RowView sort="space-between">
-              <SignUp><Text size={_WIDTH/23} color={buttonColor}>회원가입</Text></SignUp>
-              <SignIn><Text size={_WIDTH/23} color="white">로그인</Text></SignIn>
+              <TouchableOpacity
+                style={{
+                  width: _WIDTH*0.41,
+                  height: _HEIGHT*0.08,
+                  borderWidth: 1,
+                  borderColor: buttonColor,
+                  borderRadius: 5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text size={_WIDTH/23} color={buttonColor}>회원가입</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  width: _WIDTH*0.41,
+                  height: _HEIGHT*0.08,
+                  backgroundColor: buttonColor,
+                  borderRadius: 5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text size={_WIDTH/23} color="white">로그인</Text>
+              </TouchableOpacity>
             </RowView>
             <RowView sort="space-between">
               <Line/><Text size={_WIDTH/30} color="gray">간편로그인</Text><Line/>
             </RowView>
-            <RowView sort="center">
-              <SocialLogin>
+            <RowView sort="space-around">
+              <TouchableOpacity 
+                style={{ flexDirection: "row", alignItems: "center", }}
+              >
                 <SocialIcon source={require('../../Image/kakao.png')}/>
                 <Text size={_WIDTH/24} color="black">카카오톡</Text>
-              </SocialLogin>
-              <SocialLogin>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={{ flexDirection: "row", alignItems: "center", }}
+              >
                 <SocialIcon source={require('../../Image/naver.png')}/>
                 <Text size={_WIDTH/24} color="black">네이버</Text>
-              </SocialLogin>
+              </TouchableOpacity>
+              { Platform.OS === "ios" ? (
+                <TouchableOpacity 
+                style={{ flexDirection: "row", alignItems: "center", }}
+                >
+                  <SocialIcon source={require('../../Image/naver.png')}/>
+                  <Text size={_WIDTH/24} color="black">APPLE</Text>
+                </TouchableOpacity>
+                ) : null }
             </RowView>
             <RowView sort="center">
-              <Text size={_WIDTH/30} color="black">아이디찾기</Text>
+              <TouchableOpacity>
+                <FindText>아이디찾기</FindText>
+              </TouchableOpacity>
               <Line2/>
-              <Text size={_WIDTH/30} color="black">비밀번호 찾기</Text>
+              <TouchableOpacity>
+                <FindText>비밀번호 찾기</FindText>
+              </TouchableOpacity>
             </RowView>
           </Content>
         </Container>
@@ -80,26 +120,10 @@ const TextInput = styled.TextInput`
   font-size: ${_WIDTH/30}px;
 `;
 const RowView = styled.View`
+  width: 100%;
   height: 15%;
   flex-direction: row;
   justify-content: ${props=>props.sort};
-  align-items: center;
-`;
-const SignUp = styled.TouchableOpacity`
-  width: 48%;
-  height: 90%;
-  border-width: 1px;
-  border-color: ${buttonColor};
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-`;
-const SignIn = styled.TouchableOpacity`
-  width: 48%;
-  height: 90%;
-  border-radius: 5px;
-  background-color: ${buttonColor};
-  justify-content: center;
   align-items: center;
 `;
 const Text = styled.Text`
@@ -114,16 +138,16 @@ const Line = styled.View`
 `;
 const Line2 = styled.View`
   height: 20%;
+  margin: 0% 2% 0% 2%;
   border-width: 1px;
   border-color: gray;
-`;
-const SocialLogin = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
 `;
 const SocialIcon = styled.Image`
   width: ${_WIDTH/7}px;
   height: ${_WIDTH/7}px;
+`;
+const FindText = styled.Text`
+  font-size : ${_WIDTH/30}px;
 `;
 
 export default Login;
