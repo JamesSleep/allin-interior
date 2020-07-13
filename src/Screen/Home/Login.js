@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../../theme";
+import { backgroundColor, _WIDTH, _HEIGHT, buttonColor } from "../../../theme";
 import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
 import { TouchableWithoutFeedback, Keyboard, Platform } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -8,83 +8,83 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const Login = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Container>
-          <Logo>
-            <Image source={require("../../Image/logo.png")} resizeMode="center"/>
-          </Logo>
-          <Content>
-            <Input>
-              <SimpleIcon name="user" size={_WIDTH/20} color="gray"/>
-              <TextInput placeholder="아이디" placeholderTextColor="gray"/>
-            </Input>
-            <Input>
-              <SimpleIcon name="lock" size={_WIDTH/20} color="gray"/>
-              <TextInput placeholder="비밀번호" placeholderTextColor="gray" secureTextEntry/>
-            </Input>
-            <RowView sort="space-between">
-              <TouchableOpacity
-                style={{
-                  width: _WIDTH*0.41,
-                  height: _HEIGHT*0.08,
-                  borderWidth: 1,
-                  borderColor: buttonColor,
-                  borderRadius: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={()=>navigation.navigate("SignUp")}
-              >
-                <Text size={_WIDTH/23} color={buttonColor}>회원가입</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  width: _WIDTH*0.41,
-                  height: _HEIGHT*0.08,
-                  backgroundColor: buttonColor,
-                  borderRadius: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text size={_WIDTH/23} color="white">로그인</Text>
-              </TouchableOpacity>
-            </RowView>
-            <RowView sort="space-between">
-              <Line/><Text size={_WIDTH/30} color="gray">간편로그인</Text><Line/>
-            </RowView>
-            <RowView sort="space-around">
+      <Container>
+        <Logo>
+          <Image source={require("../../Image/logo.png")} resizeMode="center"/>
+        </Logo>
+        <Content>
+          <Input>
+            <SimpleIcon name="user" size={_WIDTH/20} color="gray"/>
+            <TextInput placeholder="아이디" placeholderTextColor="gray"/>
+          </Input>
+          <Input>
+            <SimpleIcon name="lock" size={_WIDTH/20} color="gray"/>
+            <TextInput placeholder="비밀번호" placeholderTextColor="gray" secureTextEntry/>
+          </Input>
+          <RowView sort="space-between">
+            <TouchableOpacity
+              style={{
+                width: _WIDTH*0.41,
+                height: _HEIGHT*0.08,
+                borderWidth: 1,
+                borderColor: buttonColor,
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={()=>navigation.navigate("SignUp")}
+            >
+              <Text size={_WIDTH/23} color={buttonColor}>회원가입</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: _WIDTH*0.41,
+                height: _HEIGHT*0.08,
+                backgroundColor: buttonColor,
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text size={_WIDTH/23} color="white">로그인</Text>
+            </TouchableOpacity>
+          </RowView>
+          <RowView sort="space-between">
+            <Line/><Text size={_WIDTH/30} color="gray">간편로그인</Text><Line/>
+          </RowView>
+          <RowView sort="space-around">
+            <TouchableOpacity 
+              style={{ flexDirection: "row", alignItems: "center", }}
+            >
+              <SocialIcon source={require('../../Image/kakao.png')}/>
+              <Text size={_WIDTH/24} color="black">카카오톡</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={{ flexDirection: "row", alignItems: "center", }}
+            >
+              <SocialIcon source={require('../../Image/naver.png')}/>
+              <Text size={_WIDTH/24} color="black">네이버</Text>
+            </TouchableOpacity>
+            { Platform.OS === "ios" ? (
               <TouchableOpacity 
-                style={{ flexDirection: "row", alignItems: "center", }}
-              >
-                <SocialIcon source={require('../../Image/kakao.png')}/>
-                <Text size={_WIDTH/24} color="black">카카오톡</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={{ flexDirection: "row", alignItems: "center", }}
+              style={{ flexDirection: "row", alignItems: "center", }}
               >
                 <SocialIcon source={require('../../Image/naver.png')}/>
-                <Text size={_WIDTH/24} color="black">네이버</Text>
+                <Text size={_WIDTH/24} color="black">APPLE</Text>
               </TouchableOpacity>
-              { Platform.OS === "ios" ? (
-                <TouchableOpacity 
-                style={{ flexDirection: "row", alignItems: "center", }}
-                >
-                  <SocialIcon source={require('../../Image/naver.png')}/>
-                  <Text size={_WIDTH/24} color="black">APPLE</Text>
-                </TouchableOpacity>
-                ) : null }
-            </RowView>
-            <RowView sort="center">
-              <TouchableOpacity>
-                <FindText>아이디찾기</FindText>
-              </TouchableOpacity>
-              <Line2/>
-              <TouchableOpacity>
-                <FindText>비밀번호 찾기</FindText>
-              </TouchableOpacity>
-            </RowView>
-          </Content>
-        </Container>
+              ) : null }
+          </RowView>
+          <RowView sort="center">
+            <TouchableOpacity>
+              <FindText>아이디찾기</FindText>
+            </TouchableOpacity>
+            <Line2/>
+            <TouchableOpacity>
+              <FindText>비밀번호 찾기</FindText>
+            </TouchableOpacity>
+          </RowView>
+        </Content>
+      </Container>
     </TouchableWithoutFeedback>
   )
 }
