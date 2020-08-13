@@ -1,203 +1,195 @@
-import React, { useState } from "react";
-import styled from "styled-components/native";
+import React, { useState, useEffect } from "react";
 import { backgroundColor, _WIDTH, buttonColor, nonActive, _HEIGHT } from "../../../theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View, Modal } from "react-native";
-import SelectPicker from "../../Components/SignUp/SelectPicker";
+import { Text, View, SafeAreaView, StyleSheet, TextInput, Platform, ActionSheetIOS, Modal } from "react-native";
+import TextContainer from "../../Components/SignUp/TextContainer";
+import { Picker } from "@react-native-community/picker";
 import Adress from "../../Components/SignUp/Adress";
-import { CheckInput } from "../../Components/SignUp/CheckInput";
+
+const joinInsert = [
+  { value: "userId", title: "아이디", subTitle: "띄어쓰기 없이 영/숫자 6~10자" },
+  { value: "password", title: "비밀번호", subTitle: "6~15자의 영문 대소문자, 숫자 및 특수문자 포함", password: true },
+  { value: "password2", title: "비밀번호 확인", password: true},
+  { value: "userName", title: "이름"},
+  { value: "phoneNumber", title: "휴대폰"},
+  { value: "birthDay", title: "생년월일"},
+  { value: "nickName", title: "닉네임"},
+];
+
+const emailList = ["선택해주세요","naver.com","hanmail.net","gmail.com","직접입력"];
 
 const SignUp2 = ({ navigation }) => {
-  const [signUpInfo, setSignUpInfo] = useState({
-    id: "", password1: "", password2: "", 
-    email1: "",  email2: "", phone: "", 
-    birthday: "", nickName: "", zipCode: "", 
+  const [selectedEmail, setSelectedEmail] = useState(emailList[0]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [signUpData, setSignUpData] = useState({
+    userId : "", password: "", password2: "", email: "", userName: "",
+    phoneNumber: "", birthDay: "", nickName: "", zipCode: "",
     address1: "", address2: "",
   });
-  const [postModal, setPostModal] = useState(false);
+  const openAction = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: emailList,
+        destructiveButtonIndex: 4,
+        cancelButtonIndex: 0
+      },
+      buttonIndex => {
+        setSelectedEmail(emailList[buttonIndex]);
+      }
+    )
+  };
+  const getChangeText = ( property, value ) => {
+    setSignUpData({...signUpData, [property]: value});
+  }
   return (
-    <Container>
-      <Head>
-        <Icon 
-          name="angle-left" 
-          size={_WIDTH/12} 
-          style={{position: "absolute", left: 0}}
-          onPress={()=>navigation.goBack()}
-        />
-        <HeadTitle>회원가입</HeadTitle>
-      </Head>
-      <ScrollView
-        style={{width: "100%"}}
-      >
-        <RowView>
-          <Title>아이디</Title>
-          <Condition>(띄어쓰기 없이 영/숫자 6~10자)</Condition>
-        </RowView>
-        <TextInput 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, id: text})}
-        />
-        { CheckInput("id",signUpInfo) ? null 
-          : ( <CheckText>아이디를 확인해주세요</CheckText> )}
-        <RowView>
-          <Title>비밀번호</Title>
-          <Condition>(6~15자의 영문 대소문자, 숫자 및 특수문자 포함)</Condition>
-        </RowView>
-        <TextInput 
-          secureTextEntry 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, password1: text})}
-        />
-        { CheckInput("password1",signUpInfo) ? null 
-          : ( <CheckText>비밀번호를 확인해주세요</CheckText> )}
-        <Title>비밀번호 확인</Title>
-        <TextInput 
-          secureTextEntry 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, password2: text})}
-        />
-        { CheckInput("password2",signUpInfo) ? null 
-          : ( <CheckText>비밀번호가 일치하지 않습니다</CheckText> )}
-        <Title>이메일</Title>
-        <Email>
-          <EmailInput 
-            onChangeText={text=>setSignUpInfo({...signUpInfo, email1: text})}
+    <SafeAreaView style={{ flex: 1, }}>
+      <View style={styles.container}>
+        <View style={styles.headContainer}>
+          <Icon 
+            name="angle-left" 
+            size={_WIDTH/12} 
+            onPress={()=>navigation.navigate("SignUp")}
+            style={{ position: "absolute", left: 0 }}
           />
-          <Title>@</Title>
-          <EmailSelect>
-            <SelectPicker />
-          </EmailSelect>
-        </Email>
-        <Title>휴대폰</Title>
-        <TextInput 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, phone: text})}
-        />
-        <Title>생년월일</Title>
-        <TextInput 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, birthday: text})}
-        />
-        <Title>닉네임</Title>
-        <TextInput 
-          onChangeText={text=>setSignUpInfo({...signUpInfo, nickName: text})}
-        />
-        <Title>우편번호</Title>
-        <Post>
-          <PostText>{signUpInfo.zipCode}</PostText>
+          <Text style={{ fontSize: _WIDTH/22, }}>회원가입</Text>
+        </View>
+        <ScrollView>
+          {/* 회원정보입력 */}
+          { joinInsert.map((info, index) => {
+            if(index < 3) {
+              return ( 
+                <TextContainer 
+                  key={index} 
+                  title={info.title} 
+                  subTitle={info.subTitle} 
+                  password={info.password}
+                  value={info.value}
+                  setValue={getChangeText}
+                />
+              )
+            }
+          })}   
+          {/* 이메일 설정 */}
+          <View style={styles.textContainer}>
+            <Text style={styles.titleText}>이메일</Text>
+            <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+              <TextInput 
+                style={{ width: "47%", height: _WIDTH/10, borderBottomWidth: 0.5, fontSize: _WIDTH/33 }} 
+                onChangeText={text=>setSignUpData({...signUpData, email: text})}
+              />
+              <Text style={{ width: "6%", fontSize: _WIDTH/23, textAlign: "center", paddingBottom: 7 }}>@</Text>
+              { Platform.OS === "ios" ? (
+                <TextInput
+                  editable={false}
+                  style={{ width: "47%", height: "100%", left: 5, borderBottomWidth: 0.5, fontSize: _WIDTH/33, fontWeight: "200" }} 
+                  value={selectedEmail}
+                  onTouchEnd={openAction}
+                />
+              ) : (
+                <View style={{ width: "47%", height: "100%", borderBottomWidth: 0.5, }}>
+                  <Picker 
+                    style={{width: "120%", left: -10, top:5, transform: [{scaleX: 0.85}, {scaleY: 0.85}] }}
+                    itemStyle={{ fontSize : 40 }}
+                    selectedValue={selectedEmail}
+                    onValueChange={(value, index) => setSelectedEmail(value)} 
+                  >
+                    { emailList.map((item, index) => (
+                      <Picker.Item key={index} label={item} value={item} />
+                    ))}
+                  </Picker>
+                </View>
+              )}
+            </View>
+          </View>
+          {/* 회원정보입력 */}
+          { joinInsert.map((info, index) => {
+            if(index > 2) {
+              return (
+                <TextContainer 
+                  key={index} 
+                  title={info.title} 
+                  subTitle={info.subTitle} 
+                  password={info.password} 
+                  value={info.value}
+                  setValue={getChangeText}
+                />
+              )
+            }
+          })}
+          {/* 우편번호 검색 */}
+          <View style={styles.textContainer}>
+            <Text style={styles.titleText}>우편번호</Text>
+            <View style={{ width: "100%", height: _WIDTH/10, flexDirection: "row", borderBottomWidth: 0.5, alignItems: "center" }}>
+              <TextInput 
+                editable={false}
+                style={{ width: "70%"}}
+                value={signUpData.zipCode}
+              />
+              <TouchableOpacity
+                style={{ width: "100%", backgroundColor: buttonColor, paddingVertical: 8, paddingHorizontal: 12, borderRadius: 20 }}
+                onPress={()=>setModalVisible(true)}
+              >
+                <Text style={{ color: "white", fontSize: _WIDTH/32 }}>우편번호검색</Text>
+              </TouchableOpacity>
+              <Modal animationType="slide" visible={modalVisible}>
+                <Adress window={setModalVisible} info={signUpData} setInfo={setSignUpData} />
+              </Modal>
+            </View>
+          </View>
+          {/* 상세주소 입력 */}
+          <View style={styles.textContainer}>
+            <Text style={styles.titleText}>주소</Text>
+            <TextInput 
+              style={{ width: "100%", height: _WIDTH/10, borderBottomWidth: 0.5, marginBottom: 10, }}
+              placeholder="주소"
+              placeholderTextColor="gray"
+              editable={false}
+              value={signUpData.address1}
+            />
+            <TextInput 
+              style={{ width: "100%", height: _WIDTH/10, borderBottomWidth: 0.5, }}
+              placeholder="상세주소"
+              placeholderTextColor="gray"
+            />
+          </View>
+        </ScrollView>
+        <View style={{ width: "100%", height: _WIDTH/8, justifyContent: "center" }} >
           <TouchableOpacity
-            style={{backgroundColor: buttonColor, padding: _WIDTH/60, borderRadius: 25}}
-            onPress={()=>setPostModal(!postModal)}
+            style={{ width: "100%", height: _WIDTH/12, backgroundColor: buttonColor, borderRadius: 5, justifyContent: "center", alignItems: "center" }}
+            onPress={()=>console.log(signUpData)}
           >
-            <Text style={{fontSize: _WIDTH/33, color: "white"}}>우편번호 검색</Text>
+            <Text style={{ fontSize: _WIDTH/30, color: "white" }}>다음</Text>
           </TouchableOpacity>
-          <Modal
-            animationType="slide"
-            visible={postModal}
-          >
-            <Adress window={setPostModal} info={signUpInfo} setInfo={setSignUpInfo}/>
-          </Modal> 
-        </Post>
-        <Title>주소</Title>
-        <TextInput 
-          editable={false}
-          placeholder="주소" 
-          placeholderTextColor={nonActive} 
-          value={signUpInfo.address1.length > 0 ? signUpInfo.address1 : null}
-          onChangeText={text=>setSignUpInfo({...signUpInfo, zipCode: text})}
-        />
-        <TextInput placeholder="상세주소" placeholderTextColor={nonActive} />
-      </ScrollView>
-      <ButtonView>
-        <TouchableOpacity
-          style={{width: "100%", height: "85%", backgroundColor: buttonColor, borderRadius: 5, justifyContent: "center"}}
-        >
-          <Text style={{color: "white", fontSize: _WIDTH/26, textAlign: "center"}}>다음</Text>
-        </TouchableOpacity>
-      </ButtonView>
-    </Container>
+        </View>
+      </View>
+    </SafeAreaView>
   )
 }
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${backgroundColor};
-  padding: 3% 6% 1% 6%;
-`;
-const Head = styled.View`
-  width: 100%;
-  height: 5%;
-  margin-bottom: 7%;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-const HeadTitle = styled.Text`
-  font-size: ${_WIDTH/22}px;
-`;
-const ButtonView = styled.View`
-  width: 100%;
-  height: 10%;
-  margin-top: 1%;
-  justify-content: center;
-`;
-const RowView = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-`;
-const TextInput = styled.TextInput`
-  height: ${_HEIGHT*0.064}px;
-  margin-bottom: 5%;
-  font-size: ${_WIDTH/28}px;
-  border-bottom-width: ${_WIDTH/250}px;
-  border-bottom-color: ${nonActive};
-  color: black;
-`;
-const Title = styled.Text`
-  font-size: ${_WIDTH/27}px;
-  font-weight: bold;
-  margin-right: 5px;
-`;
-const Condition = styled.Text`
-  font-size: ${_WIDTH/30}px;
-  color: ${nonActive};
-`;
-const Email = styled.View`
-  width: 100%;
-  flex-direction: row;  
-  justify-content: space-between;
-  align-items: center;
-`;
-const EmailInput = styled.TextInput`
-  width: 48%;
-  height: ${_HEIGHT*0.064}px;
-  margin-bottom: 5%;
-  font-size: ${_WIDTH/28}px;
-  border-bottom-width: ${_WIDTH/250}px;
-  border-bottom-color: ${nonActive};
-`;
-const EmailSelect = styled.View`
-  width: 48%;
-  height: ${_HEIGHT*0.064}px;
-  margin-bottom: 5%;
-  border-bottom-width: ${_WIDTH/250}px;
-  border-bottom-color: ${nonActive};
-`;
-const Post = styled.View`
-  width: 100%;
-  height: ${_HEIGHT*0.064}px;
-  margin-bottom: 5%;
-  border-bottom-width: ${_WIDTH/250}px;
-  border-bottom-color: ${nonActive};
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-const PostText = styled.Text`
-  font-size: ${_WIDTH/28}px;
-`;
-const CheckText = styled.Text`
-  font-size: ${_WIDTH/32}px;
-  color: ${buttonColor};
-  margin-top: -${_WIDTH/50}px;
-  margin-bottom: ${_WIDTH/30}px;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 25,
+    paddingVertical: 10,
+  },
+  headContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: _HEIGHT/20,
+  },
+  textContainer: {
+    flex: 1,
+    marginBottom: 15,
+    alignItems: "center",
+  },
+  titleText: {
+    width: "100%",
+    textAlign: "left",
+    fontSize: _WIDTH/30,
+    fontWeight: "500"
+  },
+})
 
 export default SignUp2;

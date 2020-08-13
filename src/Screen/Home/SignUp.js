@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../../theme";
 import { Text, Alert, Platform, ToastAndroid } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome"
 import Ionic from "react-native-vector-icons/Ionicons";
 
 const SignUp = ({ navigation }) => {
@@ -27,7 +27,7 @@ const SignUp = ({ navigation }) => {
         <Icon 
           name="angle-left" 
           size={_WIDTH/12} 
-          onPress={()=>navigation.goBack()}
+          onPress={()=>navigation.navigate("Login")}
           style={{position: "absolute", left: 0}}
         />
         <HeadTitle>회원가입</HeadTitle>
