@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 import { 
   TouchableWithoutFeedback, Keyboard, Platform, 
-  View, StyleSheet, Text,  Image, TextInput 
+  View, StyleSheet, Text,  Image, TextInput, Alert, AsyncStorage 
 } from "react-native";
 import { backgroundColor, _WIDTH, _HEIGHT, buttonColor } from "../../../theme";
 import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { LoginAPI } from "../../../api";
 
 const Login = ({ navigation }) => {
   const [saveID, setSaveID] = useState(false);
   const [auotLogin, setAutoLogin] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const postAPI = async () => {
+    const postData = JSON.stringify({
+      "userId": userId,
+      "password": password,
+    });
+    if(await LoginAPI(postData)) {
+      //need fix getting token
+      await AsyncStorage.setItem("loginInfo", userId);
+      navigation.navigate("MainRouter");
+    } else {
+      //메시지 컴포넌트 생성
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
@@ -32,11 +49,22 @@ const Login = ({ navigation }) => {
           </View>
           <View style={styles.inputTextView}>
             <SimpleIcon style={{ marginRight: 15 }} name="user" size={_WIDTH/22} color="gray" />
-            <TextInput placeholder="아이디" placeholderTextColor="gray" style={{ width: "100%", fontSize: _WIDTH/30 }}/>
+            <TextInput 
+              placeholder="아이디" 
+              placeholderTextColor="gray" 
+              style={{ width: "100%", fontSize: _WIDTH/30 }}
+              onChangeText={text=>setUserId(text)}
+            />
           </View>
           <View style={styles.inputTextView}>
             <SimpleIcon style={{ marginRight: 15 }} name="lock" size={_WIDTH/22} color="gray" />
-            <TextInput placeholder="비밀번호" placeholderTextColor="gray" style={{ width: "100%", fontSize: _WIDTH/30 }}/>
+            <TextInput 
+              placeholder="비밀번호" 
+              placeholderTextColor="gray" 
+              secureTextEntry
+              style={{ width: "100%", fontSize: _WIDTH/30 }}
+              onChangeText={text=>setPassword(text)}
+            />
           </View>
           <View style={styles.autoLoginContainer}>
             <TouchableOpacity
@@ -67,7 +95,7 @@ const Login = ({ navigation }) => {
             <TouchableOpacity style={styles.joinButton} onPress={()=>navigation.navigate("SignUp")}>
               <Text style={styles.joinText}>회원가입</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={()=>postAPI()}>
               <Text style={styles.loginText}>로그인</Text>
             </TouchableOpacity>
           </View>

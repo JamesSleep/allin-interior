@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../../theme";
-import { Text, Alert, Platform, ToastAndroid } from "react-native";
+import { Text, Alert, Platform, ToastAndroid, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/FontAwesome"
+import Icon from "react-native-vector-icons/FontAwesome";
 import Ionic from "react-native-vector-icons/Ionicons";
 
 const SignUp = ({ navigation }) => {
@@ -13,7 +13,7 @@ const SignUp = ({ navigation }) => {
     //check 4,5 푸쉬알림 설정
      
     //회원가입페이지 넘어가기
-      navigation.navigate("SignUp2");  
+      navigation.navigate("AuthPhoneNum");  
     } else {
       if(Platform.OS === "android") 
         ToastAndroid.show("필수 이용약관에 동의해주세요", ToastAndroid.SHORT);
@@ -22,6 +22,7 @@ const SignUp = ({ navigation }) => {
     }
   }
   return (
+    <SafeAreaView style={{ flex: 1 }} >
     <Container>
       <Head>
         <Icon 
@@ -104,22 +105,21 @@ const SignUp = ({ navigation }) => {
         </RowView>
       </Content>
       <TouchableOpacity 
-        style={{backgroundColor: buttonColor, height: _HEIGHT/15, borderRadius: 5, justifyContent: "center"}}
+        style={{backgroundColor: buttonColor, height: _WIDTH/12, borderRadius: 5, justifyContent: "center"}}
         onPress={()=>post()}
       >
         <Text style={{color: "white", fontSize: _WIDTH/27, textAlign: "center"}}>시작하기</Text>
       </TouchableOpacity>
     </Container>
+    </SafeAreaView>
   )
 }
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${backgroundColor};
-  padding: 5% 6%;
+  padding: 10px 25px;
 `;
 const Head = styled.View`
-  flex: 1;
   width: 100%;
   flex-direction: row;
   justify-content: center;
@@ -151,12 +151,12 @@ const RowView = styled.View`
 `;
 const AllAgree = styled.Text`
   margin-left: 10px;
-  font-size: ${_WIDTH/23}px;
+  font-size: ${_WIDTH/30}px;
   font-weight: bold;
 `;
 const Agree = styled.Text`
   margin-left: 10px;
-  font-size: ${_WIDTH/24}px;
+  font-size: ${_WIDTH/33}px;
 `;
 const Line = styled.View`
   width: 100%;

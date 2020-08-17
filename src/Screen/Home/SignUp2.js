@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { backgroundColor, _WIDTH, buttonColor, nonActive, _HEIGHT } from "../../../theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View, SafeAreaView, StyleSheet, TextInput, Platform, ActionSheetIOS, Modal } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, TextInput, Platform, ActionSheetIOS, Modal, Alert, AsyncStorage } from "react-native";
 import TextContainer from "../../Components/SignUp/TextContainer";
 import { Picker } from "@react-native-community/picker";
 import Adress from "../../Components/SignUp/Adress";
+import { SignUpAPI } from "../../../api";
 
 const joinInsert = [
   { value: "userId", title: "아이디", subTitle: "띄어쓰기 없이 영/숫자 6~10자" },
@@ -42,6 +43,28 @@ const SignUp2 = ({ navigation }) => {
   const getChangeText = ( property, value ) => {
     setSignUpData({...signUpData, [property]: value});
   }
+  const postAPI = async () => {
+    const postData = JSON.stringify({
+      "userId": signUpData.userId,
+      "password": signUpData.password,
+      "email": signUpData.email,
+      "userName": signUpData.userName,
+      "phoneNum": signUpData.phoneNumber,
+      "birthday": signUpData.birthDay,
+      "nickName": signUpData.nickName,
+      "zipCode": signUpData.zipCode,
+      "address1": signUpData.address1,
+      "address2": signUpData.address2,
+    });
+    if(await SignUpAPI(postData)) {
+      //메시지 컴포넌트 생성, asyncStorage 토큰정보저장
+      Alert.alert("회원가입 성공");
+      await AsyncStorage.setItem("loginInfo", signUpData.userId);
+      navigation.navigate("MainRouter"); // 메인페이지로 변경
+    } else {
+      //회원가입 실패 유효성 검사 추가
+    }
+  }
   return (
     <SafeAreaView style={{ flex: 1, }}>
       <View style={styles.container}>
@@ -49,7 +72,7 @@ const SignUp2 = ({ navigation }) => {
           <Icon 
             name="angle-left" 
             size={_WIDTH/12} 
-            onPress={()=>navigation.navigate("SignUp")}
+            onPress={()=>navigation.navigate("AuthPhoneNum")}
             style={{ position: "absolute", left: 0 }}
           />
           <Text style={{ fontSize: _WIDTH/22, }}>회원가입</Text>
@@ -75,10 +98,10 @@ const SignUp2 = ({ navigation }) => {
             <Text style={styles.titleText}>이메일</Text>
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
               <TextInput 
-                style={{ width: "47%", height: _WIDTH/10, borderBottomWidth: 0.5, fontSize: _WIDTH/33 }} 
+                style={{ width: "100%", height: _WIDTH/10, borderBottomWidth: 0.5, fontSize: _WIDTH/33 }} 
                 onChangeText={text=>setSignUpData({...signUpData, email: text})}
               />
-              <Text style={{ width: "6%", fontSize: _WIDTH/23, textAlign: "center", paddingBottom: 7 }}>@</Text>
+              {/* <Text style={{ width: "6%", fontSize: _WIDTH/23, textAlign: "center", paddingBottom: 7 }}>@</Text>
               { Platform.OS === "ios" ? (
                 <TextInput
                   editable={false}
@@ -87,6 +110,7 @@ const SignUp2 = ({ navigation }) => {
                   onTouchEnd={openAction}
                 />
               ) : (
+  
                 <View style={{ width: "47%", height: "100%", borderBottomWidth: 0.5, }}>
                   <Picker 
                     style={{width: "120%", left: -10, top:5, transform: [{scaleX: 0.85}, {scaleY: 0.85}] }}
@@ -99,7 +123,7 @@ const SignUp2 = ({ navigation }) => {
                     ))}
                   </Picker>
                 </View>
-              )}
+              )} */}
             </View>
           </View>
           {/* 회원정보입력 */}
@@ -157,7 +181,7 @@ const SignUp2 = ({ navigation }) => {
         <View style={{ width: "100%", height: _WIDTH/8, justifyContent: "center" }} >
           <TouchableOpacity
             style={{ width: "100%", height: _WIDTH/12, backgroundColor: buttonColor, borderRadius: 5, justifyContent: "center", alignItems: "center" }}
-            onPress={()=>console.log(signUpData)}
+            onPress={()=>postAPI()}
           >
             <Text style={{ fontSize: _WIDTH/30, color: "white" }}>다음</Text>
           </TouchableOpacity>
