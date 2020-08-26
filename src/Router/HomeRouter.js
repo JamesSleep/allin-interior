@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 export default () => (
   //업체회원페이지 추가 
-  <Stack.Navigator initialRouteName="Login" headerMode="none">
+  <Stack.Navigator initialRouteName="MainRouter" headerMode="none">
     <Stack.Screen name="Login" component={Login}/>
     <Stack.Screen name="SignUp" component={SignUp}/>
     <Stack.Screen name="SignUp2" component={SignUp2}/>
