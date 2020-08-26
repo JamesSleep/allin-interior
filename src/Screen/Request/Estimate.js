@@ -5,6 +5,7 @@ import SearchBar from "../../Components/Main/SearchBar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Residential from "./Residential";
 import Commercial from "./Commercial";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -12,8 +13,10 @@ export default function Estimate({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: backgroundColor }}>
       <View style={{ width: "100%", height: 60, flexDirection: "row", justifyContent: "space-around", alignItems: "center" }}>
-        <Image source={require("../../Image/logo.png")} style={{ width: _WIDTH/8, height: _WIDTH/8 }} />
         <View style={{ width: "70%", justifyContent: "center" }}><SearchBar /></View>
+        <TouchableOpacity>
+          <Text style={{ color: buttonColor }}>견적신청</Text>
+        </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
         <Tab.Navigator

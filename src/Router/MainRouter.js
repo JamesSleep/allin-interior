@@ -1,12 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Image } from "react-native";
+import { _WIDTH, buttonColor, nonActive, backgroundColor } from "../../theme";
+import SimpleIcons from "react-native-vector-icons/SimpleLineIcons";
+import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Shopping from "../Screen/Main/Shopping"
 import Estimate from "../Screen/Request/Estimate"
-import Review from "../Screen/Main/Review"
-import { Image } from "react-native";
-import { _WIDTH, buttonColor, nonActive } from "../../theme";
 import HomeStackRouter from "./HomeStackRouter";
 import MyPageRouter from "./MyPageRouter";
+import StoryRouter from "./StoryRouter";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +18,8 @@ const MainRouter = () => {
 			initialRouteName="HomeStackRouter" 
 			tabBarOptions={{ 
 				activeTintColor: buttonColor, 
-				inactiveTintColor: "gray" 
+				inactiveTintColor: nonActive,
+				tabStyle: { backgroundColor: backgroundColor }
 			}}
 		>
 			<Tab.Screen 
@@ -25,10 +28,7 @@ const MainRouter = () => {
 				options={{
 					tabBarLabel: "홈",
 					tabBarIcon: ({ color, size }) => (
-						<Image 
-							source={require("../Image/home.png")} 
-							style={{ width:_WIDTH/15, height:_WIDTH/15, tintColor: color }} 
-						/>
+						<SimpleIcons name="home" size={size-3} color={color} />
 					)
 				}}
 			/>
@@ -38,10 +38,7 @@ const MainRouter = () => {
 				options={{
 					tabBarLabel: "쇼핑",
 					tabBarIcon: ({ color, size }) => (
-						<Image 
-							source={require("../Image/shopping2.png")} 
-							style={{ width:_WIDTH/15, height:_WIDTH/15, tintColor: color }} 
-						/>
+						<MaterialComIcons name="storefront-outline" size={size} color={color} />
 					)
 				}}
 			/>
@@ -53,21 +50,18 @@ const MainRouter = () => {
 					tabBarIcon: ({ color, size }) => (
 						<Image 
 							source={require("../Image/request.png")} 
-							style={{ width:_WIDTH/15, height:_WIDTH/15, tintColor: color }} 
+							style={{ width:size+2, height:size+2, tintColor: color }} 
 						/>
 					)
 				}}
 			/>
 			<Tab.Screen 
-				name="Review" 
-				component={Review} 
+				name="StoryRouter" 
+				component={StoryRouter} 
 				options={{
-					tabBarLabel: "집들이",
+					tabBarLabel: "스토리",
 					tabBarIcon: ({ color, size }) => (
-						<Image 
-							source={require("../Image/event.png")} 
-							style={{ width:_WIDTH/15, height:_WIDTH/15, tintColor: color }} 
-						/>
+						<SimpleIcons name="book-open" size={size-3} color={color} />
 					)
 				}}
 			/>
@@ -79,7 +73,7 @@ const MainRouter = () => {
 					tabBarIcon: ({ color, size }) => (
 						<Image 
 							source={require("../Image/mypage.png")} 
-							style={{ width:_WIDTH/15, height:_WIDTH/15, tintColor: color }} 
+							style={{ width:size+3, height:size+3, tintColor: color }} 
 						/>
 					)
 				}}

@@ -17,7 +17,7 @@ const iconMenu = [
   { name: "주거공간", icon: require("../../Image/residence.png") }, 
   { name: "상가공간", icon: require("../../Image/mall.png") }, 
   { name: "건설공간", icon: require("../../Image/construction.png") },
-]
+];
 
 const Recommend = ({ navigation }) => {
   return (
