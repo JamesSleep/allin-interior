@@ -27,6 +27,7 @@ const Login = ({ navigation }) => {
       navigation.navigate("MainRouter");
     } else {
       //메시지 컴포넌트 생성
+      
     }
   }
 

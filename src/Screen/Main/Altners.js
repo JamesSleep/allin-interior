@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function MainScreen({ navigation }) {
+const Altners = ({ navigation }) => {
   return (
     <View>
-      <Text>메인화면</Text>
+      <Text>Altners</Text>
     </View>
   )
 }
+
+export default Altners;

@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function MyPage({ navigation }) {
+export default function Commercial({ navigation }) {
   return (
     <View>
-      <Text>마이페이지</Text>
+      <Text>상업공간</Text>
     </View>
   )
 }
