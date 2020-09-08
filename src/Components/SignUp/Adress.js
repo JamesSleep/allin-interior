@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import Postcode from 'react-native-daum-postcode';
 import { Text, TouchableOpacity, View, Platform } from "react-native";
-import { _WIDTH, _HEIGHT, backgroundColor, buttonColor } from "../../../theme";
+import { _WIDTH, _HEIGHT, backgroundColor, buttonColor } from "../../common/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Container = styled.View`

@@ -1,8 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
-import { _WIDTH, _HEIGHT } from "../../../theme";
+import { _WIDTH, _HEIGHT } from "../../common/theme";
 
-export default function TextContainer({ title, subTitle, placeholder, password, value, setValue }) {
+export default function TextContainer({
+  title, 
+  subTitle, 
+  placeholder, 
+  password, 
+  value, 
+  setValue, 
+  record 
+}) {
   return(
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -21,6 +29,7 @@ export default function TextContainer({ title, subTitle, placeholder, password, 
           height: _WIDTH/10,
           borderBottomWidth: 0.5,
         }}
+        value={record}
         placeholder={placeholder}
         placeholderTextColor="gray"
         secureTextEntry={password}
