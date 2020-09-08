@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, Text, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { backgroundColor, nonActive, _WIDTH } from "../../../theme";
+import { backgroundColor, nonActive, _WIDTH } from "../../common/theme";
 
 export default (props) => {
   //props.route?.name

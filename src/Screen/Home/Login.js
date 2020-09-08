@@ -1,34 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   TouchableWithoutFeedback, Keyboard, Platform, 
-  View, StyleSheet, Text,  Image, TextInput, Alert, AsyncStorage 
+  View, StyleSheet, Text,  Image, TextInput, Alert, ToastAndroid 
 } from "react-native";
-import { backgroundColor, _WIDTH, _HEIGHT, buttonColor } from "../../../theme";
+import AsyncStorage from "@react-native-community/async-storage";
 import SimpleIcon from "react-native-vector-icons/SimpleLineIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { LoginAPI } from "../../../api";
+import { connect } from "react-redux";
+import { LoginAPI } from "../../common/api";
+import ActionCreator from "../../redux/action";
+import { backgroundColor, _WIDTH, _HEIGHT, buttonColor } from "../../common/theme";
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, setSignUpType }) => {
   const [saveID, setSaveID] = useState(false);
-  const [auotLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(false);
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(()=>{
+    checkLoginData();
+  },[]);
+  
+  const checkLoginData = async () => {
+    const loginData = JSON.parse(
+      await AsyncStorage.getItem("loginData")
+    );
+    if(loginData) {
+      loginData.autoLogin &&
+      navigation.reset({
+        index: 0,
+        routes: [{name: "MainRouter"}]
+      });
+      loginData.saveID &&
+      setUserId(loginData.userId);
+    }
+  }
   const postAPI = async () => {
+    if(!userId || !password) {
+      Platform.OS === "android" ?
+        ToastAndroid.show("회원정보를 확인해주세요", 2) :
+        Alert.alert("회원정보를 확인해주세요");
+      return;
+    }
     const postData = JSON.stringify({
       "userId": userId,
       "password": password,
     });
-    if(await LoginAPI(postData)) {
+    const response = await LoginAPI(postData);
+    if(response[0]) {
       //need fix getting token
-      await AsyncStorage.setItem("loginInfo", userId);
-      navigation.navigate("MainRouter");
+      const loginData = JSON.stringify({
+        "userId": userId,
+        "password": password,
+        "saveID": saveID,
+        "autoLogin": autoLogin
+      });
+      if(saveID || autoLogin)
+        await AsyncStorage.setItem("loginData", loginData);
+      navigation.reset({
+        index: 0,
+        routes: [{name: "MainRouter"}]
+      });
     } else {
       //메시지 컴포넌트 생성
-      
+      Platform.OS === "android" ?
+        ToastAndroid.show("로그인정보가 일치하지않습니다", 2) :
+        Alert.alert("로그인정보가 일치하지않습니다");
     }
+    
   }
 
   return (
@@ -44,15 +85,20 @@ const Login = ({ navigation }) => {
         <View style={styles.loginContainer}>
           {/* 로그인정보입력 */}
           <View style={styles.findTextContainer}>
-            <Text style={styles.findInfoText}>아이디 찾기</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("FindMemberId")}>
+              <Text style={styles.findInfoText}>아이디 찾기</Text>
+            </TouchableOpacity>
             <Text> / </Text>
-            <Text style={styles.findInfoText}>비밀번호 찾기</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("FindMemberPW")}>
+              <Text style={styles.findInfoText}>비밀번호 찾기</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.inputTextView}>
             <SimpleIcon style={{ marginRight: 15 }} name="user" size={_WIDTH/22} color="gray" />
             <TextInput 
               placeholder="아이디" 
               placeholderTextColor="gray" 
+              value={userId}
               style={{ width: "100%", fontSize: _WIDTH/30 }}
               onChangeText={text=>setUserId(text)}
             />
@@ -73,9 +119,9 @@ const Login = ({ navigation }) => {
               onPress={()=>setAutoLogin(state => !state)}
             >
               <Ionicons 
-                name={auotLogin? "checkmark-circle" : "checkmark-circle-outline"} 
+                name={autoLogin? "checkmark-circle" : "checkmark-circle-outline"} 
                 size={_WIDTH/20} 
-                color={auotLogin? buttonColor : "gray"}
+                color={autoLogin? buttonColor : "gray"}
               />
               <Text style={{ fontSize: _WIDTH/32, marginRight: 15, }}>자동로그인</Text>
             </TouchableOpacity>
@@ -93,14 +139,26 @@ const Login = ({ navigation }) => {
           </View>
           {/* 버튼뷰 */}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.joinButton} onPress={()=>navigation.navigate("SignUp")}>
+            <TouchableOpacity 
+              style={styles.joinButton} 
+              onPress={()=>{
+                setSignUpType("member");
+                navigation.navigate("SignUp");
+              }}
+            >
               <Text style={styles.joinText}>회원가입</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.loginButton} onPress={()=>postAPI()}>
               <Text style={styles.loginText}>로그인</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.officeJoin}>
+          <TouchableOpacity 
+            style={styles.officeJoin} 
+            onPress={()=>{
+              setSignUpType("company");
+              navigation.navigate("SignUp");
+            }}
+          >
             <Text style={{ fontSize: _WIDTH/28, color: "black" }}>업체 회원가입</Text>
           </TouchableOpacity>
         </View>
@@ -257,4 +315,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    screen: state.screen
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setSignUpType: (screen) => {
+      dispatch(ActionCreator.setSignUp(screen));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchBar from "../../Components/Main/SearchBar";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { _WIDTH, backgroundColor, buttonColor } from "../../../theme";
+import { _WIDTH, backgroundColor, buttonColor } from "../../common/theme";
 import Recommend from "../Main/Recommed";
 import Story from "../Main/Story";
 import Altners from "../Main/Altners";
@@ -37,6 +37,7 @@ export default function MainScreen({ navigation }) {
       <View style={{ flex: 1 }}>
         <Tab.Navigator
           swipeEnabled={false}
+          initialRouteName="Altners"
           tabBarOptions={{
             labelStyle: { fontSize: 13 },
             tabStyle: { height: 40 },

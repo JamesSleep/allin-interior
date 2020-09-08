@@ -4,19 +4,19 @@ import Swiper from "react-native-swiper";
 import { renderPagination } from "../../Components/Main/RederPagination";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { _HEIGHT, nonActive, backgroundColor, buttonColor } from "../../../theme";
+import { _HEIGHT, nonActive, backgroundColor, buttonColor } from "../../common/theme";
 import BestShop from "./BestShop";
 
 const Tab = createMaterialTopTabNavigator();
 
 const iconMenu = [
-  { name: "올인 쇼핑", icon: require("../../Image/shopping.png") }, 
-  { name: "집들이", icon: require("../../Image/gift.png") }, 
-  { name: "청소", icon: require("../../Image/cleaning.png") }, 
-  { name: "간판시공", icon: require("../../Image/signboard.png") }, 
-  { name: "주거공간", icon: require("../../Image/residence.png") }, 
-  { name: "상가공간", icon: require("../../Image/mall.png") }, 
-  { name: "건설공간", icon: require("../../Image/construction.png") },
+  { name: "올인 쇼핑", icon: require("../../Image/shopping.png"), route: "Shopping" }, 
+  { name: "집들이", icon: require("../../Image/gift.png"), route: "Shopping" }, 
+  { name: "청소", icon: require("../../Image/cleaning.png"), route: "Shopping" }, 
+  { name: "간판시공", icon: require("../../Image/signboard.png") , route: "Shopping"}, 
+  { name: "주거공간", icon: require("../../Image/residence.png"), route: "Shopping" }, 
+  { name: "상가공간", icon: require("../../Image/mall.png"), route: "Shopping" }, 
+  { name: "건설공간", icon: require("../../Image/construction.png"), route: "Shopping" },
 ];
 
 const Recommend = ({ navigation }) => {
@@ -44,8 +44,12 @@ const Recommend = ({ navigation }) => {
             { iconMenu.map((menu, index) => {
               if(index < 4)
                 return(
-                  <View style={styles.iconContainer} key={index}>
-                    <View style={{ width: "100%",height: "70%" }}>
+                  <View 
+                    style={styles.iconContainer} 
+                    key={index}
+                    onTouchEnd={()=>navigation.navigate(menu.route)}
+                  >
+                    <View style={{ width: "100%", height: "80%" }}>
                       <Image source={menu.icon} style={styles.iconImage} resizeMode="contain"/>
                     </View>
                     <Text style={styles.iconText}>{menu.name}</Text>

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { _WIDTH, backgroundColor, buttonColor, nonActive } from "../../../theme";
+import { _WIDTH, backgroundColor, buttonColor, nonActive } from "../../common/theme";
 import SearchBar from "../../Components/Main/SearchBar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Residential from "./Residential";

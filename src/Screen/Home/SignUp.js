@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../../theme";
+import { backgroundColor, _WIDTH, buttonColor, _HEIGHT } from "../../common/theme";
 import { Text, Alert, Platform, ToastAndroid, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ionic from "react-native-vector-icons/Ionicons";
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({navigation}) => {
   const [check, setCheck] = useState([false, false, false, false, false]);
   const post = () => {
     if(check[0] && check[1] && check[2]) {
@@ -118,6 +118,7 @@ const SignUp = ({ navigation }) => {
 const Container = styled.View`
   flex: 1;
   padding: 10px 25px;
+  background: ${backgroundColor};
 `;
 const Head = styled.View`
   width: 100%;

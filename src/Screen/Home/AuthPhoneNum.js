@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
-import { _HEIGHT, _WIDTH, buttonColor } from "../../../theme";
+import { _HEIGHT, _WIDTH, buttonColor, backgroundColor } from "../../common/theme";
 import Icon from "react-native-vector-icons/FontAwesome"
 import { TouchableOpacity } from "react-native-gesture-handler";
+import ActionCreator from "../../redux/action";
+import { connect } from "react-redux";
 
-export default function AuthPhoneNum({ navigation }) {
+const AuthPhoneNum = ({ navigation, screen }) => {
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<View style={styles.container}>
@@ -32,7 +34,12 @@ export default function AuthPhoneNum({ navigation }) {
 							alignItems: "center",
 							borderRadius: 5,
 						}}
-						onPress={()=>navigation.navigate("SignUp2")}
+						onPress={()=>{
+							if( screen === "member" )
+								navigation.navigate("SignUp2");
+							else if( screen === "company" )
+								navigation.navigate("CompanySignUp");
+						}}
 					>
 						<Text style={{ fontSize: _WIDTH/28, color: "white" }}>본인인증 하기</Text>
 					</TouchableOpacity>
@@ -46,7 +53,8 @@ const styles = StyleSheet.create({
 	container : {
 		flex : 1,
 		paddingHorizontal: 25,
-    paddingVertical: 10,
+		paddingVertical: 10,
+		backgroundColor: backgroundColor
 	},
 	headContainer: {
     flexDirection: "row",
@@ -55,3 +63,19 @@ const styles = StyleSheet.create({
     marginBottom: _HEIGHT/20,
   },
 });
+
+function mapStateToProps(state) {
+  return {
+    screen: state.screen
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setSignUpType: (screen) => {
+      dispatch(ActionCreator.setSignUp(screen));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPhoneNum);

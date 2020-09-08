@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { backgroundColor, buttonColor, _WIDTH } from "../../../theme";
+import { backgroundColor, buttonColor, _WIDTH } from "../../common/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StoryCard from "./StoryCard";
 
@@ -37,6 +37,7 @@ export default function StoryMain({ navigation }) {
         </View>
       </View>
       <ScrollView style={{ flex: 1 }}>
+        <StoryCard />
         <StoryCard />
       </ScrollView>
     </View>

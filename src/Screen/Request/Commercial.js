@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
-import { backgroundColor, buttonColor, _WIDTH } from "../../../theme";
+import { backgroundColor, buttonColor, _WIDTH } from "../../common/theme";
 import Swiper from "react-native-swiper";
 import { renderPagination } from "../../Components/Main/RederPagination";
 import { TouchableOpacity } from "react-native-gesture-handler";

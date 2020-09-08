@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { _WIDTH, nonActive, buttonColor } from "../../../theme";
+import { _WIDTH, nonActive, buttonColor } from "../../common/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import Swiper from "react-native-swiper";
 import { renderPagination } from "../../Components/Main/RederPagination";
 
@@ -50,13 +52,25 @@ export default function StoryCard() {
       </Swiper>
       <View style={styles.cotentView}>
         <View style={styles.contentIcon}>
-          
+          <Ionicons name="heart-sharp" size={30} color="red" style={{ marginRight: 15 }} />
+          {/* <Ionicons name="heart-outline" size={30} /> */}
+          <Ionicons name="chatbox-ellipses-outline" size={30} />
+          <AntDesign name="sharealt" size={25} style={{ position: "absolute", right: 10 }} />
         </View>
         <View style={styles.contentLike}>
-
+          <Text style={{ fontSize: 15, fontWeight: "300" }} >좋아요   8개</Text>
         </View>
         <View style={styles.contentText}>
-
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{ fontSize: 14, fontWeight: "400" }}
+          >
+            리액트 네이티브는 페이스북이 개발한 오픈 소스 모바일 애플리케이션 프레임워크이다. 
+            안드로이드, iOS, 웹, UWP용 애플리케이션을 개발하기 위해 사용되며, 개발자들이 네이티브 플랫폼 기능과 더불어 리액트를 사용할 수 있게 한다.
+            완전하지 않은 Qt 포팅 또한 존재한다.
+          </Text>
+          {/* 한줄넘어가면 더보기 */}
         </View>
       </View>
     </View>
@@ -106,10 +120,10 @@ const styles = StyleSheet.create({
   },
   contentLike: {
     flex: 1,
-    
+    justifyContent: "center"
   },
   contentText: {
     flex: 1,
-    
+    justifyContent: "center",
   }
 });

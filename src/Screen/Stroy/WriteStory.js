@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { backgroundColor, nonActive, buttonColor } from "../../../theme";
+import { backgroundColor, nonActive, buttonColor } from "../../common/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import BasicUploadImage from "../../Components/Main/BasicUploadImage";

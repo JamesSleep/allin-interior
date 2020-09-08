@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
-import { backgroundColor, _WIDTH, nonActive } from "../../../theme";
+import { backgroundColor, _WIDTH, nonActive } from "../../common/theme";
 
 export default function Residential({ navigation }) {
   return (

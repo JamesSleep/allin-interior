@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { backgroundColor, _WIDTH, buttonColor, nonActive, _HEIGHT } from "../../../theme";
-import Icon from "react-native-vector-icons/FontAwesome";
+import React, { useState } from "react";
+import { Text, View, SafeAreaView, StyleSheet, TextInput, ActionSheetIOS, Modal, Alert, AsyncStorage, Image, Platform, ToastAndroid } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View, SafeAreaView, StyleSheet, TextInput, Platform, ActionSheetIOS, Modal, Alert, AsyncStorage } from "react-native";
+import { _WIDTH, buttonColor, _HEIGHT } from "../../common/theme";
+import Icon from "react-native-vector-icons/FontAwesome";
+import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import TextContainer from "../../Components/SignUp/TextContainer";
-import { Picker } from "@react-native-community/picker";
 import Adress from "../../Components/SignUp/Adress";
-import { SignUpAPI } from "../../../api";
+import { SignUpAPI, MemberImage } from "../../common/api";
+import ImagePicker from "react-native-image-picker";
 
 const joinInsert = [
   { value: "userId", title: "아이디", subTitle: "띄어쓰기 없이 영/숫자 6~10자" },
@@ -18,6 +19,19 @@ const joinInsert = [
   { value: "nickName", title: "닉네임"},
 ];
 
+const options = {
+  title: '프로필 사진 선택',
+  takePhotoButtonTitle: null,
+  chooseFromLibraryButtonTitle: "사진가져오기",
+  customButtons: [
+    { name: 'delete', title: '사진제거' },
+  ],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
 const emailList = ["선택해주세요","naver.com","hanmail.net","gmail.com","직접입력"];
 
 const SignUp2 = ({ navigation }) => {
@@ -27,6 +41,11 @@ const SignUp2 = ({ navigation }) => {
     userId : "", password: "", password2: "", email: "", userName: "",
     phoneNumber: "", birthDay: "", nickName: "", zipCode: "",
     address1: "", address2: "",
+  });
+  const [imageData, setImageData] = useState({
+    ImageSource: null,
+    data: null,
+    Image_TAG: "USER_PROFILE"
   });
   const openAction = () => {
     ActionSheetIOS.showActionSheetWithOptions(
@@ -56,14 +75,41 @@ const SignUp2 = ({ navigation }) => {
       "address1": signUpData.address1,
       "address2": signUpData.address2,
     });
-    if(await SignUpAPI(postData)) {
-      //메시지 컴포넌트 생성, asyncStorage 토큰정보저장
-      Alert.alert("회원가입 성공");
-      await AsyncStorage.setItem("loginInfo", signUpData.userId);
-      navigation.navigate("MainRouter"); // 메인페이지로 변경
+    const formData = [
+      { name: "image", filename: "image.png", type: "image/png", data: imageData.data },
+      { name: "image_tag", data: imageData.Image_TAG },
+      { name: "user_id", data: signUpData.userId },
+    ]; 
+    const response = await SignUpAPI(postData);
+    if(response[0]) {
+      const responseImg = MemberImage(formData);
+      navigation.reset({
+        index: 0,
+        routes: [{name: "MainRouter"}]
+      });
     } else {
-      //회원가입 실패 유효성 검사 추가
+      Platform.OS === "android" ?
+        ToastAndroid.show("회원가입정보를 확인해주세요", 2) :
+        Alert.alert("회원가입정보를 확인해주세요");                                                    
     }
+  }
+  const imagePick = () => {
+    ImagePicker.showImagePicker(options, (response) => {
+      //console.log(response);
+      if (response.didCancel) {
+        //console.log('User cancelled image picker');
+      } else if (response.error) {
+        //console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        //console.log('User tapped custom button: ', response.customButton);
+        setImageData({...imageData, ImageSource: null, data: null });
+      } else {
+        setImageData({...imageData,
+          ImageSource: { uri: response.uri },
+          data: response.data
+        });
+      }
+    });
   }
   return (
     <SafeAreaView style={{ flex: 1, }}>
@@ -177,6 +223,15 @@ const SignUp2 = ({ navigation }) => {
               placeholderTextColor="gray"
             />
           </View>
+          {/* image pick */}
+          <View style={styles.profileContainer}>
+            <Text style={styles.titleText}>프로필 사진</Text>
+            <View style={styles.imageView} onTouchEnd={()=>imagePick()}>
+              { imageData.ImageSource === null ?
+                  <MaterialComIcons name="image-multiple-outline" size={70} /> :
+                  <Image source={imageData.ImageSource} style={{ width: 90, height: 90 }} resizeMode="cover" /> }
+            </View>
+          </View>
         </ScrollView>
         <View style={{ width: "100%", height: _WIDTH/8, justifyContent: "center" }} >
           <TouchableOpacity
@@ -208,6 +263,17 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
   },
+  profileContainer: {
+    flex: 1,
+    marginBottom: 30,
+  },  
+  imageView: {
+    width: "50%", 
+    height: "100%", 
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },  
   titleText: {
     width: "100%",
     textAlign: "left",
