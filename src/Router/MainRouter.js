@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
-import { _WIDTH, buttonColor, nonActive, backgroundColor } from "../../theme";
+import { _WIDTH, buttonColor, nonActive, backgroundColor } from "../common/theme";
 import SimpleIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Shopping from "../Screen/Main/Shopping"

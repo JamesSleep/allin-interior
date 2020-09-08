@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { _WIDTH } from "../../../theme";
+import { _WIDTH } from "../../common/theme";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 
 export default function SearchBar() {

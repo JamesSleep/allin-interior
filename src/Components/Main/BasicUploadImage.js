@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native"
-import { _WIDTH, nonActive } from "../../../theme";
+import { _WIDTH, nonActive } from "../../common/theme";
 
 export default () => {
   return (
