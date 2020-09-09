@@ -29,12 +29,13 @@ export default ({
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      mediaType: "photo"
+      mediaType: "photo",
+      includeBase64: true
     }).then(image => {
       //console.log(image);
       setImageUri({
         image_path: image.path,
-        data: image,
+        data: image.data,
         image_tag: "portpolio"
       });
     }).catch(e => {

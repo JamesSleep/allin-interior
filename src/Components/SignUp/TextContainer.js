@@ -9,7 +9,8 @@ export default function TextContainer({
   password, 
   value, 
   setValue, 
-  record 
+  record,
+  edit,
 }) {
   return(
     <View style={styles.container}>
@@ -31,6 +32,7 @@ export default function TextContainer({
         }}
         value={record}
         placeholder={placeholder}
+        editable={edit}
         placeholderTextColor="gray"
         secureTextEntry={password}
         onChangeText={text => setValue(value, text)}
