@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView, StyleSheet, TextInput, ActionSheetIOS, Modal, Alert, AsyncStorage, Image, Platform, ToastAndroid } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, TextInput, ActionSheetIOS, Modal, Alert, Image, Platform, ToastAndroid } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { _WIDTH, buttonColor, _HEIGHT } from "../../common/theme";
+import { _WIDTH, buttonColor, _HEIGHT, backgroundColor } from "../../common/theme";
 import Icon from "react-native-vector-icons/FontAwesome";
 import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import TextContainer from "../../Components/SignUp/TextContainer";
 import Adress from "../../Components/SignUp/Adress";
 import { SignUpAPI, MemberImage } from "../../common/api";
-import ImagePicker from "react-native-image-picker";
+import ImagePicker from "react-native-image-crop-picker";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const joinInsert = [
   { value: "userId", title: "아이디", subTitle: "띄어쓰기 없이 영/숫자 6~10자" },
@@ -19,23 +20,7 @@ const joinInsert = [
   { value: "nickName", title: "닉네임"},
 ];
 
-const options = {
-  title: '프로필 사진 선택',
-  takePhotoButtonTitle: null,
-  chooseFromLibraryButtonTitle: "사진가져오기",
-  customButtons: [
-    { name: 'delete', title: '사진제거' },
-  ],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
-
-const emailList = ["선택해주세요","naver.com","hanmail.net","gmail.com","직접입력"];
-
 const SignUp2 = ({ navigation }) => {
-  const [selectedEmail, setSelectedEmail] = useState(emailList[0]);
   const [modalVisible, setModalVisible] = useState(false);
   const [signUpData, setSignUpData] = useState({
     userId : "", password: "", password2: "", email: "", userName: "",
@@ -43,22 +28,10 @@ const SignUp2 = ({ navigation }) => {
     address1: "", address2: "",
   });
   const [imageData, setImageData] = useState({
-    ImageSource: null,
+    image_path: null,
     data: null,
-    Image_TAG: "USER_PROFILE"
+    image_tag: "USER_PROFILE"
   });
-  const openAction = () => {
-    ActionSheetIOS.showActionSheetWithOptions(
-      {
-        options: emailList,
-        destructiveButtonIndex: 4,
-        cancelButtonIndex: 0
-      },
-      buttonIndex => {
-        setSelectedEmail(emailList[buttonIndex]);
-      }
-    )
-  };
   const getChangeText = ( property, value ) => {
     setSignUpData({...signUpData, [property]: value});
   }
@@ -70,19 +43,27 @@ const SignUp2 = ({ navigation }) => {
       "userName": signUpData.userName,
       "phoneNum": signUpData.phoneNumber,
       "birthday": signUpData.birthDay,
-      "nickName": signUpData.nickName,
+      "nickname": signUpData.nickName,
       "zipCode": signUpData.zipCode,
       "address1": signUpData.address1,
       "address2": signUpData.address2,
     });
     const formData = [
       { name: "image", filename: "image.png", type: "image/png", data: imageData.data },
-      { name: "image_tag", data: imageData.Image_TAG },
+      { name: "image_tag", data: imageData.image_tag },
       { name: "user_id", data: signUpData.userId },
     ]; 
     const response = await SignUpAPI(postData);
     if(response[0]) {
       const responseImg = MemberImage(formData);
+      const loginData = JSON.stringify({
+        "userId": signUpData.userId,
+        "password": signUpData.password,
+        "saveID": true,
+        "autoLogin": true,
+        "type": false
+      });
+      await AsyncStorage.setItem("loginData", loginData);
       navigation.reset({
         index: 0,
         routes: [{name: "MainRouter"}]
@@ -94,22 +75,18 @@ const SignUp2 = ({ navigation }) => {
     }
   }
   const imagePick = () => {
-    ImagePicker.showImagePicker(options, (response) => {
-      //console.log(response);
-      if (response.didCancel) {
-        //console.log('User cancelled image picker');
-      } else if (response.error) {
-        //console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        //console.log('User tapped custom button: ', response.customButton);
-        setImageData({...imageData, ImageSource: null, data: null });
-      } else {
-        setImageData({...imageData,
-          ImageSource: { uri: response.uri },
-          data: response.data
-        });
-      }
-    });
+    ImagePicker.openPicker({
+      width: 400,
+      height: 300,
+      mediaType: "photo",
+      includeBase64: true
+    }).then(image => {
+      setImageData({
+        ...imageData,
+        image_path: image.path,
+        data: image.data
+      });
+    })
   }
   return (
     <SafeAreaView style={{ flex: 1, }}>
@@ -221,15 +198,16 @@ const SignUp2 = ({ navigation }) => {
               style={{ width: "100%", height: _WIDTH/10, borderBottomWidth: 0.5, }}
               placeholder="상세주소"
               placeholderTextColor="gray"
+              onChangeText={text => setSignUpData({...signUpData, address2: text})}
             />
           </View>
           {/* image pick */}
           <View style={styles.profileContainer}>
             <Text style={styles.titleText}>프로필 사진</Text>
             <View style={styles.imageView} onTouchEnd={()=>imagePick()}>
-              { imageData.ImageSource === null ?
+              { imageData.image_path === null ?
                   <MaterialComIcons name="image-multiple-outline" size={70} /> :
-                  <Image source={imageData.ImageSource} style={{ width: 90, height: 90 }} resizeMode="cover" /> }
+                  <Image source={{ uri: imageData.image_path }} style={{ width: 90, height: 90 }} resizeMode="cover" /> }
             </View>
           </View>
         </ScrollView>
@@ -251,6 +229,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 25,
     paddingVertical: 10,
+    backgroundColor: backgroundColor
   },
   headContainer: {
     flexDirection: "row",

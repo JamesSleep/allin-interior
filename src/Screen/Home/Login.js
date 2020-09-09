@@ -12,12 +12,14 @@ import { connect } from "react-redux";
 import { LoginAPI } from "../../common/api";
 import ActionCreator from "../../redux/action";
 import { backgroundColor, _WIDTH, _HEIGHT, buttonColor } from "../../common/theme";
+import { setUserId } from "../../redux/action/userAction";
 
 const Login = ({ navigation, setSignUpType }) => {
   const [saveID, setSaveID] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [isCompany, setIsCompany] = useState(false);
 
   useEffect(()=>{
     checkLoginData();
@@ -47,6 +49,7 @@ const Login = ({ navigation, setSignUpType }) => {
     const postData = JSON.stringify({
       "userId": userId,
       "password": password,
+      "type": isCompany
     });
     const response = await LoginAPI(postData);
     if(response[0]) {
@@ -55,10 +58,10 @@ const Login = ({ navigation, setSignUpType }) => {
         "userId": userId,
         "password": password,
         "saveID": saveID,
-        "autoLogin": autoLogin
+        "autoLogin": autoLogin,
+        "type": isCompany
       });
-      if(saveID || autoLogin)
-        await AsyncStorage.setItem("loginData", loginData);
+      await AsyncStorage.setItem("loginData", loginData);
       navigation.reset({
         index: 0,
         routes: [{name: "MainRouter"}]
@@ -126,7 +129,7 @@ const Login = ({ navigation, setSignUpType }) => {
               <Text style={{ fontSize: _WIDTH/32, marginRight: 15, }}>자동로그인</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ flexDirection: "row", alignItems: "center" }}
+              style={{ flexDirection: "row", alignItems: "center", marginRight: 10 }}
               onPress={()=>setSaveID(state => !state)}
             >
               <Ionicons 
@@ -134,7 +137,18 @@ const Login = ({ navigation, setSignUpType }) => {
                 size={_WIDTH/20} 
                 color={saveID? buttonColor : "gray"} 
               />
-              <Text style={{ fontSize: _WIDTH/32 }}> 아이디저장 </Text>
+              <Text style={{ fontSize: _WIDTH/32, marginRight: 10 }}> 아이디저장 </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ flexDirection: "row", alignItems: "center" }}
+              onPress={()=>setIsCompany(state => !state)}
+            >
+              <Ionicons 
+                name={isCompany? "checkmark-circle" : "checkmark-circle-outline"} 
+                size={_WIDTH/20} 
+                color={isCompany? buttonColor : "gray"} 
+              />
+              <Text style={{ fontSize: _WIDTH/32 }}> 업체회원 </Text>
             </TouchableOpacity>
           </View>
           {/* 버튼뷰 */}
@@ -317,7 +331,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    screen: state.screen
+    screen: state.screen,
+    user_id: state.user_id
   }
 }
 
@@ -325,6 +340,9 @@ function mapDispatchToProps(dispatch) {
   return {
     setSignUpType: (screen) => {
       dispatch(ActionCreator.setSignUp(screen));
+    },
+    setUserId: (user_id) => {
+      dispatch(ActionCreator.setUserId(user_id));
     }
   }
 }

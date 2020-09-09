@@ -4,8 +4,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { _HEIGHT, _WIDTH, backgroundColor, buttonColor } from "../../common/theme";
 import CompanyContainer1 from "./CompanyContainer1";
 import CompanyContainer2 from "./CompanyContainer2";
-import { postData } from "../../Components/SignUp/PostData";
-import { CompanySignUpAPI, CompanyAreaAPI, CompanyCategoryAPI, CompanyImage } from "../../common/api";
+import { CompanySignUpAPI, CompanyAreaAPI, CompanyCategoryAPI, CompanyImage, CompanyPortpolioAPI, CompanyPortpolioImgAPI } from "../../common/api";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default function CompanySignUp({ navigation }) {
   const [pageView, setPageView] = useState(true);
@@ -43,7 +43,7 @@ export default function CompanySignUp({ navigation }) {
   const [profileImg, setProfileImg] = useState({
     image_path: null,
     data: null,
-    image_Tag: "profile"
+    image_tag: "profile"
   });
   const pageHandler = () => {
     if(pageView) {
@@ -55,6 +55,7 @@ export default function CompanySignUp({ navigation }) {
   const postAPI = async () => {
     let result;
     //업체회원 기본정보
+    if(signUpData.companyId === "") return;
     const companySignUp = JSON.stringify({
       "companyId": signUpData.companyId,
       "password": signUpData.password,
@@ -124,7 +125,36 @@ export default function CompanySignUp({ navigation }) {
     if(profileImg.image_path !== null) {
       result = await CompanyImage(profileImgData);
     }
-    //리덕스 추가하기
+    //포트폴리오
+    const portpolioData = portpolioImg?.map(value => (
+      JSON.stringify({
+        "companyId": signUpData.companyId,
+        "title": value.title,
+        "content": value.content
+      })
+    ));
+    const portpolioImgData = portpolioImg.map((value, index) => ([
+      { name: "image", filename: "image.png", type: "image/jpeg", data: value.data },
+      { name: "image_tag", data: value.image_tag },
+      { name: "company_id", data: signUpData.companyId },
+    ]));
+    if(portpolioImg.length > 0) {
+      for(let i=0; i<portpolioImgData.length; i++) {
+        result = await CompanyPortpolioAPI(portpolioData[i]);
+        portpolioImgData[i].push({
+          name: "pp_index", data: result[1]?.toString()
+        });
+        result = await CompanyPortpolioImgAPI(portpolioImgData[i]);
+      }
+    } 
+    const loginData = JSON.stringify({
+      "userId": signUpData.companyId,
+      "password": signUpData.password,
+      "saveID": true,
+      "autoLogin": true,
+      "type": true
+    });
+    await AsyncStorage.setItem("loginData", loginData);
     navigation.reset({
       index: 0,
       routes: [{name: "MainRouter"}]
