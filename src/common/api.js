@@ -47,3 +47,6 @@ export const CompanyCategoryAPI = async postData => getDataPOST("CompanyCategory
 export const CompanyImage = async postData => imageRequest("CompanyImage", postData, FORM_HEADERS); //업체 이미지 업로드 API
 export const CompanyPortpolioAPI = async postData => getDataPOST("CompanyPortpolio", postData, JSON_HEADERS); //업체회원가입 포트폴리오
 export const CompanyPortpolioImgAPI = async postData => imageRequest("CompanyPortpolioImage", postData, FORM_HEADERS); //업체회원가입 포트폴리오 이미지
+export const UserInfoAPI = async postData => getDataPOST("UserInfo", postData, JSON_HEADERS);
+export const EditProfileAPI = async postData => getDataPOST("EditProfile", postData, JSON_HEADERS);
+export const CompanyInfoAPI = async postData => getDataPOST("CompanyInfo", postData, JSON_HEADERS);

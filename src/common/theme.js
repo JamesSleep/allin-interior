@@ -6,3 +6,4 @@ export const buttonColor = "#EA5420";
 export const nonActive = "#bdc3c7";
 export const backgroundColor = "#ffffff";
 export const customFont = "";
+export const tierColor = "#A0D671";
