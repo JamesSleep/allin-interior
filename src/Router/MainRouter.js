@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 const MainRouter = () => {
 	return (
 		<Tab.Navigator 
-			initialRouteName="HomeStackRouter" 
+			initialRouteName="MyPageRouter" 
 			tabBarOptions={{ 
 				activeTintColor: buttonColor, 
 				inactiveTintColor: nonActive,
@@ -66,7 +66,7 @@ const MainRouter = () => {
 				}}
 			/>
 			<Tab.Screen 
-				name="MyPage" 
+				name="MyPageRouter" 
 				component={MyPageRouter} 
 				options={{
 					tabBarLabel: "마이페이지",
