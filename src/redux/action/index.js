@@ -1,7 +1,9 @@
 import * as signupAction from "./signupAction";
+import * as userAction from "./userAction";
 
 const ActionCreators = Object.assign({},
-  signupAction
+  signupAction,
+  userAction
 );
 
 export default ActionCreators;
