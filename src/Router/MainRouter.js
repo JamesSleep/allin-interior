@@ -9,13 +9,14 @@ import Estimate from "../Screen/Request/Estimate"
 import HomeStackRouter from "./HomeStackRouter";
 import MyPageRouter from "./MyPageRouter";
 import StoryRouter from "./StoryRouter";
+import RequestRouter from "./RequestRouter";
 
 const Tab = createBottomTabNavigator();
 
 const MainRouter = () => {
 	return (
 		<Tab.Navigator 
-			initialRouteName="MyPageRouter" 
+			initialRouteName="HomeStackRouter" 
 			tabBarOptions={{ 
 				activeTintColor: buttonColor, 
 				inactiveTintColor: nonActive,
@@ -43,8 +44,8 @@ const MainRouter = () => {
 				}}
 			/>
 			<Tab.Screen 
-				name="Estimate" 
-				component={Estimate} 
+				name="RequestRouter" 
+				component={RequestRouter} 
 				options={{
 					tabBarLabel: "견적의뢰",
 					tabBarIcon: ({ color, size }) => (

@@ -14,7 +14,7 @@ export default function Estimate({ navigation }) {
     <View style={{ flex: 1, backgroundColor: backgroundColor }}>
       <View style={{ width: "100%", height: 60, flexDirection: "row", justifyContent: "space-around", alignItems: "center" }}>
         <View style={{ width: "70%", justifyContent: "center" }}><SearchBar /></View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate("SelectCategory")}>
           <Text style={{ color: buttonColor }}>견적신청</Text>
         </TouchableOpacity>
       </View>
