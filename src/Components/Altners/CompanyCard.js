@@ -3,10 +3,20 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { nonActive, _WIDTH, } from "../../common/theme";
 import Swiper from "react-native-swiper";
 import { renderPagination } from "../Main/RederPagination";
+import { completeCount } from "../Company/completeCount";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { imageLoad } from "../../common/imageLoad";
+import { workAddress } from "../../common/workAddress";
 
-export default  () => {
+export default ({ companyInfo, navigation }) => {
+  const {
+    joinInfo, area, categories, images, portpolio
+  } = companyInfo;
   return (
-    <View style={styles.container}>
+    <TouchableOpacity 
+      style={styles.container}
+      onPress={()=>navigation.navigate("CompanyInfo", { companyInfo: companyInfo })}
+    >
       {/* 업체정보 */}
       <View style={styles.infoContainer}>
         {/* 프로필사진 */}
@@ -22,7 +32,11 @@ export default  () => {
             }}
           >
             <Image 
-              source={require("../../Image/logo.png")} 
+              source={
+                images.profile ? 
+                { uri: imageLoad(images.profile) } :
+                require("../../Image/logo.png")
+              } 
               style={{ 
                 width: _WIDTH/10,
                 height: _WIDTH/10,
@@ -35,7 +49,7 @@ export default  () => {
         <View style={styles.textView}>
           <View style={{ flex: 1.5, flexDirection: "row", justifyContent: "flex-start", alignItems: "center" }}>
             <Text style={{ fontSize: 14, fontWeight: "500", marginRight: 7, }}>
-              업체명
+              {joinInfo.co_name}
             </Text>
             <Text 
               style={{ 
@@ -48,11 +62,13 @@ export default  () => {
                 color: "white"
               }}
             >
-              명장
+              {completeCount(joinInfo.co_work_count)}
             </Text>
           </View>
           <Text style={{ flex: 1, fontSize: 11, fontWeight: "400" }}>주거공간 종합시공</Text>
-          <Text style={{ flex: 1, fontSize: 11, fontWeight: "400" }}>시공 횟수 21회 지역: 부산</Text>
+          <Text style={{ flex: 1, fontSize: 11, fontWeight: "400" }}>
+            {`시공 횟수 ${joinInfo.co_work_count}회 지역: ${workAddress(area)}`}
+          </Text>
         </View>
         {/* 평점 */}
         <View style={styles.recordView}>
@@ -71,36 +87,28 @@ export default  () => {
       {/* 사진 */}
       <View style={styles.imageContainer}>
         <Swiper height="100%" renderPagination={renderPagination} >
-          <View style={{ flex: 1, }}>
-            <Image 
-              source={require("../../Image/company2.jpeg")} 
-              style={{ width: "100%", height: "100%", }}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={{ flex: 1, }}>
-            <Image 
-              source={require("../../Image/company1.jpeg")} 
-              style={{ width: "100%", height: "100%", }}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={{ flex: 1, }}>
-            <Image 
-              source={require("../../Image/company3.jpeg")} 
-              style={{ width: "100%", height: "100%", }}
-              resizeMode="stretch"
-            />
-          </View>
+          { images?.company?.map((image,index) => (
+            <View key={index} style={{ flex: 1, }}>
+              <Image 
+                source={{ uri: imageLoad(image) }} 
+                style={{ width: "100%", height: "100%", }}
+                resizeMode="cover"
+              />
+            </View>
+          ))}
         </Swiper>
       </View>
       {/* 설명 */}
       <View style={styles.description}>
-        <Text style={{ fontSize: 13 }}>
-          위 업체는 오랜 기간 쌓아온 인테리어로서 주거공간을 전문적으로 디자인하고...
+        <Text 
+          numberOfLines={2}
+          ellipsizeMode="tail" 
+          style={{ fontSize: 13 }}
+        >
+          {joinInfo.co_description}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -113,7 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     shadowColor: "black",
     shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { width: 1, height: 1 },
     elevation: 5,
   },
   infoContainer: {

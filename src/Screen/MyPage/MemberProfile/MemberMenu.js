@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 });
 
 const menuList = [
-  { title: "내 정보", buttonText: "수정하기"},
+  { title: "내 정보", buttonText: "수정하기", route: "EditProfile"},
   { title: "나의 쇼핑", buttonText: "바로가기" },
   { title: "리뷰쓰기", touch: true },
   { title: "내가 쓴 리뷰", touch: true },
@@ -41,14 +41,17 @@ const menuList = [
   { title: "나의 집들이", touch: true },
 ];
 
-export default ({ memberPrivate }) => {
+export default ({ memberPrivate, navigation, joinInfo }) => {
   return (
     <View style={styles.container}>
       { menuList.map((menu, index) => {
         if(index < 2) {
           return (
           <MenuContainer key={index} title={menu.title}>
-            <TouchableOpacity style={styles.naviButton}>
+            <TouchableOpacity 
+              style={styles.naviButton}
+              onPress={()=>navigation.navigate(menu.route, { joinInfo: joinInfo })}
+            >
               <Text style={styles.naviText}>{menu.buttonText}</Text>
             </TouchableOpacity>
           </MenuContainer>

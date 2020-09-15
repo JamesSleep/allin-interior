@@ -7,6 +7,9 @@
 * react-native-picker-select (RN SelectBox)
 
 ### To Do List
+* DB정리 최우선
+* 이후 백엔드 API 모두 작성
+* DB, API 필요에 따라 수정하며 프론트 작업 시작
 * 스플래시 이미지, 앱 아이콘
 * 회원가입 API수정, 중복방지필요
 * 마이페이지 탭

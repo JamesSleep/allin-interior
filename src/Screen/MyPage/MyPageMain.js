@@ -39,6 +39,7 @@ export default ({ navigation }) => {
     const loginData = JSON.parse(
       await AsyncStorage.getItem("loginData")
     );
+    console.log(loginData);
     let postData, result;
     postData = JSON.stringify({
       "userId": loginData.userId,
@@ -57,12 +58,12 @@ export default ({ navigation }) => {
       });
     }
     else {
+      result = await UserInfoAPI(postData);
       setUserInfo({
         ...userInfo,
         loginType: loginData.type,
         joinInfo: result[1].joinInfo
       });
-      result = await UserInfoAPI(postData);
     }
     console.log(result);
   }
@@ -103,7 +104,11 @@ export default ({ navigation }) => {
           <MemberAlarm 
             memberPrivate={userInfo.memberPrivate}
           />
-          <MemberMenu memberPrivate={userInfo.memberPrivate} />
+          <MemberMenu 
+            memberPrivate={userInfo.memberPrivate} 
+            navigation={navigation}
+            joinInfo={userInfo.joinInfo}
+          />
         </>
       )}
       {/* 회원탈퇴 */}

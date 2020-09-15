@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { nonActive } from "../../common/theme";
-import { Filter } from "../../Components/Altners/Filter";
-import CompanyCard from "../../Components/Altners/CompanyCard";
+import { nonActive } from "../../../common/theme";
+import { Filter } from "../../../Components/Altners/Filter";
+import CompanyCard from "../../../Components/Altners/CompanyCard";
+import { CompanyListAPI } from "../../../common/api";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const filterList = [ "인테리어", "청소", "간판", "건설업체" ];
 
 const Altners = ({ navigation }) => {
   const [selected, setSelected] = useState(0);
+  const [companyList, setCompanyList] = useState([]);
+  useEffect(()=> {
+    getCompanyList();
+  }, []);
+  const getCompanyList = async () => {
+    const result = await CompanyListAPI();
+    if(result[0]) {
+      setCompanyList(result[1]);
+    }
+  }
   return (
     <View style={styles.mainContainer}>
       {/* 필터 */}
@@ -24,9 +36,13 @@ const Altners = ({ navigation }) => {
       </View>
       {/* 업체목록 */}
       <ScrollView contentContainerStyle={{ paddingHorizontal: 25, paddingVertical: 15, }}>
-        <CompanyCard />
-        <CompanyCard />
-        <CompanyCard />
+        { companyList.map((company, index) => (
+          <CompanyCard 
+            key={index}
+            companyInfo={company}
+            navigation={navigation}
+          />
+        ))}
       </ScrollView>
     </View>
   )
