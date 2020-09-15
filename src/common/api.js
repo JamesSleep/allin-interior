@@ -50,3 +50,4 @@ export const CompanyPortpolioImgAPI = async postData => imageRequest("CompanyPor
 export const UserInfoAPI = async postData => getDataPOST("UserInfo", postData, JSON_HEADERS);
 export const EditProfileAPI = async postData => getDataPOST("EditProfile", postData, JSON_HEADERS);
 export const CompanyInfoAPI = async postData => getDataPOST("CompanyInfo", postData, JSON_HEADERS);
+export const CompanyListAPI = async () => getDataPOST("CompanyList", "", JSON_HEADERS);

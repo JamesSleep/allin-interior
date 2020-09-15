@@ -19,7 +19,7 @@
     "@react-navigation/stack": "^5.6.2",
     "axios": "^0.19.2",
     "react": "16.13.1",
-    "react-native": "0.63.0",
+    "react-native": "0.63.2",
     "react-native-daum-postcode": "^1.0.9",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.33.2",
