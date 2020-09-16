@@ -7,27 +7,57 @@ import RequestText from "../../../../Components/Request/RequestText";
 import RequestMenu from "../../../../Components/Request/RequestMenu";
 
 const options = [
-  { name: "주거공간", icon: require("../../../../Image/residential.png") },
-  { name: "상업공간", icon: require("../../../../Image/office.png") },
-  { name: "청소", icon: require("../../../../Image/interior_cleaning.png") },
-  { name: "간판", icon: require("../../../../Image/regular_cleaning.png") },
-]
+  { 
+    name: "주거공간", 
+    route: "Residential",
+    screen: "StructRequest",
+    icon: require("../../../../Image/residential.png") 
+  },
+  { 
+    name: "상업공간", 
+    route: "Commercial",
+    screen: "StructRequest",
+    icon: require("../../../../Image/office.png") 
+  },
+  { 
+    name: "청소", 
+    route: "",
+    screen: "",
+    icon: require("../../../../Image/interior_cleaning.png") 
+  },
+  { 
+    name: "간판", 
+    route: "",
+    screen: "",
+    icon: require("../../../../Image/regular_cleaning.png") 
+  },
+];
 
 export default ({ navigation, route }) => {
   const [option, setOption] = useState(0);
   return (
     <View style={styles.container}>
-      <LogoView />
-      <RequestText 
-        text1="시공 타입"
-        text2="을 선택해주세요"
-      />
-      <RequestMenu 
-        options={options}
-        setOption={setOption}
-        selected={option}
-      />
-      <Footer />
+      <View style={{ flex: 1 }}><LogoView /></View>
+      <View style={{ flex: 2.5 }}>
+        <RequestText 
+          text1="시공 타입"
+          text2="을 선택해주세요"
+        />
+      </View>
+      <View style={{ flex: 5 }}>
+        <RequestMenu 
+          options={options}
+          setOption={setOption}
+          selected={option}
+        />
+      </View>
+      <View style={{ flex: 1.5 }}>
+        <Footer 
+          navigation={navigation}
+          next={options[option].screen}
+          pararms={options[option].route}
+        />
+      </View>
     </View>
   )
 }
