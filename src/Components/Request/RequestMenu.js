@@ -25,7 +25,7 @@ export default ({ options, setOption, selected }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 5.5,
+    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center"
   },

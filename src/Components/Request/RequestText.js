@@ -15,7 +15,7 @@ export default ({ text1, text2 }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2.5,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },

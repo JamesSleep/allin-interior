@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { _WIDTH, buttonColor } from "../../common/theme";
 
-export default ({ navigation }) => {
+export default ({ navigation, next="", pararms="" }) => {
   return (
     <View style={styles.container}>
       <View style={styles.prevButtonContainer}>
@@ -23,6 +23,7 @@ export default ({ navigation }) => {
       <View style={styles.nextButtonContainer}>
         <TouchableOpacity
           style={styles.nextButton}
+          onPress={()=>navigation.navigate(next, { option: pararms })}
         >
           <Text style={styles.nextText}>다음단계로</Text>
           <Icon 
@@ -38,7 +39,7 @@ export default ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.1,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
