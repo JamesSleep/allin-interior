@@ -27,7 +27,7 @@ export default ({ navigation, route }) => {
     oldBoard: false,
     demolition: false,
     boardStyle: "",
-    DetailStyle: "", 
+    detailStyle: "", 
     construction: "", //시공타입
     width: 0,
     height: 0,
