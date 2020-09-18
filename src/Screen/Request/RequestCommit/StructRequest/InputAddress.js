@@ -42,6 +42,7 @@ export default ({ state, setState }) => {
       />
       <TextInput 
         style={styles.input}
+        value={state.address2}
         placeholder="상세주소 입력"
         placeholderTextColor="gray"
         onChangeText={text=>setState({...state, address2: text})}

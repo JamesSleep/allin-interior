@@ -65,7 +65,6 @@ export default ({ navigation }) => {
         joinInfo: result[1].joinInfo
       });
     }
-    console.log(result);
   }
   const logout = async () => {
     try {

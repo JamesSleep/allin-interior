@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const MainRouter = () => {
 	return (
 		<Tab.Navigator 
-			initialRouteName="HomeStackRouter" 
+			initialRouteName="RequestRouter" 
 			tabBarOptions={{ 
 				activeTintColor: buttonColor, 
 				inactiveTintColor: nonActive,

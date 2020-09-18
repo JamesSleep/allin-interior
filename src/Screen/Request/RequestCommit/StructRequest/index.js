@@ -1,30 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, ScrollView, TextInput } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-community/async-storage";
+import { backgroundColor, _WIDTH, buttonColor } from "../../../../common/theme";
 import Categories from "./Categories";
-import { backgroundColor } from "../../../../common/theme";
 import InputAddress from "./InputAddress";
 import CalculateArea from "./CalculateArea";
 import ExceptedPrice from "./ExceptedPrice";
 import DatePicker from "./DatePicker";
 import ImageSelect from "./ImageSelect";
+import AgreeForm from "./AgreeForm";
+import { UserInfoAPI, ResidentialPostAPI, CommercialPostAPI } from "../../../../common/api";
 
 export default ({ navigation, route }) => {
-  const option = route.params.option === "Residential" ? true : false;
+  const option = route.params.option.screen === "Residential" ? true : false;
+  const { userInfo : {
+    userId, userName, phoneNum, zipCode, address1, address2
+  }} = route.params.option;
   const [request, setRequest] = useState({
+    userId, 
+    userName, 
+    phoneNum, 
+    zipCode, 
+    address1, 
+    address2,
     category: "",
-    zipCode: "",
-    address1: "",
-    address2: "",
     excepted: "",
     area: "",
     price: "",
     managed: "",
     hopeDate: "",
     requestText: "",
-    imageList : [],
-  })
+    imageList: [],
+    agree: false
+  });
   const setState = (property, value) => {
     setRequest({...request, [property]: value});
+  }
+  const postRequestData = async () => {
+    let data, result;
+    if(option) {
+      data = JSON.stringify({
+        "userId": request.userId,
+        "phoneNum": request.phoneNum,
+        "category": request.category,
+        "zipCode": request.zipCode,
+        "address1": request.address1,
+        "address2": request.address2,
+        "excepted": request.excepted,
+        "price": request.price,
+        "hopeDate": request.hopeDate,
+        "request": request.requestText
+      });
+      result = await ResidentialPostAPI(data);
+    } else {
+      data = JSON.stringify({
+        "userId": request.userId,
+        "phoneNum": request.phoneNum,
+        "category": request.category,
+        "zipCode": request.zipCode,
+        "address1": request.address1,
+        "address2": request.address2,
+        "area": request.area,
+        "excepted": request.excepted,
+        "price": request.price,
+        "managed": request.managed,
+        "hopeDate": request.hopeDate,
+        "request": request.requestText
+      });
+      result = await CommercialPostAPI(data);
+    } 
+    if(result[0]) {
+      console.log("Success");
+      navigation.navigate("ReceiptRequest", {
+        option: option ? "Residential" : "Commercial"
+      })
+    } else {
+      console.log("Failed");
+    }
   }
   return (
     <View style={styles.container}> 
@@ -88,7 +141,7 @@ export default ({ navigation, route }) => {
           />
         </View>
         {/* 운영여부 */}
-        { !option &&
+        { !option && (
           <View style={styles.columnContainer}>
             <Text style={styles.columnTitle}>운영여부</Text>
             <Categories 
@@ -96,8 +149,8 @@ export default ({ navigation, route }) => {
               state={request.managed}
               setState={setState}
             />
-          </View>
-        }
+          </View> 
+        )}
         {/* 희망공사 완료일 */}
         <View style={styles.columnContainer}>
           <Text style={styles.columnTitle}>희망 공사 완료일</Text>
@@ -125,8 +178,18 @@ export default ({ navigation, route }) => {
           />
         </View>
         {/* 약관 동의 */}
-        
+        <View style={styles.columnContainer}>
+          <AgreeForm setState={setState}/>
+        </View>
       </ScrollView>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={()=>postRequestData()}
+        >
+          <Text style={styles.btnText}>견적신청하기</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -134,7 +197,7 @@ export default ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 15,
+    paddingTop: 15,
     backgroundColor: backgroundColor,
   },
   headTitle: {
@@ -156,5 +219,23 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 5,
     paddingHorizontal: 10,
+  },
+  buttonContainer: {
+    width: "100%",
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  button: {
+    width: _WIDTH-50,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    backgroundColor: buttonColor
+  },
+  btnText: {
+    color: "white",
+    fontSize: 15,
   }
 })
