@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "347061868238",
+    "firebase_url": "https://allin-interior.firebaseio.com",
+    "project_id": "allin-interior",
+    "storage_bucket": "allin-interior.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347061868238:android:1666a47f8d4b0b3f47629f",
+        "android_client_info": {
+          "package_name": "com.allin_interior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347061868238-omlorolpigu5of5ab7h1t55b7dci3nbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjrSIl-V3L_kqqDBsrDs21UA-Ak-Nz110"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347061868238-omlorolpigu5of5ab7h1t55b7dci3nbt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "347061868238-k427ccvtr1vhmrinj3289de7jhmugmkt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.allin-interior"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

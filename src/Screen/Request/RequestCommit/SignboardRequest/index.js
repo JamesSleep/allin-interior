@@ -11,6 +11,7 @@ import Step6 from "./Step6"; // 시공 타입
 import Step7 from "./Step7"; // 간판 사이즈
 import Step8 from "./Step8"; // 간판 글자
 import Step9 from "./Step9";
+import { SignboardPostAPI } from "../../../../common/api";
 
 export default ({ navigation, route }) => {
   const { userInfo : {
@@ -34,7 +35,37 @@ export default ({ navigation, route }) => {
     mainTitle: "",
     subTitle: "",
     request: "",
-  })
+  });
+  const postData = async () => {
+    const data = JSON.stringify({
+      "userId": signboard.userId,
+      "userName": signboard.userName,
+      "phoneNum": signboard.phoneNum,
+      "zipCode": signboard.zipCode,
+      "address1": signboard.address1,
+      "address2": signboard.address2,
+      "oldBoard": signboard.oldBoard ? 1:0,
+      "demolition": signboard.demolition ? 1:0,
+      "boardStyle": signboard.boardStyle,
+      "detailStyle": signboard.detailStyle, 
+      "construction": signboard.construction,
+      "width": signboard.width,
+      "height": signboard.height,
+      "mainTitle": signboard.mainTitle,
+      "subTitle": signboard.subTitle,
+      "request": signboard.request,
+    })
+    const result = await SignboardPostAPI(data);
+    if(result[0]) {
+      console.log("Success");
+      navigation.navigate("ReceiptRequest", {
+        option: "Signboard"
+      });
+    } else {
+      console.log("Failed");
+      console.log(result[1]);
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={{ flex: 10 }}>
@@ -53,6 +84,7 @@ export default ({ navigation, route }) => {
         step={step}
         setStep={setStep}
         oldBoard={signboard.oldBoard}
+        postData={postData}
       />
     </View>
   )

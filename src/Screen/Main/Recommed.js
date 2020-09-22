@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
 import Swiper from "react-native-swiper";
 import { renderPagination } from "../../Components/Main/RederPagination";
@@ -6,20 +6,47 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { _HEIGHT, nonActive, backgroundColor, buttonColor } from "../../common/theme";
 import BestShop from "./BestShop";
+import AsyncStorage from "@react-native-community/async-storage";
+import { UserInfoAPI } from "../../common/api";
 
 const Tab = createMaterialTopTabNavigator();
 
 const iconMenu = [
   { name: "올인 쇼핑", icon: require("../../Image/shopping.png"), route: "Shopping" }, 
   { name: "집들이", icon: require("../../Image/gift.png"), route: "Shopping" }, 
-  { name: "청소", icon: require("../../Image/cleaning.png"), route: "Shopping" }, 
-  { name: "간판시공", icon: require("../../Image/signboard.png") , route: "Shopping"}, 
-  { name: "주거공간", icon: require("../../Image/residence.png"), route: "Shopping" }, 
-  { name: "상가공간", icon: require("../../Image/mall.png"), route: "Shopping" }, 
-  { name: "건설공간", icon: require("../../Image/construction.png"), route: "Shopping" },
+  { name: "청소", icon: require("../../Image/cleaning.png"), route: "RequestRouter", screen: "CleaningRequest" }, 
+  { name: "간판시공", icon: require("../../Image/signboard.png") , route: "RequestRouter", screen: "SignboardRequest"}, 
+  { name: "주거공간", icon: require("../../Image/residence.png"), route: "RequestRouter", screen: "StructRequest", option: "Residential" }, 
+  { name: "상가공간", icon: require("../../Image/mall.png"), route: "RequestRouter", screen: "StructRequest", option: "Commercial" }, 
 ];
 
 const Recommend = ({ navigation }) => {
+  const [userInfo, setUserInfo] = useState({
+    userId: "", userName: "", phoneNum: "", 
+    zipCode: "", address1: "", address2: ""
+  });
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
+    const postData = JSON.stringify({
+      "userId": loginData.userId
+    });
+    const result = await UserInfoAPI(postData);
+    const { joinInfo : {
+      mb_id: userId,
+      mb_name: userName,
+      mb_phone: phoneNum,
+      mb_zipcode: zipCode,
+      mb_address1: address1,
+      mb_address2: address2,
+    }} = result[1];
+    setUserInfo({
+      userId, userName, phoneNum,
+      zipCode, address1, address2
+    });
+  }
   return (
     <ScrollView style={{ flex: 1, backgroundColor: backgroundColor }} contentContainerStyle={{ paddingBottom: 10 }}>
       {/* 배너 슬라이드 */}
@@ -42,12 +69,24 @@ const Recommend = ({ navigation }) => {
         <View style={{ width: "100%", height: "100%", borderRadius: 5, borderWidth: 0.7, borderColor: nonActive }}>
           <View style={styles.menuLayout}>
             { iconMenu.map((menu, index) => {
-              if(index < 4)
+              if(index < 3)
                 return(
                   <View 
                     style={styles.iconContainer} 
                     key={index}
-                    onTouchEnd={()=>navigation.navigate(menu.route)}
+                    onTouchEnd={()=>{
+                      menu.screen?
+                      navigation.navigate(menu.route, { 
+                        screen: menu.screen,
+                        params: {
+                          option: {
+                            screen: menu.option,
+                            userInfo: userInfo
+                          }
+                        }
+                      }) :
+                      navigation.navigate(menu.route)
+                    }}
                   >
                     <View style={{ width: "100%", height: "80%" }}>
                       <Image source={menu.icon} style={styles.iconImage} resizeMode="contain"/>
@@ -59,9 +98,25 @@ const Recommend = ({ navigation }) => {
           </View>
           <View style={styles.menuLayout}>
             { iconMenu.map((menu, index) => {
-              if(index >= 4)
+              if(index >= 3)
                 return(
-                  <View style={styles.iconContainer} key={index}>
+                  <View 
+                    style={styles.iconContainer} 
+                    key={index}
+                    onTouchEnd={()=>
+                      menu.screen?
+                      navigation.navigate(menu.route, { 
+                        screen: menu.screen,
+                        params: {
+                          option: {
+                            screen: menu.option,
+                            userInfo: userInfo
+                          }
+                        }
+                      }) :
+                      navigation.navigate(menu.route)
+                    }
+                  >
                     <View style={{ width: "100%",height: "70%" }}>
                       <Image source={menu.icon} style={styles.iconImage} resizeMode="contain"/>
                     </View>
@@ -83,6 +138,9 @@ const Recommend = ({ navigation }) => {
             justifyContent: "center",
             alignItems: "center"
           }}
+          onPress={()=>navigation.navigate("RequestRouter", {
+            screen: "SelectCategory"
+          })}
         >
           <Text style={{ fontSize: 15, color: "white" }}>견적신청</Text>
         </TouchableOpacity>

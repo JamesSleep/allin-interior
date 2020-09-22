@@ -4,19 +4,18 @@ import { Image } from "react-native";
 import { _WIDTH, buttonColor, nonActive, backgroundColor } from "../common/theme";
 import SimpleIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialComIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Shopping from "../Screen/Main/Shopping"
-import Estimate from "../Screen/Request/Estimate"
 import HomeStackRouter from "./HomeStackRouter";
 import MyPageRouter from "./MyPageRouter";
 import StoryRouter from "./StoryRouter";
 import RequestRouter from "./RequestRouter";
+import ShoppingMain from "../Screen/Shopping/ShoppingMain";
 
 const Tab = createBottomTabNavigator();
 
 const MainRouter = () => {
 	return (
 		<Tab.Navigator 
-			initialRouteName="RequestRouter" 
+			initialRouteName="HomeStackRouter" 
 			tabBarOptions={{ 
 				activeTintColor: buttonColor, 
 				inactiveTintColor: nonActive,
@@ -35,7 +34,7 @@ const MainRouter = () => {
 			/>
 			<Tab.Screen 
 				name="Shopping" 
-				component={Shopping} 
+				component={ShoppingMain} 
 				options={{
 					tabBarLabel: "쇼핑",
 					tabBarIcon: ({ color, size }) => (

@@ -14,7 +14,7 @@ const imageRequest = async (path, getData, headers) => {
 	try {
 		const {
 			success, data 
-		} = await RNFetchBlob.fetch('POST', `${URL}/${path}`, headers, getData)
+		} = await RNFetchBlob.fetch('POST', `${URL}/${path}/`, headers, getData)
 		.then(res=> res.json())
 		.then(res=> { return res });
 		return [success, data || null];
@@ -45,10 +45,14 @@ export const CompanyCategoryAPI = async postData => getDataPOST("CompanyCategory
 export const CompanyImage = async postData => imageRequest("CompanyImage", postData, FORM_HEADERS); //업체 이미지 업로드 API
 export const CompanyPortpolioAPI = async postData => getDataPOST("CompanyPortpolio", postData, JSON_HEADERS); //업체회원가입 포트폴리오
 export const CompanyPortpolioImgAPI = async postData => imageRequest("CompanyPortpolioImage", postData, FORM_HEADERS); //업체회원가입 포트폴리오 이미지
-export const UserInfoAPI = async postData => getDataPOST("UserInfo", postData, JSON_HEADERS);
-export const EditProfileAPI = async postData => getDataPOST("EditProfile", postData, JSON_HEADERS);
-export const CompanyInfoAPI = async postData => getDataPOST("CompanyInfo", postData, JSON_HEADERS);
-export const CompanyListAPI = async () => getDataPOST("CompanyList", "", JSON_HEADERS);
-export const ResidentialPostAPI = async postData => getDataPOST("ResidentialRequest", postData, JSON_HEADERS);
-export const CommercialPostAPI = async postData => getDataPOST("CommercialRequest", postData, JSON_HEADERS);
-export const CleaningPostAPI = async postData => getDataPOST("CleaningRequest", postData, JSON_HEADERS);
+export const UserInfoAPI = async postData => getDataPOST("UserInfo", postData, JSON_HEADERS); //유저정보 조회
+export const EditProfileAPI = async postData => getDataPOST("EditProfile", postData, JSON_HEADERS); //프로필 편집
+export const CompanyInfoAPI = async postData => getDataPOST("CompanyInfo", postData, JSON_HEADERS); //업체정보 조회
+export const CompanyListAPI = async () => getDataPOST("CompanyList", "", JSON_HEADERS); //전체 업체정보 조회
+export const ResidentialPostAPI = async postData => getDataPOST("ResidentialRequest", postData, JSON_HEADERS); //주거공간 주문
+export const CommercialPostAPI = async postData => getDataPOST("CommercialRequest", postData, JSON_HEADERS); //상업공간 주문
+export const CleaningPostAPI = async postData => getDataPOST("CleaningRequest", postData, JSON_HEADERS); //청소 주문
+export const SignboardPostAPI = async postData => getDataPOST("SignboardRequest", postData, JSON_HEADERS); //간판 주문
+export const StoryWritePostAPI = async postData => getDataPOST("StoryWrite", postData, JSON_HEADERS); //스토리 작성
+export const StoryImageAPI = async postData  => imageRequest("StoryImage", postData, FORM_HEADERS); //이미지업로드 API
+export const StoryListAPI = async postData => getDataPOST("StoryList", postData, JSON_HEADERS); //스토리 리스트

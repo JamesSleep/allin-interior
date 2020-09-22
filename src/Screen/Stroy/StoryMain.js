@@ -1,28 +1,59 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { backgroundColor, buttonColor, _WIDTH } from "../../common/theme";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import StoryCard from "./StoryCard";
-
-const fakeDB = [
-  {
-    name: "James",
-    like: 8,
-    content: "Hi, I`m James"
-  },
-  {
-    name: "Smith",
-    like: 8,
-    content: "Hi, I`m Smith"
-  },
-  {
-    name: "David",
-    like: 8,
-    content: "Hi, I`m David"
-  },
-]
+import AsyncStorage from "@react-native-community/async-storage";
+import { UserInfoAPI, StoryListAPI } from "../../common/api";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function StoryMain({ navigation }) {
+  const [userInfo, setUserInfo] = useState({
+    userId: "",
+    nickName: "",
+    image_path: "",
+  });
+  const [storyList, setStoryList] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  useEffect(()=>{
+    getData();
+    getList();
+  },[]);
+  const getData = async () => {
+    const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
+    const postData = JSON.stringify({
+      "userId": loginData.userId
+    });
+    const result = await UserInfoAPI(postData);
+    if(!result[0]) {
+      console.log("Failed");
+      return;
+    }
+    const {
+      joinInfo: {
+        mb_id: userId,
+        mb_nickname: nickName,
+        mb_image_path: image_path
+      }
+    } = result[1];
+    setUserInfo({ userId, nickName, image_path });
+  }
+  const getList = async () => {
+    const result = await StoryListAPI();
+    setStoryList(result[1].storyList);
+  }
+  const wait = (timeout) => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  }
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(300).then(() => {
+      getList();
+      setRefreshing(false);
+    });
+  },[]);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -30,15 +61,31 @@ export default function StoryMain({ navigation }) {
         <View style={{ position: "absolute", right: _WIDTH/18 }}>
           <TouchableOpacity 
             style={styles.writeButton}
-            onPress={()=>navigation.navigate("WriteStory")}
+            onPress={()=>navigation.navigate("WriteStory", {
+              userInfo: userInfo
+            })}
           >
             <Text style={styles.buttonText}>작성</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView style={{ flex: 1 }}>
-        <StoryCard />
-        <StoryCard />
+      <ScrollView 
+        refreshControl={
+          <RefreshControl 
+            tintColor={"black"}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+        style={{ flex: 1 }}
+      >
+        { storyList.map((story, index)=>(
+          <StoryCard 
+            key={index}
+            storyInfo={story}
+            userInfo={userInfo}
+          />
+        )) }
       </ScrollView>
     </View>
   )

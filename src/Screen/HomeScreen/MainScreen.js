@@ -7,6 +7,7 @@ import { _WIDTH, backgroundColor, buttonColor } from "../../common/theme";
 import Recommend from "../Main/Recommed";
 import Story from "../Main/Story";
 import AltnersRouter from "../../Router/AltnersRouter";
+import ShoppingMain from "../Shopping/ShoppingMain";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -37,7 +38,7 @@ export default function MainScreen({ navigation }) {
       <View style={{ flex: 1 }}>
         <Tab.Navigator
           swipeEnabled={false}
-          initialRouteName="AltnersRouter"
+          initialRouteName="Recommend"
           tabBarOptions={{
             labelStyle: { fontSize: 13 },
             tabStyle: { height: 40 },
@@ -49,7 +50,7 @@ export default function MainScreen({ navigation }) {
         >
           <Tab.Screen name="Recommend" component={Recommend} options={{ tabBarLabel: "추천" }}/>
           <Tab.Screen name="AltnersRouter" component={AltnersRouter} options={{ tabBarLabel: "올트너스" }}/>
-          <Tab.Screen name="Story" component={Story} options={{ tabBarLabel: "집들이" }}/>
+          <Tab.Screen name="Story" component={ShoppingMain} options={{ tabBarLabel: "집들이" }}/>
         </Tab.Navigator>
       </View>
     </View>
