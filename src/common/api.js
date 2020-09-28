@@ -36,10 +36,11 @@ const getDataPOST = async (path, postData, headers) => {
 	}
 }
 
-export const SignUpAPI = async postData  => getDataPOST("SignUp", postData, JSON_HEADERS); //회원가입 API
+export const SignUpAPI = async postData  => getDataPOST("USER/SignUp", postData, JSON_HEADERS); //회원가입 API
+export const MemberImage = async postData  => imageRequest("MemberImage", postData, FORM_HEADERS); //이미지업로드 API
+
 export const CompanySignUpAPI = async postData => getDataPOST("CompanySignUp", postData, JSON_HEADERS); //업체회원가입 API
 export const LoginAPI = async postData  => getDataPOST("Login", postData, JSON_HEADERS); //로그인 API
-export const MemberImage = async postData  => imageRequest("MemberImage", postData, FORM_HEADERS); //이미지업로드 API
 export const CompanyAreaAPI = async postData => getDataPOST("CompanyArea", postData, JSON_HEADERS); //업체회원가입 업무지역
 export const CompanyCategoryAPI = async postData => getDataPOST("CompanyCategory", postData, JSON_HEADERS); //업체회원가입 카테고리
 export const CompanyImage = async postData => imageRequest("CompanyImage", postData, FORM_HEADERS); //업체 이미지 업로드 API
@@ -56,3 +57,7 @@ export const SignboardPostAPI = async postData => getDataPOST("SignboardRequest"
 export const StoryWritePostAPI = async postData => getDataPOST("StoryWrite", postData, JSON_HEADERS); //스토리 작성
 export const StoryImageAPI = async postData  => imageRequest("StoryImage", postData, FORM_HEADERS); //이미지업로드 API
 export const StoryListAPI = async postData => getDataPOST("StoryList", postData, JSON_HEADERS); //스토리 리스트
+export const OverapAPI = async postData => getDataPOST("Overap", postData, JSON_HEADERS); // 중복조회
+export const SaltReturnAPI = async postData => getDataPOST("SaltReturn", postData, JSON_HEADERS); // 암호화 토큰 조회
+export const FindUserAPI = async postData => getDataPOST("FindUser", postData, JSON_HEADERS); // 유저아이디찾기
+export const FindPasswordAPI = async postData => getDataPOST("FindPassword", postData, JSON_HEADERS); // 유저비밀번호찾기

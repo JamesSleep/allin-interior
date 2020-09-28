@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "347061868238-23n824rjn6icmsthqbr3k3pof4di3r5r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allin_interior",
+            "certificate_hash": "0c449a8347ec473291d4f64186f1aa1065f90d17"
+          }
+        },
+        {
           "client_id": "347061868238-omlorolpigu5of5ab7h1t55b7dci3nbt.apps.googleusercontent.com",
           "client_type": 3
         }
