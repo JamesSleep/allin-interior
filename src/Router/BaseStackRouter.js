@@ -6,6 +6,8 @@ import Agreement from "../Screen/Base/Join/Agreement";
 import AuthWithPhone from "../Screen/Base/Join/AuthWithPhone";
 import GeneralSignUp from "../Screen/Base/Join/GeneralSignUp";
 import CompanySignUp from "../Screen/Base/Join/CompanySignUp";
+import MemberTabRouter from "./Member/MemberTabRouter";
+import CompanyTabRouter from "./Company/CompanyTabRouter";
 
 const Stack = createStackNavigator();
 
@@ -17,5 +19,7 @@ export default () => (
     <Stack.Screen name="AuthWithPhone" component={AuthWithPhone} />
     <Stack.Screen name="GeneralSignUp" component={GeneralSignUp} />
     <Stack.Screen name="CompanySignUp" component={CompanySignUp} />
+    <Stack.Screen name="MemberTabRouter" component={MemberTabRouter} />
+    <Stack.Screen name="CompanyTabRouter" component={CompanyTabRouter} />
   </Stack.Navigator>
 )
