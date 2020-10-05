@@ -15,6 +15,7 @@ export default ({ list=[], property, selected, setSelect }) => {
         <Text style={{ fontSize: _WIDTH/28 }}>{selected.name}</Text>
         <Modal 
           isVisible={visible} 
+          onBackdropPress={()=>setVisible(false)}
           style={{ 
             justifyContent: "center", 
             alignItems: "center",
