@@ -11,7 +11,9 @@ export default ({ value, setValue }) => {
   });
   const [city, setCity] = useState(value.city.id);
   useEffect(() => {
-    getCities();
+    if(areaArray.cities.length < 1) {
+      getCities();
+    }
     if(city > 0) {
       getDistricts();
     }
@@ -37,7 +39,7 @@ export default ({ value, setValue }) => {
     setAreaArray({...areaArray, districts});
   }
   const setSelect = (property, text, id) => {
-    setCity(id);
+    property === "city" && setCity(id);
     setValue({...value, [property]: {
       name: text,
       id: id

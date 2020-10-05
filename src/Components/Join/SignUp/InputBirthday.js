@@ -16,7 +16,7 @@ export default ({ value, title, setValue }) => {
           placeholder="10"
           placeholderTextColor="#bdc3c7"
           onChangeText={text=>setValue(value => ({
-            ...value, year: Number(text)
+            ...value, year: text
           }))}
         />
         <Text>년</Text>
