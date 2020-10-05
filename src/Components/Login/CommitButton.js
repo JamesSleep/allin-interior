@@ -13,7 +13,7 @@ export default ({ navigation, submitLogin }) => (
     </TouchableOpacity>
     <TouchableOpacity 
       style={styles.loginButton} 
-      //onPress={()=>postAPI()}
+      onPress={()=>submitLogin()}
     >
       <Text style={styles.loginText}>로그인</Text>
     </TouchableOpacity>
