@@ -3,6 +3,11 @@ import CompanySignUpPresenter from "./CompanySignUpPresenter";
 import CompanySignUpPresenter2 from "./CompanySignUpPresenter2";
 import CompanySignUpPresenter3 from "./CompanySignUpPresenter3";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+import * as KeyChain from "react-native-keychain";
+import DeviceInfo from "react-native-device-info";
+import { createSalt, cryptoGraphic } from "../../../../utils/cryptographic";
+import { CompanySignUpAPI, ImageUploadAPI } from "../../../../common/api";
 
 const SIGN_UP_LIST = [
   { value: "email", title: "이메일", keyboardType: "email-address" },
@@ -24,7 +29,7 @@ export default ({ navigation }) => {
     ceo_name: "",
     business_tel: "",
     business_number: "",
-    year: null,
+    year: "",
     description: "",
     city: {
       name: "시/도 선택",
@@ -38,15 +43,67 @@ export default ({ navigation }) => {
   const [profile, setProfile] = useState({
     image_data: null,
     image_path: "",
-    image_tag: "company_profile"
+    image_tag: "CompanyProfile"
   });
   const [landscape, setLandscape] = useState({
     image_data: null,
     image_path: "",
-    image_tag: "company_landscape"
+    image_tag: "CompanyLandscape"
   });
   const setState = (property, value) => {
     setSignUpData({...signUpData, [property]: value});
+  }
+  const submitControll = async () => {
+    const salt = createSalt();
+    const password = cryptoGraphic(signUpData.password1, salt);
+    const postData = JSON.stringify({
+      "email": signUpData.email,
+      "password": password,
+      "salt": salt,
+      "business_name": signUpData.business_name,
+      "ceo_name": signUpData.ceo_name,
+      "business_tel": signUpData.business_tel,
+      "business_number": signUpData.business_number,
+      "year": signUpData.year,
+      "description": signUpData.description,
+      "city": signUpData.city.name,
+      "district": signUpData.district.name,
+    });
+    const profile_form = [
+      { name: "image", filename: "image.jpg", type: "image/jpg", data: profile.image_data },
+      { name: "image_tag", data: profile.image_tag },
+      { name: "email", data: signUpData.email }
+    ];
+    const landscape_form = [
+      { name: "image", filename: "image.jpg", type: "image/jpg", data: landscape.image_data },
+      { name: "image_tag", data: landscape.image_tag },
+      { name: "email", data: signUpData.email }
+    ];
+    const loginData = JSON.stringify({
+      "email": signUpData.email,
+      "saveEmail": true,
+      "autoLogin": true,
+      "type": true
+    });
+
+    const result = await CompanySignUpAPI(postData);
+    if(!result[0]) {
+      console.log(result[1]);
+      return;
+    }
+
+    const profileImg = await ImageUploadAPI(profile_form);
+    const landscapeImg = await ImageUploadAPI(landscape_form);
+    if(profileImg[0] && landscapeImg[0]) {
+      console.log("성공");
+      await AsyncStorage.setItem("loginData", loginData);
+      await KeyChain.setInternetCredentials(
+        DeviceInfo.getUniqueId(),
+        salt,
+        signUpData.password1,
+        { accessible: KeyChain.ACCESSIBLE.WHEN_UNLOCKED }
+      );
+    }
   }
   return (
     <KeyboardAvoidingView
@@ -83,6 +140,7 @@ export default ({ navigation }) => {
           setProfile={setProfile}
           landscape={landscape}
           setLandscape={setLandscape}
+          submit={submitControll}
         />
       )}
     </KeyboardAvoidingView>

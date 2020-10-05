@@ -18,7 +18,8 @@ export default ({
   landscape,
   setLandscape,
   value,
-  setValue
+  setValue,
+  submit
 }) => (
   <View style={styles.container}>
     <Header 
@@ -57,7 +58,7 @@ export default ({
     <View style={styles.submitContainer}>
       <TouchableOpacity
         style={styles.button}
-        onPress={()=>setStep(2)}
+        onPress={()=>submit()}
       >
         <Text style={styles.text}>회원가입</Text>
       </TouchableOpacity>

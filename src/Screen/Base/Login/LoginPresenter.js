@@ -8,7 +8,7 @@ import Options from "../../../Components/Login/Options";
 import CommitButton from "../../../Components/Login/CommitButton";
 import Social from "../../../Components/Login/Social";
 
-export default ({ loginInfo, setState, navigation }) => (
+export default ({ loginInfo, setState, navigation, submit }) => (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <Logo />
@@ -26,6 +26,7 @@ export default ({ loginInfo, setState, navigation }) => (
         />
         <CommitButton 
           navigation={navigation}
+          submitLogin={submit}
         />
       </View>
       <Social />

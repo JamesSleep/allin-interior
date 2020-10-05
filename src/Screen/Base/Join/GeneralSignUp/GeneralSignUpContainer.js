@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import GeneralSignUpPresenter from "./GeneralSignUpPresenter";
-import { SignUpAPI, MemberImage } from "../../../../common/api";
+import { SignUpAPI, ImageUploadAPI } from "../../../../common/api";
 import { createSalt, cryptoGraphic } from "../../../../utils/cryptographic";
 import AsyncStorage from "@react-native-community/async-storage";
 import * as KeyChain from "react-native-keychain";
@@ -28,7 +28,7 @@ export default ({ navigation }) => {
   const [profile, setProfile] = useState({
     image_path: "",
     image_data: null,
-    image_tag: "profile"
+    image_tag: "MemberProfile"
   })
   const setState = (property, value) => {
     setSignUpData({
@@ -38,10 +38,10 @@ export default ({ navigation }) => {
   }
   const submitControll = async () => {
     const salt = createSalt();
-    const passwrod = cryptoGraphic(signUpData.password1, salt);
+    const password = cryptoGraphic(signUpData.password1, salt);
     const postData = JSON.stringify({
       "email": signUpData.email,
-      "password": passwrod,
+      "password": password,
       "salt": salt,
       "user_name": signUpData.user_name,
       "nick_name": signUpData.nickname,
@@ -61,16 +61,16 @@ export default ({ navigation }) => {
     
     const result = await SignUpAPI(postData);
     if(!result[0]) return;
-    const imageResult = await MemberImage(form);
+    const imageResult = await ImageUploadAPI(form);
     if(imageResult[0]) {
       console.log("성공");
       await AsyncStorage.setItem("loginData", loginData);
       await KeyChain.setInternetCredentials(
         DeviceInfo.getUniqueId(),
         salt,
-        passwrod,
+        signUpData.password1,
         { accessible: KeyChain.ACCESSIBLE.WHEN_UNLOCKED }
-      )
+      );
     }
   }
   return (
