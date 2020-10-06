@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end"
   },
   image: {
-    width: _WIDTH*0.25,
-    height:  _WIDTH*0.25,
+    width: _WIDTH*0.22,
+    height:  _WIDTH*0.22,
     borderRadius: 50,
   },
   nameContainer: {
