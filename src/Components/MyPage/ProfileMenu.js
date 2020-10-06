@@ -21,11 +21,6 @@ export default ({ navigation, logout }) => (
       >
         <TouchableOpacity
           style={styles.button}
-          onPress={
-            menu.name === "로그아웃" ?
-            logout() :
-            navigation.navigate(menu.route)
-          }
         >
           <MaterialCom 
             name={menu.icon}

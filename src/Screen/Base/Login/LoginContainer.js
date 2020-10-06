@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
 import LoginPresenter from "./LoginPresenter";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform, MaskedViewBase } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import * as KeyChain from "react-native-keychain";
 import DeviceInfo from "react-native-device-info";
 import { SaltReturnAPI, LoginAPI, UserInfoAPI } from "../../../common/api";
 import { cryptoGraphic } from "../../../utils/cryptographic";
 import { postMessage } from "../../../utils/postMessage";
+import { connect } from "react-redux";
+import ActionCreators from "../../../redux/action";
 
-export default ({ navigation }) => {
+const mapStateToProps = state => {
+  return {
+    user_info: state.user_info
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUserInfo: (user_info) => {
+      dispatch(ActionCreators.setUserInfo(user_info))
+    }
+  }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUserInfo }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -16,7 +32,7 @@ export default ({ navigation }) => {
     saveEmail: false
   })
   useEffect(() => {
-    //setOption();
+    setOption();
   },[]);
   const setState = (property, value) => {
     setLoginInfo({
@@ -46,9 +62,17 @@ export default ({ navigation }) => {
   const autoLogin = async (loginData) => {
     const { email } = loginData;
     const { 
-      salt, password 
+      username, password 
     } = await KeyChain.getInternetCredentials(DeviceInfo.getUniqueId());
-
+    const password_ = cryptoGraphic(password, username);
+    const result = await login(email, password_);
+    if(result[0]) {
+      const userInfo = await UserInfoAPI(JSON.stringify({
+        "email": email
+      }));
+      setUserInfo(userInfo[1]);
+      navigation.navigate("MemberTabRouter");
+    }
   }
   const submitControll = async () => {
     if(!loginInfo.email || !loginInfo.password) {
@@ -85,7 +109,7 @@ export default ({ navigation }) => {
     );
     if(result[1] === "member") {
       const userInfo = await UserInfoAPI(postData);
-      await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo[1]));
+      setUserInfo(userInfo[1]);
       navigation.navigate("MemberTabRouter");
     }
     else 
@@ -104,4 +128,4 @@ export default ({ navigation }) => {
       />
     </KeyboardAvoidingView>
   )
-}
+});
