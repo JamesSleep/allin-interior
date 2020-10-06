@@ -1,10 +1,20 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { backgroundColor, _WIDTH } from "../../common/theme";
+import EvilIcon from "react-native-vector-icons/EvilIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default () => (
+export default ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.title}>스토리</Text>
+    <View style={styles.icon}>
+      <TouchableOpacity onPress={()=>navigation.navigate("Write")}>
+        <EvilIcon 
+          name="camera"
+          size={_WIDTH/13}
+        />
+      </TouchableOpacity>
+    </View>
   </View>
 );
 
@@ -23,5 +33,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: _WIDTH/24,
+  },
+  icon: {
+    position: "absolute",
+    right: _WIDTH/20,
   }
 });

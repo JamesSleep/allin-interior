@@ -23,6 +23,7 @@ export default connect(mapStateToProps, mapDispatchToProps)
   return (
     <StoryPresenter 
       userInfo={user_info.information}
+      navigation={navigation}
     />
   )
 });

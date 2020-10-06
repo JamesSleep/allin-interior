@@ -6,7 +6,7 @@ import Header from "../../Components/Story/Header";
 
 export default ({ navigation, userInfo }) => (
   <View style={styles.container}>
-    <Header />
+    <Header navigation={navigation} />
     <ScrollView
       contentContainerStyle={{
         paddingVertical: _WIDTH/30,

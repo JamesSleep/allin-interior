@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>347061868238-k427ccvtr1vhmrinj3289de7jhmugmkt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.347061868238-k427ccvtr1vhmrinj3289de7jhmugmkt</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA3uM7yocXDFp2CJINtDoCE9lYKYubXBbA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>347061868238</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.allin-interior</string>
+	<key>PROJECT_ID</key>
+	<string>allin-interior</string>
+	<key>STORAGE_BUCKET</key>
+	<string>allin-interior.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:347061868238:ios:ef4ac5d3a30c7c9d47629f</string>
+	<key>DATABASE_URL</key>
+	<string>https://allin-interior.firebaseio.com</string>
+</dict>
+</plist>

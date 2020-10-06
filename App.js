@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StatusBar, SafeAreaView } from 'react-native';
+import { StatusBar, SafeAreaView, Platform } from 'react-native';
 import BaseStackRouter from './src/Router/BaseStackRouter';
 
 import { Provider } from "react-redux";
@@ -12,7 +12,12 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <StatusBar barStyle="dark-content" />
+        { Platform.OS === "android" && (
+          <StatusBar 
+            barStyle={"dark-content"}
+            backgroundColor={"white"}
+          />
+        )}
         <SafeAreaView style={{ flex: 1 }}>
           <Provider store={createStore(reducers)}>
             <BaseStackRouter/>

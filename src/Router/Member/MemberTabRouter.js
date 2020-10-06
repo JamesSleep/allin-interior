@@ -1,11 +1,11 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
 import Request from "../../Screen/NormalMember/Requset";
 import Altners from "../../Screen/NormalMember/Altners";
-import Story from "../../Screen/Story";
+import Story from "../StoryStackRouter";
 import MyPage from "../../Screen/NormalMember/MyPage";
-import { StyleSheet } from "react-native";
 import { buttonColor, _WIDTH } from "../../common/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";

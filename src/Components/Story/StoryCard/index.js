@@ -4,6 +4,7 @@ import Header from "./Header";
 import { backgroundColor } from "../../../common/theme";
 import ImageViewer from "./ImageViewer";
 import Content from "./Content";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default ({ navigation, userInfo }) => (
   <View style={styles.container}>
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
   }
