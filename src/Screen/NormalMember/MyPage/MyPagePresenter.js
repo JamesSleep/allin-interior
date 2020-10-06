@@ -12,7 +12,9 @@ export default ({ navigation, userInfo, logout }) => (
       nick_name={userInfo.information.nick_name}
     />
     <UserSocial 
-
+      follower={userInfo.follower}
+      following={userInfo.following}
+      write={userInfo.write}
     />
     <ProfileMenu 
       navigation={navigation}

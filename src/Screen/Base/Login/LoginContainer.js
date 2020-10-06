@@ -42,6 +42,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
   }
   const setOption = async () => {
     const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
+    if(!loginData) return;
     if(loginData.autoLogin) 
       autoLogin(loginData);
     else if(loginData.saveEmail) 

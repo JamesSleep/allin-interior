@@ -32,7 +32,7 @@ export default () => (
           <Ionicons 
             name="home-outline" 
             color={color}
-            size={size*1.2}
+            size={size*0.95}
           />
         )
       }}
@@ -46,7 +46,7 @@ export default () => (
           <AntDesign 
             name="inbox"
             color={color}
-            size={size*1.2} 
+            size={size*0.95} 
           />
         )
       }}
@@ -60,7 +60,7 @@ export default () => (
           <MaterialCom 
             name="account-hard-hat" 
             color={color}
-            size={size*1.2}
+            size={size*0.95}
           />
         )
       }}
@@ -74,7 +74,7 @@ export default () => (
           <Ionicons 
             name="book-outline"
             color={color}
-            size={size*1.2} 
+            size={size*0.95} 
           />
         )
       }}
@@ -88,7 +88,7 @@ export default () => (
           <AntDesign  
             name="user" 
             color={color}
-            size={size*1.2}
+            size={size*0.95}
           />
         )
       }}
@@ -98,9 +98,9 @@ export default () => (
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: _WIDTH*0.15,
+    //height: _WIDTH*0.1,
   },
   label: {
-    fontSize: _WIDTH/35,
+    fontSize: _WIDTH/40,
   },
 })

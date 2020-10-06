@@ -2,20 +2,20 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { _WIDTH } from "../../common/theme";
 
-export default ({ }) => (
+export default ({ following, follower, write }) => (
   <View style={styles.container}>
     <View style={styles.countContainer}>
-      <Text style={styles.headText}>0</Text>
+      <Text style={styles.headText}>{following}</Text>
       <Text style={styles.subText}>팔로잉</Text>
     </View>
     <View style={styles.line} />
     <View style={styles.countContainer}>
-      <Text style={styles.headText}>0</Text>
+      <Text style={styles.headText}>{follower}</Text>
       <Text style={styles.subText}>팔로워</Text>
     </View>
     <View style={styles.line} />
     <View style={styles.countContainer}>
-    <Text style={styles.headText}>0</Text>
+      <Text style={styles.headText}>{write}</Text>
       <Text style={styles.subText}>좋아요</Text>
     </View>
   </View>
