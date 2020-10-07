@@ -5,14 +5,20 @@ import Header from "../../../Components/Story/Write/Header";
 import InputContent from "../../../Components/Story/Write/InputContent";
 import ImageContainer from "../../../Components/Story/Write/ImageContainer";
 
-export default ({ navigation, state, setState, post }) => (
+export default ({ navigation, state, setState, image, setImage, post }) => (
   <View style={styles.container}>
     <Header 
       navigation={navigation}
       post={post}
     />
-    <InputContent />
-    <ImageContainer />
+    <InputContent 
+      state={state}
+      setState={setState}
+    />
+    <ImageContainer 
+      state={image}
+      setState={setImage}
+    />
   </View>
 );
 

@@ -41,4 +41,5 @@ export const ImageUploadAPI = async postData  => imageRequest("ImageUpload", pos
 export const CompanySignUpAPI = async postData => getDataPOST("COMPANY/SignUp", postData, JSON_HEADERS); //업체회원가입 API
 export const LoginAPI = async postData  => getDataPOST("Login", postData, JSON_HEADERS); //로그인 API
 export const SaltReturnAPI = async postData => getDataPOST("Login/Salt", postData, JSON_HEADERS); // 암호화 토큰 조회
-export const UserInfoAPI = async postData => getDataPOST("USER/GetUser", postData, JSON_HEADERS);
+export const UserInfoAPI = async postData => getDataPOST("USER/GetUser", postData, JSON_HEADERS); // 유저정보조회
+export const PostStoryAPI = async postData => getDataPOST("Story/Write", postData, JSON_HEADERS); // 스토리 공유

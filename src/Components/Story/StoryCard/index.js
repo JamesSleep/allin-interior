@@ -8,11 +8,15 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default ({ navigation, userInfo }) => (
   <View style={styles.container}>
-    <Header 
-      profile={userInfo.profile}
-    />
-    <ImageViewer />
-    <Content />
+    <TouchableOpacity>
+      <View style={{ width: "100%", height: 350 }}>
+        <Header 
+          profile={userInfo.profile}
+        />
+        <ImageViewer />
+        <Content />
+      </View>
+    </TouchableOpacity>
   </View>
 );
 

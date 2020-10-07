@@ -2,11 +2,17 @@ import React from "react";
 import { View, StyleSheet, TextInput } from "react-native";
 import { _WIDTH } from "../../../common/theme";
 
-export default ({ setState }) => (
+export default ({ state, setState }) => (
   <View style={styles.container}>
     <TextInput 
       style={styles.input}
       multiline
+      placeholder="문구 입력..."
+      placeholderTextColor="gray"
+      onChangeText={text=>setState({
+        ...state,
+        content: text
+      })}
     />
   </View>
 );

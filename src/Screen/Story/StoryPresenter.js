@@ -23,6 +23,6 @@ export default ({ navigation, userInfo }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ecf0f1"
+    backgroundColor: backgroundColor
   }
 });
