@@ -45,6 +45,7 @@ export default connect(mapStateToProps, mapDispatchToProps)
       "content": story.content,
       "mb_index": Number(story.mb_index)
     });
+    console.log(data);
     const form = storyImgs.map((image, index) => ([
       { name: "image", filename: "image.jpg", type: "image/jpg", data: image.image_data },
       { name: "image_tag", data: image.image_tag },

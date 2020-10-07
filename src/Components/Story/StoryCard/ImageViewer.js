@@ -1,10 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { imagePathFormat } from "../../../utils/imagePathFormat";
 
-export default () => (
+export default ({ image }) => (
   <View style={styles.container}>
     <Image 
-      source={require("../../../Image/company2.jpeg")}
+      source={{ uri: imagePathFormat(image) }}
       style={styles.image}
       resizeMode="cover"
     />

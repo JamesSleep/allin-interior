@@ -43,3 +43,4 @@ export const LoginAPI = async postData  => getDataPOST("Login", postData, JSON_H
 export const SaltReturnAPI = async postData => getDataPOST("Login/Salt", postData, JSON_HEADERS); // 암호화 토큰 조회
 export const UserInfoAPI = async postData => getDataPOST("USER/GetUser", postData, JSON_HEADERS); // 유저정보조회
 export const PostStoryAPI = async postData => getDataPOST("Story/Write", postData, JSON_HEADERS); // 스토리 공유
+export const GetStoryAPI = async postData => getDataPOST("Story/GetStory", postData, JSON_HEADERS);  // 스토리 리스트 조회

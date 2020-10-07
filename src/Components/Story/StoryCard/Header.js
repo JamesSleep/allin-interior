@@ -4,14 +4,14 @@ import Feather from "react-native-vector-icons/Feather";
 import { imagePathFormat } from "../../../utils/imagePathFormat";
 import { _WIDTH } from "../../../common/theme";
 
-export default ({ profile }) => (
+export default ({ profile, nickname }) => (
   <View style={styles.container}>
     <Image 
       source={{ uri: imagePathFormat(profile) }}
       style={styles.image}
     />
     <View style={styles.textContainer}>
-      <Text style={styles.username}>RedVel_Joy</Text>
+      <Text style={styles.username}>{nickname}</Text>
       <Text style={styles.time}>6분전</Text>
     </View>
     <Feather 

@@ -1,19 +1,22 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Header from "./Header";
-import { backgroundColor } from "../../../common/theme";
+import { backgroundColor, _WIDTH } from "../../../common/theme";
 import ImageViewer from "./ImageViewer";
 import Content from "./Content";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default ({ navigation, userInfo }) => (
+export default ({ navigation, data, loginUser }) => (
   <View style={styles.container}>
     <TouchableOpacity>
       <View style={{ width: "100%", height: 350 }}>
         <Header 
-          profile={userInfo.profile}
+          profile={data.user_info.profile}
+          nickname={data.user_info.nick_name}
         />
-        <ImageViewer />
+        <ImageViewer 
+          image={data.images[0].image_path}
+        />
         <Content />
       </View>
     </TouchableOpacity>
@@ -24,6 +27,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: 350,
+    marginBottom: _WIDTH/15,
     borderRadius: 10,
     backgroundColor: backgroundColor,
     shadowColor: "#000",

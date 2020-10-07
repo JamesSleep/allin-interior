@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import StoryPresenter from "./StoryPresenter";
 
 import { connect } from "react-redux";
 import ActionCreators from "../../redux/action";
+import { GetStoryAPI } from "../../common/api";
 
 const mapStateToProps = state => {
   return {
@@ -20,10 +21,20 @@ const mapDispatchToProps = dispatch => {
 
 export default connect(mapStateToProps, mapDispatchToProps)
 (({ navigation, user_info }) => {
+  const [storyList, setStoryList] = useState([]);
+
+  useEffect(() => { getStoryList(); }, []);
+
+  const getStoryList = async () => {
+    const result = await GetStoryAPI();
+    setStoryList(result[1]);
+  };
+
   return (
     <StoryPresenter 
       userInfo={user_info.information}
       navigation={navigation}
+      storyList={storyList}
     />
   )
 });

@@ -4,7 +4,7 @@ import { backgroundColor, _WIDTH } from "../../common/theme";
 import StoryCard from "../../Components/Story/StoryCard";
 import Header from "../../Components/Story/Header";
 
-export default ({ navigation, userInfo }) => (
+export default ({ navigation, userInfo, storyList=[] }) => (
   <View style={styles.container}>
     <Header navigation={navigation} />
     <ScrollView
@@ -13,9 +13,15 @@ export default ({ navigation, userInfo }) => (
         paddingHorizontal: _WIDTH/25,
       }}
     >
-      <StoryCard 
-        userInfo={userInfo}
-      />
+      { storyList.length > 0 && (
+        storyList.map((story, index) => (
+          <StoryCard 
+            key={index}
+            data={story}
+            loginUser={userInfo}
+          />
+        ))
+      )}
     </ScrollView>
   </View>
 ) 
