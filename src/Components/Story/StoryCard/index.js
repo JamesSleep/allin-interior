@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default ({ navigation, data, loginUser }) => (
   <View style={styles.container}>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("Detail", { data: data })}>
       <View style={{ width: "100%", height: 350 }}>
         <Header 
           profile={data.user_info.profile}

@@ -19,6 +19,7 @@ export default ({ navigation, userInfo, storyList=[] }) => (
             key={index}
             data={story}
             loginUser={userInfo}
+            navigation={navigation}
           />
         ))
       )}
