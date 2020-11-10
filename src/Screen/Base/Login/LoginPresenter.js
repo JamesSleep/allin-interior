@@ -19,11 +19,6 @@ export default ({ loginInfo, setState, navigation, submit }) => (
           password={loginInfo.password}
           setState={setState}
         />
-        <Options 
-          autoLogin={loginInfo.autoLogin}
-          saveID={loginInfo.saveID}
-          setState={setState}
-        />
         <CommitButton 
           navigation={navigation}
           submitLogin={submit}

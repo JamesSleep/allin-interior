@@ -10,20 +10,20 @@ export default ({ navigation, check, setState, nextStep }) => (
   <View style={styles.container}>
     <Header navigation={navigation} />
     <TitleContainer />
-    <CheckBox 
+    <CheckBox
       check={check}
       setState={setState}
     />
-    <View style={{ paddingHorizontal: 25 }}>
-      <TouchableOpacity 
+    <View style={{ marginBottom: 30, paddingHorizontal: 25 }}>
+      <TouchableOpacity
         style={styles.button}
-        onPress={()=>nextStep()}
+        onPress={() => nextStep()}
       >
         <Text style={styles.text}>시작하기</Text>
       </TouchableOpacity>
     </View>
   </View>
-) 
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor
   },
   button: {
-    backgroundColor: buttonColor, 
-    height: _WIDTH/12, 
-    borderRadius: 5, 
+    backgroundColor: buttonColor,
+    height: _WIDTH / 10,
+    borderRadius: 5,
     justifyContent: "center"
   },
   text: {
-    color: "white", 
-    fontSize: _WIDTH/27, 
+    color: "white",
+    fontSize: _WIDTH / 27,
     textAlign: "center"
   }
 });
