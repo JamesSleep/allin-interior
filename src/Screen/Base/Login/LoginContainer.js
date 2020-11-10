@@ -28,7 +28,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
-    autoLogin: false,
+    autoLogin: true,
   })
   useEffect(() => {
     setOption();

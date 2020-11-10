@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AltnersPresenter from "./AltnersPresenter";
+import { CompanyInfoAPI } from "../../../common/api";
 
 export default () => {
+  const [companies, setCompanies] = useState();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const result = await CompanyInfoAPI();
+    setCompanies(result[1]);
+  }
+
   return (
-    <AltnersPresenter />
+    <AltnersPresenter 
+      companies={companies}
+    />
   )
 }
