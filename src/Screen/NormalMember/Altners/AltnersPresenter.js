@@ -16,9 +16,9 @@ export default ({ navigation, companies = [] }) => (
       {companies.length > 0 && (
         companies.map((company, index) => (
           <CompanyCard
-            name={company.business_name}
-            city={company.city}
-            district={company.district}
+            key={index}
+            info={company}
+            navigation={navigation}
           />
         ))
       )}

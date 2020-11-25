@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AltnersPresenter from "./AltnersPresenter";
 import { CompanyInfoAPI } from "../../../common/api";
 
-export default () => {
+export default ({ navigation }) => {
   const [companies, setCompanies] = useState();
 
   useEffect(() => {
@@ -15,8 +15,9 @@ export default () => {
   }
 
   return (
-    <AltnersPresenter 
+    <AltnersPresenter
       companies={companies}
+      navigation={navigation}
     />
   )
 }

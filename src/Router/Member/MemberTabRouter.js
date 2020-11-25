@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
 import Request from "../../Screen/NormalMember/Requset";
-import Altners from "../../Screen/NormalMember/Altners";
+import AltnersRouter from "./AltnersStackRouter";
 import Story from "../StoryStackRouter";
 import MyPage from "../../Screen/NormalMember/MyPage";
 import { buttonColor, _WIDTH } from "../../common/theme";
@@ -14,8 +14,8 @@ import MaterialCom from "react-native-vector-icons/MaterialCommunityIcons";
 const Tab = createBottomTabNavigator();
 
 export default () => (
-  <Tab.Navigator 
-    initialRouteName="Home" 
+  <Tab.Navigator
+    initialRouteName="Home"
     headerMode="none"
     tabBarOptions={{
       activeTintColor: buttonColor,
@@ -23,72 +23,72 @@ export default () => (
       labelStyle: styles.label
     }}
   >
-    <Tab.Screen 
-      name="Home" 
+    <Tab.Screen
+      name="Home"
       component={Home}
       options={{
         tabBarLabel: "홈",
-        tabBarIcon : ({ color, size }) => (
-          <Ionicons 
-            name="home-outline" 
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
+            name="home-outline"
             color={color}
-            size={size*0.95}
+            size={size * 0.95}
           />
         )
       }}
     />
-    <Tab.Screen 
-      name="Request" 
-      component={Request} 
+    <Tab.Screen
+      name="Request"
+      component={Request}
       options={{
         tabBarLabel: "견적요청함",
-        tabBarIcon : ({ color, size }) => (
-          <AntDesign 
+        tabBarIcon: ({ color, size }) => (
+          <AntDesign
             name="inbox"
             color={color}
-            size={size*0.95} 
+            size={size * 0.95}
           />
         )
       }}
     />
-    <Tab.Screen 
-      name="Altners" 
-      component={Altners} 
+    <Tab.Screen
+      name="AltnersRouter"
+      component={AltnersRouter}
       options={{
         tabBarLabel: "올트너스",
-        tabBarIcon : ({ color, size }) => (
-          <MaterialCom 
-            name="account-hard-hat" 
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCom
+            name="account-hard-hat"
             color={color}
-            size={size*0.95}
+            size={size * 0.95}
           />
         )
       }}
     />
-    <Tab.Screen 
-      name="Story" 
-      component={Story} 
+    <Tab.Screen
+      name="Story"
+      component={Story}
       options={{
         tabBarLabel: "스토리",
-        tabBarIcon : ({ color, size }) => (
-          <Ionicons 
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons
             name="book-outline"
             color={color}
-            size={size*0.95} 
+            size={size * 0.95}
           />
         )
       }}
     />
-    <Tab.Screen 
-      name="MyPage" 
-      component={MyPage} 
+    <Tab.Screen
+      name="MyPage"
+      component={MyPage}
       options={{
         tabBarLabel: "마이페이지",
-        tabBarIcon : ({ color, size }) => (
-          <AntDesign  
-            name="user" 
+        tabBarIcon: ({ color, size }) => (
+          <AntDesign
+            name="user"
             color={color}
-            size={size*0.95}
+            size={size * 0.95}
           />
         )
       }}
@@ -101,6 +101,6 @@ const styles = StyleSheet.create({
     //height: _WIDTH*0.1,
   },
   label: {
-    fontSize: _WIDTH/40,
+    fontSize: _WIDTH / 40,
   },
 })
