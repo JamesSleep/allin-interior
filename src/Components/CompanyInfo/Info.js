@@ -1,10 +1,12 @@
 import React from "react";
+import { Image } from "react-native";
 import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
 
 export default ({ ceoName, year, city }) => (
   <Container>
     <StarView>
+      <Star source={require("../../Image/star.png")} />
       <StarText>4.5</StarText>
     </StarView>
     <InfoColumn>
@@ -51,7 +53,7 @@ const CategoryValue = styled.Text`
 
 const TierView = styled.View`
   width: ${_WIDTH / 10}px;
-  background-color: blue;
+  background-color: #00cec9;
   border-radius: 5px;
   align-items: center;
   margin-left: 10px;
@@ -64,11 +66,20 @@ const TierText = styled.Text`
 
 const StarView = styled.View`
   position: absolute;
-  top: 10;
-  right: 20;
+  top: 10px;
+  right: 30px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StarText = styled.Text`
-  font-size: ${_WIDTH / 26}px;
+  font-size: ${_WIDTH / 24}px;
   font-weight: bold;
+`;
+
+const Star = styled.Image`
+  width: ${_WIDTH / 24}px;
+  height: ${_WIDTH / 24}px;
+  margin-right: 5px;
 `;

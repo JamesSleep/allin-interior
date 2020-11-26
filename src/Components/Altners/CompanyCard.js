@@ -22,16 +22,17 @@ export default ({ info, navigation }) => (
             style={styles.profile}
           />
         </View>
+
         <View style={styles.itemColumn}>
           <Text style={styles.title}>{info.business_name}</Text>
           <View style={styles.tier}>
             <Text style={styles.tierText}>기능사</Text>
           </View>
         </View>
-      </View>
-      <View style={styles.tagColumn}>
-        <Text style={styles.tag}>전체시공</Text>
-        <Text style={styles.tag}>부분시공</Text>
+        <View style={styles.tagColumn}>
+          <Text style={styles.tag}>전체시공</Text>
+          <Text style={styles.tag}>부분시공</Text>
+        </View>
       </View>
     </TouchableOpacity>
   </View>
@@ -57,13 +58,14 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flexDirection: "row",
+    height: 110,
     paddingVertical: _WIDTH / 40,
     paddingHorizontal: _WIDTH / 20,
     alignItems: "center",
   },
   profileOuter: {
-    width: _WIDTH / 9,
-    height: _WIDTH / 9,
+    width: 70,
+    height: 70,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
@@ -73,11 +75,13 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   profile: {
-    width: _WIDTH / 9,
-    height: _WIDTH / 9,
+    width: 70,
+    height: 70,
   },
   itemColumn: {
-    justifyContent: "space-between",
+    width: "70%",
+    flexDirection: "row",
+    //justifyContent: "space-between",
     marginLeft: _WIDTH / 20,
   },
   title: {
