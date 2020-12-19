@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
-import Request from "../../Screen/NormalMember/Requset";
+import Shopping from "../../Screen/NormalMember/Shopping";
 import AltnersRouter from "./AltnersStackRouter";
 import Story from "../StoryStackRouter";
 import MyPage from "../../Screen/NormalMember/MyPage";
@@ -38,13 +38,13 @@ export default () => (
       }}
     />
     <Tab.Screen
-      name="Request"
-      component={Request}
+      name="Shopping"
+      component={Shopping}
       options={{
-        tabBarLabel: "견적요청함",
+        tabBarLabel: "쇼핑",
         tabBarIcon: ({ color, size }) => (
           <AntDesign
-            name="inbox"
+            name="shoppingcart"
             color={color}
             size={size * 0.95}
           />

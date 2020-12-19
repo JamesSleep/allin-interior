@@ -25,7 +25,7 @@ export default ({ title, background, navigation, ceoName, year, city, descriptio
       <Description description={description} />
     </ScrollView>
     <View style={styles.buttonColumn}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Request", { gate: title })}>
         <View style={styles.buttonView}>
           <Text style={styles.buttonText}>견적신청하기</Text>
         </View>

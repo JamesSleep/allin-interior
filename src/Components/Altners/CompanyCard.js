@@ -22,16 +22,17 @@ export default ({ info, navigation }) => (
             style={styles.profile}
           />
         </View>
-
-        <View style={styles.itemColumn}>
-          <Text style={styles.title}>{info.business_name}</Text>
-          <View style={styles.tier}>
-            <Text style={styles.tierText}>기능사</Text>
+        <View>
+          <View style={styles.itemColumn}>
+            <Text style={styles.title}>{info.business_name}</Text>
+            <View style={styles.tier}>
+              <Text style={styles.tierText}>기능사</Text>
+            </View>
           </View>
-        </View>
-        <View style={styles.tagColumn}>
-          <Text style={styles.tag}>전체시공</Text>
-          <Text style={styles.tag}>부분시공</Text>
+          <View style={styles.tagColumn}>
+            <Text style={styles.tag}>전체시공</Text>
+            <Text style={styles.tag}>부분시공</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     width: "70%",
     flexDirection: "row",
     //justifyContent: "space-between",
+    alignItems: "center",
     marginLeft: _WIDTH / 20,
   },
   title: {
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   tier: {
-    width: "90%",
+    width: _WIDTH / 6,
     height: _WIDTH / 20,
     backgroundColor: "#ff7675",
     justifyContent: "center",
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 3,
     borderRadius: 5,
+    marginLeft: 5,
   },
   tierText: {
     color: "white",

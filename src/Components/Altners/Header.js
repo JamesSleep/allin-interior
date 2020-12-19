@@ -1,12 +1,17 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { backgroundColor, _WIDTH } from "../../common/theme";
-import EvilIcon from "react-native-vector-icons/EvilIcons";
+import AntIcon from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.title}>올트너스</Text>
+    <View style={styles.icon}>
+      <TouchableOpacity onPress={() => navigation.navigate("Request", { gate: "main" })}>
+        <AntIcon name="form" size={_WIDTH / 20} />
+      </TouchableOpacity>
+    </View>
   </View>
 );
 
@@ -29,5 +34,5 @@ const styles = StyleSheet.create({
   icon: {
     position: "absolute",
     right: _WIDTH / 20,
-  }
+  },
 });

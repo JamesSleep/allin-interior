@@ -1,8 +1,8 @@
 import React from "react";
-import RequestPresenter from "./RequestPresenter";
+import ShoppingPresenter from "./ShoppingPresenter";
 
 export default ({ navigation }) => {
   return (
-    <RequestPresenter />
+    <ShoppingPresenter />
   )
 }
