@@ -47,8 +47,8 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundColor,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.85,
-    shadowRadius: 6,
+    shadowOpacity: 0.7,
+    shadowRadius: 1.5,
     elevation: 10,
   },
   buttonView: {

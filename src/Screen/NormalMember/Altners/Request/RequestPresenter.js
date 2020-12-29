@@ -3,8 +3,8 @@ import styled from "styled-components/native";
 import { backgroundColor, _WIDTH } from "../../../../common/theme";
 import Header from "../../../../Components/Request/Header";
 import SelectStyle from "../../../../Components/Request/SelectStyle";
-import SpaceDetail from "../../../../Components/Request/SpaceDetail";
-import SpaceStyle from "../../../../Components/Request/SpaceStyle";
+import ResidentialRequest from "../../../../Components/Request/ResidentialRequest";
+import CommercialRequest from "../../../../Components/Request/CommercialRequest";
 
 const Container = styled.View`
   flex: 1;
@@ -16,14 +16,29 @@ const Content = styled.View`
   padding: 5px ${_WIDTH / 20}px;
 `;
 
-export default ({ navigation, gate, info, setInfo }) => (
+export default ({ navigation, gate, info, setInfo, page, setPage, id }) => (
   <Container>
     <Header navigation={navigation} />
     <Content>
-      <SelectStyle
-        info={info}
-        setInfo={setInfo}
-      />
+      { page === 0 && (
+        <SelectStyle
+          info={info}
+          setInfo={setInfo}
+          setPage={setPage}
+        />
+      )}
+      { page === 1 && (
+        <ResidentialRequest 
+          id={id}
+          navigation={navigation} 
+        />
+      )}
+      { page === 2 && (
+        <CommercialRequest 
+          id={id} 
+          navigation={navigation}
+        />
+      )}
     </Content>
   </Container>
 );

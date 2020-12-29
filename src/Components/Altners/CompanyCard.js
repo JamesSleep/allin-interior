@@ -7,6 +7,7 @@ import Votes from "./Votes";
 
 export default ({ info, navigation }) => (
   <View style={styles.container}>
+    {console.log(info)}
     <TouchableOpacity onPress={() => navigation.navigate("CompanyInfo", { info })}>
       <View>
         <Image
@@ -48,14 +49,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(250, 250, 250, 1)",
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.7,
+    shadowOpacity: 0.3,
     shadowRadius: 3,
-    elevation: 5,
-    overflow: "hidden",
+    elevation: 10,
+    //overflow: "hidden",
   },
   background: {
     width: "100%",
     height: 170,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   cardContent: {
     flexDirection: "row",

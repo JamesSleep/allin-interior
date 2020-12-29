@@ -17,7 +17,7 @@ const IconView = styled.View`
   background-color: #F9F9F9;
   border-radius: 10px;
   margin: 10px 0px;
-  padding: 10px 20px;
+  padding: 20px 20px;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -29,8 +29,8 @@ const IconTile = styled.View`
 `;
 
 const Icon = styled.Image`
-  width: ${_WIDTH / 7}px;
-  height: ${_WIDTH / 7}px;
+  width: ${_WIDTH / 9}px;
+  height: ${_WIDTH / 9}px;
 `;
 
 const Text = styled.Text`
@@ -47,16 +47,16 @@ export default () => (
         <Text>종합시공</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/comprehensive.png")} />
-        <Text>종합시공</Text>
+        <Icon source={require("../../Image/partial_construction.png")} />
+        <Text>부분시공</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/comprehensive.png")} />
-        <Text>종합시공</Text>
+        <Icon source={require("../../Image/residential.png")} />
+        <Text>주거공간</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/comprehensive.png")} />
-        <Text>종합시공</Text>
+        <Icon source={require("../../Image/commercial_space.png")} />
+        <Text>상업공간</Text>
       </IconTile>
     </IconView>
   </Container>

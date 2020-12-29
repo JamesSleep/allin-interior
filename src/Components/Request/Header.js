@@ -26,7 +26,7 @@ export default ({ navigation }) => (
     <Arrow>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <AntDesign
-          name="arrowleft"
+          name="close"
           size={_WIDTH / 20}
         />
       </TouchableOpacity>

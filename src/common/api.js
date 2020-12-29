@@ -45,3 +45,4 @@ export const UserInfoAPI = async postData => getDataPOST("USER/GetUser", postDat
 export const CompanyInfoAPI = async postData => getDataPOST("COMPANY/GetCompany", postData, JSON_HEADERS); // 회사정보조회
 export const PostStoryAPI = async postData => getDataPOST("Story/Write", postData, JSON_HEADERS); // 스토리 공유
 export const GetStoryAPI = async postData => getDataPOST("Story/GetStory", postData, JSON_HEADERS);  // 스토리 리스트 조회
+export const NewEstimateAPI = async postData => getDataPOST("Estimate/NewEstimate", postData, JSON_HEADERS); // 주문 등록

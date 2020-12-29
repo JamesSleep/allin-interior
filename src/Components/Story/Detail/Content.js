@@ -35,12 +35,12 @@ export default ({ heart, comments, content, hashTag }) => {
       {/* content */}
       <View style={styles.contentView}>
         <Text style={styles.contentText}>{content}</Text>
-        <TextInput 
+        {/* <TextInput 
           multiline
           placeholder="문구 입력..."
           placeholderTextColor="#ecf0f1"
           style={styles.input}
-        />
+        /> */}
       </View>
       {/* content */}
     </View>
