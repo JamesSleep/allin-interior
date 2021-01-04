@@ -5,16 +5,16 @@ import ProfileHeader from "../../../Components/MyPage/ProfileHeader";
 import UserSocial from "../../../Components/MyPage/UserSocial";
 import ProfileMenu from "../../../Components/MyPage/ProfileMenu";
 
-export default ({ navigation, userInfo, logout }) => (
+export default ({ navigation, userInfo, logout, follow }) => (
   <View style={styles.container}>
     <ProfileHeader 
-      image_path={userInfo.information.profile}
-      nick_name={userInfo.information.nick_name}
+      image_path={userInfo.profile}
+      nick_name={userInfo.nick_name}
     />
     <UserSocial 
-      follower={userInfo.follower}
-      following={userInfo.following}
-      write={userInfo.write}
+      follower={follow.following}
+      following={follow.follower}
+      write={follow.write}
     />
     <ProfileMenu 
       navigation={navigation}

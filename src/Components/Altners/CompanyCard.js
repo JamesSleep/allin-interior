@@ -7,7 +7,6 @@ import Votes from "./Votes";
 
 export default ({ info, navigation }) => (
   <View style={styles.container}>
-    {console.log(info)}
     <TouchableOpacity onPress={() => navigation.navigate("CompanyInfo", { info })}>
       <View>
         <Image

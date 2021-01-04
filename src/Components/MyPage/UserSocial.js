@@ -16,7 +16,7 @@ export default ({ following, follower, write }) => (
     <View style={styles.line} />
     <View style={styles.countContainer}>
       <Text style={styles.headText}>{write}</Text>
-      <Text style={styles.subText}>좋아요</Text>
+      <Text style={styles.subText}>게시글</Text>
     </View>
   </View>
 );

@@ -5,7 +5,7 @@ import Home from "../../Screen/NormalMember/Home";
 import Shopping from "../../Screen/NormalMember/Shopping";
 import AltnersRouter from "./AltnersStackRouter";
 import Story from "../StoryStackRouter";
-import MyPage from "../../Screen/NormalMember/MyPage";
+import MyPageRouter from "../../Router/Member/MyPageStackRouter";
 import { buttonColor, _WIDTH } from "../../common/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -80,8 +80,8 @@ export default () => (
       }}
     />
     <Tab.Screen
-      name="MyPage"
-      component={MyPage}
+      name="MyPageRouter"
+      component={MyPageRouter}
       options={{
         tabBarLabel: "마이페이지",
         tabBarIcon: ({ color, size }) => (

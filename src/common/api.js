@@ -46,3 +46,5 @@ export const CompanyInfoAPI = async postData => getDataPOST("COMPANY/GetCompany"
 export const PostStoryAPI = async postData => getDataPOST("Story/Write", postData, JSON_HEADERS); // 스토리 공유
 export const GetStoryAPI = async postData => getDataPOST("Story/GetStory", postData, JSON_HEADERS);  // 스토리 리스트 조회
 export const NewEstimateAPI = async postData => getDataPOST("Estimate/NewEstimate", postData, JSON_HEADERS); // 주문 등록
+export const GetEstimateAPI = async postData => getDataPOST("Estimate/GetEstimate", postData, JSON_HEADERS); // 주문 조회
+export const GetFollowAPI = async postData => getDataPOST("USER/GetFollow", postData, JSON_HEADERS); // 팔로우 조회
