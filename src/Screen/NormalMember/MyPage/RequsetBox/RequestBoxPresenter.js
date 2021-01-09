@@ -11,7 +11,7 @@ const Container = styled.View`
 
 const Content = styled.ScrollView``;
 
-export default ({ requestList }) => (
+export default ({ requestList, navigation }) => (
   <Container>
     <Head />
     <Content
@@ -20,10 +20,11 @@ export default ({ requestList }) => (
         paddingHorizontal: _WIDTH / 25,
       }}
     >
-      { requestList.map(request => (
-        <RequestCard 
+      {requestList.map(request => (
+        <RequestCard
           key={request.es_index}
           info={request}
+          navigation={navigation}
         />
       ))}
     </Content>

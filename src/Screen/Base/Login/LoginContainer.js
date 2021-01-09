@@ -30,21 +30,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     password: "",
     autoLogin: true,
   })
+
   useEffect(() => {
     setOption();
   }, []);
+
   const setState = (property, value) => {
     setLoginInfo({
       ...loginInfo,
       [property]: value
     });
   }
+
   const setOption = async () => {
     const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
     if (!loginData) return;
     if (loginData.autoLogin)
       autoLogin(loginData);
   }
+
   const login = async (email, password) => {
     const postData = JSON.stringify({
       "email": email,
@@ -53,6 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     const result = await LoginAPI(postData);
     return result;
   }
+
   const autoLogin = async (loginData) => {
     const { email } = loginData;
     const {
@@ -65,9 +70,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
         "email": email
       }));
       setUserInfo(userInfo[1]);
-      navigation.navigate("MemberTabRouter");
+      if (result[1] === "member") {
+        navigation.navigate("MemberTabRouter");
+      } else {
+        navigation.navigate("CompanyTabRouter");
+      }
     }
   }
+
   const submitControll = async () => {
     if (!loginInfo.email || !loginInfo.password) {
       postMessage("로그인 정보를 입력해주세요!");
@@ -108,6 +118,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     else
       navigation.navigate("CompanyTabRouter");
   }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : null}

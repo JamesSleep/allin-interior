@@ -1,10 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
-import { UserInfoAPI } from "../../common/api";
+import { CompanyOneInfoAPI, UpdateEstimateAPI, UserInfoAPI } from "../../common/api";
 import { buttonColor, _WIDTH } from "../../common/theme";
 import { postMessage } from "../../utils/postMessage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const HeadColumn = styled.View`
   flex: 3;
@@ -65,7 +66,7 @@ const BuildText = styled.Text`
 const Payment = styled.View`
   width: ${_WIDTH / 5}px;
   height: ${_WIDTH / 15}px;
-  background-color: ${buttonColor};
+  background-color: ${props => props.pay ? "#95a5a6" : buttonColor};
   justify-content: center;
   align-items: center;
   border-radius: 5px;
@@ -76,13 +77,33 @@ const PaymentText = styled.Text`
   font-size: ${_WIDTH / 30}px;
 `;
 
-export default ({ info, navigation }) => {
-  const payment = () => {
-    if (info.payment === null) {
-      postMessage("시공이 완료되지않았습니다!");
+export default ({ info, navigation, companyName, setRefresh }) => {
+  const submit = async () => {
+    const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
+    const postData = JSON.stringify({
+      "email": loginData.email
+    });
+    const result = await CompanyOneInfoAPI(postData);
+    const companyInfo = result[1][0];
+
+    if (info.payment) {
       return;
     }
-    navigation.navigate("Payment");
+
+    if (!info.co_index) {
+      const data = JSON.stringify({
+        "es_index": info.es_index,
+        "co_index": companyName,
+      });
+      const result2 = await UpdateEstimateAPI(data);
+      console.log(result2);
+      if (result2[0]) {
+        setRefresh(true);
+      }
+    } else {
+      // 시공완료후 금액 및 영수증 등록
+      navigation.navigate("CompletePage", { data: info });
+    }
   }
 
   const build = async () => {
@@ -120,7 +141,7 @@ export default ({ info, navigation }) => {
       </HeadColumn>
       <Pay>
         <PayText>
-          {info.payment ? info.payment : info.pre_pay}
+          {info.payment ? info.payment + " 원" : info.pre_pay}
         </PayText>
       </Pay>
       <ButtonView>
@@ -132,10 +153,18 @@ export default ({ info, navigation }) => {
           </Build>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => payment()}
+          onPress={() => submit()}
+          activeOpacity={info.payment && 1}
         >
-          <Payment>
-            <PaymentText>결제하기</PaymentText>
+          <Payment pay={info.payment}>
+            <PaymentText>
+              {info.payment ?
+                "결제대기" :
+                !info.co_index ?
+                  "수락하기" :
+                  "시공완료"
+              }
+            </PaymentText>
           </Payment>
         </TouchableOpacity>
       </ButtonView>

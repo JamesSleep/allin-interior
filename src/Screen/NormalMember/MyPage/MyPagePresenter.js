@@ -7,21 +7,21 @@ import ProfileMenu from "../../../Components/MyPage/ProfileMenu";
 
 export default ({ navigation, userInfo, logout, follow }) => (
   <View style={styles.container}>
-    <ProfileHeader 
+    <ProfileHeader
       image_path={userInfo.profile}
       nick_name={userInfo.nick_name}
     />
-    <UserSocial 
+    <UserSocial
       follower={follow.following}
       following={follow.follower}
       write={follow.write}
     />
-    <ProfileMenu 
+    <ProfileMenu
       navigation={navigation}
       logout={logout}
     />
   </View>
-) 
+)
 
 const styles = StyleSheet.create({
   container: {

@@ -11,17 +11,21 @@ const Container = styled.View`
 
 const Text = styled.Text`
   margin-top: 10px;
-  font-size: ${_WIDTH/22}px;
+  font-size: ${_WIDTH / 22}px;
   font-weight: 400;
 `;
 
-export default () => (
+export default ({ option }) => (
   <Container>
-    <EvilIcons 
+    <EvilIcons
       name="check"
       color={buttonColor}
-      size={_WIDTH/7}
+      size={_WIDTH / 7}
     />
-    <Text>업체검색 신청완료</Text>
+    <Text>
+      {option === "build" && "견적서"}
+      {!option && "업체검색 신청완료"}
+      {option === "company" && "상세견적"}
+    </Text>
   </Container>
 )

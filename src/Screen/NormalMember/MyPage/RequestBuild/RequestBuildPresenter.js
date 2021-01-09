@@ -17,6 +17,7 @@ export default ({ navigation, data }) => (
     <Content data={data} />
     <Footer
       navigation={navigation}
+      option={"build"}
     />
   </Container>
 )

@@ -9,7 +9,7 @@ const Container = styled.View`
 `;
 
 const Button = styled.View`
-  height: ${_WIDTH/9}px;
+  height: ${_WIDTH / 9}px;
   background-color: ${buttonColor};
   justify-content: center;
   align-items: center;
@@ -20,9 +20,15 @@ const Text = styled.Text`
   color: white;
 `;
 
-export default ({ navigation }) => (
+export default ({ navigation, option }) => (
   <Container>
-    <TouchableOpacity onPress={()=>navigation.navigate("AltnersMain")}>
+    <TouchableOpacity
+      onPress={() => {
+        option === "build" || option === "company" ?
+          navigation.goBack() :
+          navigation.navigate("AltnersMain")
+      }}
+    >
       <Button>
         <Text>확인</Text>
       </Button>

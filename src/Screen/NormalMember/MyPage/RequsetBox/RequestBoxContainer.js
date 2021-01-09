@@ -3,7 +3,7 @@ import RequestBoxPresenter from "./RequestBoxPresenter";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GetEstimateAPI } from "../../../../common/api";
 
-export default ({  }) => {
+export default ({ navigation }) => {
   const [request, setRequest] = useState([]);
 
   useEffect(() => {
@@ -16,11 +16,14 @@ export default ({  }) => {
       "email": email
     });
     const result = await GetEstimateAPI(data);
-    setRequest(result[1]);
+    if (result[0]) {
+      setRequest(result[1]);
+    }
   }
 
   return (
-    <RequestBoxPresenter 
+    <RequestBoxPresenter
+      navigation={navigation}
       requestList={request}
     />
   )

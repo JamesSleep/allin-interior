@@ -43,7 +43,7 @@ export default ({ navigation, logout }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 7,
+    flex: 5,
     borderTopWidth: 7,
     borderTopColor: "#dff9fb"
   },
