@@ -82,7 +82,7 @@ export default ({ info, navigation }) => {
       postMessage("시공이 완료되지않았습니다!");
       return;
     }
-    navigation.navigate("Payment");
+    navigation.navigate("Payment", { data: info });
   }
 
   const build = async () => {

@@ -8,7 +8,7 @@ export default ({ navigation, logout }) => {
   const [MENU_LIST, setMENU_LIST] = useState([
     { name: "내가 쓴 리뷰", icon: "calendar-edit", onPress: () => navigation.navigate("MyPage") },
     { name: "내가 쓴 스토리", icon: "book-open-outline", onPress: () => navigation.navigate("MyPage") },
-    { name: "견적 요청함", icon: "email-send-outline", onPress: () => navigation.navigate("RequestList") },
+    { name: "견적 요청함", icon: "email-send-outline", onPress: () => navigation.navigate("RequestBox") },
     { name: "로그아웃", icon: "power", onPress: () => logout() }
   ]);
   return (
