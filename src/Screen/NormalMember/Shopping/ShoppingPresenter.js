@@ -1,26 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import IonicIcon from "react-native-vector-icons/Ionicons";
-import { _WIDTH } from "../../../common/theme";
+import styled from "styled-components/native";
+import { backgroundColor } from "../../../common/theme";
+import Search from "../../../Components/ShoppingHome/Search";
+import ShoppingHomeTopTab from "../../../Router/Shopping/ShoppingHomeTopTab";
 
-export default () => (
-  <View style={styles.container}>
-    <IonicIcon 
-      name="construct"
-      size={_WIDTH/5}
-    />
-    <Text style={styles.text}>준비중입니다</Text>
-  </View>
+const Container = styled.View`
+  flex: 1;
+  background-color: ${backgroundColor};
+`;
+
+export default ({ navigation }) => (
+  <Container>
+    <Search />
+    <ShoppingHomeTopTab />
+  </Container>
 ) 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  text: {
-    fontSize: _WIDTH/20,
-    fontWeight: "600"
-  }
-});

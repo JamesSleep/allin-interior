@@ -3,6 +3,8 @@ import ShoppingPresenter from "./ShoppingPresenter";
 
 export default ({ navigation }) => {
   return (
-    <ShoppingPresenter />
+    <ShoppingPresenter
+      navigation={navigation}
+    />
   )
 }
