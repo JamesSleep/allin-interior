@@ -33,7 +33,7 @@ const IconArray = [
   { icon: require("../../Image/all.png"), text: "전체", category: "" },
   { icon: require("../../Image/furniture.png"), text: "가구", category: "furniture" },
   { icon: require("../../Image/electronic.png"), text: "가전", category: "electronic" },
-  { icon: require("../../Image/fabric.png"), text: "페블릭", category: "fabric" },
+  { icon: require("../../Image/fabric.png"), text: "페브릭", category: "fabric" },
   { icon: require("../../Image/deco.png"), text: "홈데코", category: "deco" },
   { icon: require("../../Image/kitchen.png"), text: "주방", category: "kitchen" },
   { icon: require("../../Image/supplies.png"), text: "생활용품", category: "supplies" },

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { imagePathFormat } from "../../utils/imagePathFormat";
 
 const Container = styled.View`
   flex-direction: row;
@@ -47,7 +48,7 @@ const ReviewText = styled.Text`
 
 export default ({ info }) => (
   <Container>
-    <Image source={info.imageUrl} />
+    <Image source={{ uri: imagePathFormat(info.image) }} />
     <TextView>
       <ScoreView>
         <AntDesign
@@ -56,10 +57,10 @@ export default ({ info }) => (
           color="#e67e22"
         />
         <ScoreText> 4.7</ScoreText>
-        <Count>  (2277)</Count>
+        <Count>  ({info.review})</Count>
       </ScoreView>
       <Name>{info.name}</Name>
-      <ReviewText>{info.review}</ReviewText>
+      <ReviewText>{info.temp_review}</ReviewText>
     </TextView>
   </Container>
 );

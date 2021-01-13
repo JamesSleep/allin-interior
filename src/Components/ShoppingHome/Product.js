@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { imagePathFormat } from "../../utils/imagePathFormat";
 
 const Container = styled.View`
   width: ${_WIDTH * 0.45}px;
@@ -44,18 +45,18 @@ const Markcount = styled.Text`
 `;
 
 export default ({ navigation, info }) => (
-  <Container>
-    <Image source={info.imageUrl} />
+  <Container onTouchEnd={() => navigation.navigate("Detail", { data: info })}>
+    <Image source={{ uri: imagePathFormat(info.image) }} />
     <Brand>{info.brand}</Brand>
     <Name>{info.name}</Name>
-    <Payment>{numbering(info.payment)}</Payment>
+    <Payment>{numbering(info.sale_price)}</Payment>
     <Bookmark>
       <AntDesign
         name="heart"
         size={_WIDTH / 32}
         color="gray"
       />
-      <Markcount>{info.heart}</Markcount>
+      <Markcount>{info.bookmark}</Markcount>
     </Bookmark>
   </Container>
 );

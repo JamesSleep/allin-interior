@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
-import Shopping from "../../Screen/NormalMember/Shopping";
+import Shopping from "../Shopping/ShoppingStackRouter";
 import AltnersRouter from "./AltnersStackRouter";
 import Story from "../StoryStackRouter";
 import MyPageRouter from "../../Router/Member/MyPageStackRouter";

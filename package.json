@@ -27,6 +27,7 @@
     "react-native-crypto-js": "^1.0.0",
     "react-native-daum-postcode": "^1.0.9",
     "react-native-device-info": "^6.0.4",
+    "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.33.2",
     "react-native-image-picker": "^2.3.3",

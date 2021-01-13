@@ -62,11 +62,10 @@ const ModalList = [
   "신상품순", "판매량순", "인기순", "낮은가격순", "높은가격순", "높은할인율순"
 ];
 
-export default ({ navigation, category, filters, setFilter }) => {
-  const [Array, setArray] = useState([]);
+export default ({ navigation, category, filters, setFilter, list }) => {
   const [visible, setVisible] = useState(false);
 
-  const filterSet = (array = []) => {
+  /* const filterSet = (array = []) => {
     switch (filters) {
       case "신상품순": {
         return array;
@@ -89,26 +88,7 @@ export default ({ navigation, category, filters, setFilter }) => {
       }
       default: break;
     }
-  }
-
-  useEffect(() => {
-    let array = Array;
-    if (category === "") {
-      array = ProductArray;
-      //array = filterSet(array);
-    } else {
-      let arr = ProductArray.filter(product => product.category === category);
-      array = arr;
-      //array = filterSet(array);
-    }
-    setArray(array);
-  }, [category, filters]);
-
-  /*   useEffect(() => {
-      let array = Array;
-      const result = filterSet(array);
-      setArray(result);
-    }, [visible]); */
+  } */
 
   return (
     <Container>
@@ -134,7 +114,7 @@ export default ({ navigation, category, filters, setFilter }) => {
       </Modal>
       <FilterView>
         <SearchCount>
-          {Array.length}건의 검색결과
+          {list.length}건의 검색결과
         </SearchCount>
         <TouchableOpacity onPress={() => setVisible(true)}>
           <Filter>
@@ -148,128 +128,14 @@ export default ({ navigation, category, filters, setFilter }) => {
         </TouchableOpacity>
       </FilterView>
       <List>
-        {Array.map((product, index) => (
+        {list.map(product => (
           <Product
-            key={index}
+            key={product.pr_index}
             info={product}
+            navigation={navigation}
           />
         ))}
       </List>
     </Container>
   )
 }
-
-const ProductArray = [
-  {
-    imageUrl: require("../../Image/shop_test1.jpg"),
-    brand: "2ndContainer",
-    name: "하이덴 파티션 수납형 침대",
-    payment: "562232",
-    heart: 5,
-    category: "furniture"
-  },
-  {
-    imageUrl: require("../../Image/shop_test2.jpg"),
-    brand: "BIANS",
-    name: "비앙스 켈른 틈새 입식화장대",
-    payment: "111000",
-    heart: 352,
-    category: "furniture"
-  },
-  {
-    imageUrl: require("../../Image/shop_test3.jpg"),
-    brand: "Lacuzin",
-    name: "라쿠진 오리엔탈 티팟 전기포트",
-    payment: "55900",
-    heart: 420,
-    category: "electronic"
-  },
-  {
-    imageUrl: require("../../Image/shop_test4.jpg"),
-    brand: "ideecompany",
-    name: "턴테이블 무선 무드등 가습기",
-    payment: "31900",
-    heart: 1759,
-    category: "electronic"
-  },
-  {
-    imageUrl: require("../../Image/shop_test5.jpg"),
-    brand: "Already Not Yet",
-    name: "블랭크 광목원단 도어커튼",
-    payment: "15800",
-    heart: 1680,
-    category: "fabric"
-  },
-  {
-    imageUrl: require("../../Image/shop_test6.jpg"),
-    brand: "Already Not Yet",
-    name: "블랭크 햄프린넨 침대 캐노피",
-    payment: "39800",
-    heart: 9,
-    category: "fabric"
-  },
-  {
-    imageUrl: require("../../Image/shop_test7.jpg"),
-    brand: "PRISM",
-    name: "프리즘 충전식 무선 LED 스탠드",
-    payment: "29900",
-    heart: 4969,
-    category: "deco"
-  },
-  {
-    imageUrl: require("../../Image/shop_test8.jpg"),
-    brand: "PEANUTS",
-    name: "머그컵_스누피와 친구들",
-    payment: "9000",
-    heart: 3959,
-    category: "kitchen"
-  },
-  {
-    imageUrl: require("../../Image/shop_test9.jpg"),
-    brand: "ilyang",
-    name: "드리텍 주방저울 KS-605",
-    payment: "11900",
-    heart: 721,
-    category: "kitchen"
-  },
-  {
-    imageUrl: require("../../Image/shop_test10.jpg"),
-    brand: "neoflam",
-    name: "네오플램 피카 IH 쁘띠웍",
-    payment: "35000",
-    heart: 773,
-    category: "kitchen"
-  },
-  {
-    imageUrl: require("../../Image/shop_test11.jpg"),
-    brand: "Ainishop",
-    name: "습기제거 대나무 원목 옷바구니",
-    payment: "34500",
-    heart: 0,
-    category: "supplies"
-  },
-  {
-    imageUrl: require("../../Image/shop_test12.jpg"),
-    brand: "Ainishop",
-    name: "하드케이스 시크릿 비밀 일기장",
-    payment: "28600",
-    heart: 3,
-    category: "supplies"
-  },
-  {
-    imageUrl: require("../../Image/shop_test13.jpg"),
-    brand: "The Home",
-    name: "어반 2단 슬라이딩 주방 선반",
-    payment: "14900",
-    heart: 900,
-    category: "receiving"
-  },
-  {
-    imageUrl: require("../../Image/shop_test14.jpg"),
-    brand: "HouseRecipe",
-    name: "스틸 접이식 실내화걸이",
-    payment: "20000",
-    heart: 1515,
-    category: "receiving"
-  },
-];

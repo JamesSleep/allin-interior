@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
+import { imagePathFormat } from "../../utils/imagePathFormat";
 
 const Container = styled.View`
   flex-direction: row;
@@ -36,11 +37,11 @@ const Price = styled.Text`
 
 export default ({ info }) => (
   <Container>
-    <Image source={info.imageUrl} />
+    <Image source={{ uri: imagePathFormat(info.image) }} />
     <TextView>
       <Title>[ 최고 조회수 / 구매상품 ]</Title>
       <Name>{info.name}</Name>
-      <Price>{numbering(info.payment)}</Price>
+      <Price>{numbering(info.sale_price)}</Price>
     </TextView>
   </Container>
 );

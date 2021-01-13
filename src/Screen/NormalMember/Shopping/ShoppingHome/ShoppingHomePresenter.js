@@ -10,7 +10,7 @@ const Container = styled.ScrollView`
   background-color: ${backgroundColor};
 `;
 
-export default ({ navigation, category, setCategory, filter, setFilter }) => (
+export default ({ navigation, category, setCategory, filter, setFilter, list }) => (
   <Container>
     <Banner />
     <IconView
@@ -22,6 +22,7 @@ export default ({ navigation, category, setCategory, filter, setFilter }) => (
       category={category}
       filters={filter}
       setFilter={setFilter}
+      list={list}
     />
   </Container>
 ) 

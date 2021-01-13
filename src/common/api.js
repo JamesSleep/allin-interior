@@ -50,3 +50,4 @@ export const NewEstimateAPI = async postData => getDataPOST("Estimate/NewEstimat
 export const GetEstimateAPI = async postData => getDataPOST("Estimate/GetEstimate", postData, JSON_HEADERS); // 주문 조회
 export const GetFollowAPI = async postData => getDataPOST("USER/GetFollow", postData, JSON_HEADERS); // 팔로우 조회
 export const UpdateEstimateAPI = async postData => getDataPOST("Estimate/UpdateEstimate", postData, JSON_HEADERS); // 주문 업데이트
+export const GetProductAPI = async postData => getDataPOST("PRODUCT/GetProduct", postData, JSON_HEADERS);
