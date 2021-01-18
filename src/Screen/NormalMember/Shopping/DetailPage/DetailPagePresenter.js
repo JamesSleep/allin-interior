@@ -1,6 +1,8 @@
 import React from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
-import { backgroundColor } from "../../../../common/theme";
+import { backgroundColor, buttonColor, _WIDTH } from "../../../../common/theme";
+import ButtonLogic from "../../../../Components/ShoppingDetail/ButtonLogic";
 import DetailTab from "../../../../Components/ShoppingDetail/DetailTab";
 import Head from "../../../../Components/ShoppingDetail/Head";
 import ImageView from "../../../../Components/ShoppingDetail/ImageView";
@@ -14,12 +16,6 @@ const Container = styled.View`
 
 const ScrollView = styled.ScrollView``;
 
-const ButtonView = styled.View``;
-
-const Button = styled.View``;
-
-const Text = styled.Text``;
-
 export default ({ navigation, info }) => (
   <Container>
     <Head navigation={navigation} />
@@ -29,8 +25,6 @@ export default ({ navigation, info }) => (
       <ProductInfo info={info} />
       <DetailTab />
     </ScrollView>
-    <Button>
-
-    </Button>
+    <ButtonLogic />
   </Container>
 )
