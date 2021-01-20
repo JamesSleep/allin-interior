@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { buttonColor, _WIDTH } from "../../common/theme";
+import SelectProduct from "./SelectProduct";
 
 const Container = styled.View`
-  height: ${_WIDTH * 0.15}px;
   justify-content: center;
   align-items: center;
 `;
@@ -23,16 +23,23 @@ const Text = styled.Text`
   color: white;
 `;
 
-export default () => {
+export default ({ navigation, info }) => {
   const [visible, setVisible] = useState(false);
 
   return (
     <Container visible={visible}>
-      <TouchableOpacity onPress={() => setVisible(true)}>
-        <Button>
-          <Text>구매하기</Text>
-        </Button>
-      </TouchableOpacity>
+      { !visible ? (
+        <TouchableOpacity onPress={() => setVisible(true)}>
+          <Button>
+            <Text>구매하기</Text>
+          </Button>
+        </TouchableOpacity>
+      ) : (
+          <SelectProduct
+            setVisible={setVisible}
+            info={info}
+          />
+        )}
 
     </Container>
   )

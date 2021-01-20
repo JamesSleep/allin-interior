@@ -25,6 +25,9 @@ export default ({ navigation, info }) => (
       <ProductInfo info={info} />
       <DetailTab />
     </ScrollView>
-    <ButtonLogic />
+    <ButtonLogic
+      navigation={navigation}
+      info={info}
+    />
   </Container>
 )
