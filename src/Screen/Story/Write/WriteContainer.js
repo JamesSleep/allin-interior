@@ -1,39 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WritePresenter from "./WritePresenter";
-
-import { connect } from "react-redux";
-import ActionCreators from "../../../redux/action";
 import { postMessage } from "../../../utils/postMessage";
-import { PostStoryAPI, ImageUploadAPI } from "../../../common/api";
+import { PostStoryAPI, ImageUploadAPI, UserInfoAPI } from "../../../common/api";
+import AsyncStorage from "@react-native-community/async-storage";
 
-const mapStateToProps = state => {
-  return {
-    user_info: state.user_info
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setUserInfo: (user_info) => {
-      dispatch(ActionCreators.setUserInfo(user_info))
-    }
-  }
-} 
-
-export default connect(mapStateToProps, mapDispatchToProps)
-(({ navigation, user_info }) => {
-  const {
-    information: {
-      mb_index, email, nick_name
-    }
-  } = user_info;
+export default ({ navigation }) => {
   const [story, setStory] = useState({
-    mb_index,
-    nick_name,
-    email,
-    content: "",
+    content: "", mb_index: "", email: "", nick_name: "",
   });
   const [storyImgs, setStoryImages] = useState([]);
+
+  useEffect(() => { 
+    getUser(); 
+  }, []);
+
+  const getUser = async () => {
+    const { email } = JSON.parse(await AsyncStorage.getItem("loginData"));
+    const data = JSON.stringify({ "email": email });
+    const result = await UserInfoAPI(data);
+    console.log(result[1]);
+    setStory({
+      ...story,
+      email: result[1].email,
+      mb_index: result[1].mb_index,
+      nick_name: result[1].nick_name
+    });
+  }
 
   const postData = async () => {
     if(!story.content || storyImgs.length < 1) {
@@ -59,7 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)
       imageResult = await ImageUploadAPI(form[i]);
       if (!imageResult[0]) return;
     }
-    navigation.goBack();
+    navigation.replace("Story");
   }
 
   return (
@@ -72,4 +64,4 @@ export default connect(mapStateToProps, mapDispatchToProps)
       post={postData}
     />
   )
-});
+};

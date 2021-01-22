@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Container = styled.View`
   width: 100%;
@@ -20,6 +21,11 @@ const Back = styled.View`
   left: 10px;
 `;
 
+const Home = styled.View`
+  position: absolute;
+  right: 10px;
+`;
+
 export default ({ navigation }) => (
   <Container>
     <Title>상품정보</Title>
@@ -29,5 +35,13 @@ export default ({ navigation }) => (
         size={_WIDTH / 22}
       />
     </Back>
+    <Home>
+      <TouchableOpacity onPress={() => navigation.replace("Home")}>
+        <AntDesign
+          name="home"
+          size={_WIDTH / 19}
+        />
+      </TouchableOpacity>
+    </Home>
   </Container>
 )

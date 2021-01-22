@@ -36,7 +36,8 @@ export default ({ imageList=[] }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
+    width: "100%",
+    height: _WIDTH * 0.7
   },
   imageView: {
     width: "100%",

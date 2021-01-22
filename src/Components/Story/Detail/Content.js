@@ -4,21 +4,29 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { _WIDTH } from "../../../common/theme";
 
-export default ({ heart, comments, content, hashTag }) => {
-  const [onHeart, setOnHeart] = useState(false);
+export default ({ heart, comments, content, hashTag, addHeart, delHeart, mb_index }) => {
+  const checkHeart = () => {
+    if (heart.length < 1) return false;
+    let array = heart.filter(item => item.mb_index === mb_index);
+    if (array.length > 0) {
+      return true;
+    } else return false;
+  }
   return (
     <View style={styles.container}>
       {/* heart and comment */}
       <View style={styles.countColumn}>
         <View style={styles.object}>
-          <TouchableOpacity onPress={()=>setOnHeart(!onHeart)}>
+          <TouchableOpacity onPress={()=>{
+            !checkHeart() ? addHeart() : delHeart()
+          }}>
             <FontAwesome 
-              name={ onHeart ? "heart" : "heart-o" }
+              name={ checkHeart() ? "heart" : "heart-o" }
               size={_WIDTH/25}
-              color={ onHeart ? "#e74c3c" : "rgba(0, 0, 0, 0.5)" }
+              color={ checkHeart() ? "#e74c3c" : "rgba(0, 0, 0, 0.5)" }
             />
           </TouchableOpacity>
-          <Text style={styles.count}>24</Text>
+          <Text style={styles.count}>{heart.length}</Text>
         </View>
         <View style={styles.object}>
           <TouchableOpacity>
@@ -28,19 +36,13 @@ export default ({ heart, comments, content, hashTag }) => {
               color="#95a5a6"
             />
           </TouchableOpacity>
-          <Text style={styles.count}>2</Text>
+          <Text style={styles.count}>{comments}</Text>
         </View>
       </View>
       {/* heart and comment */}
       {/* content */}
       <View style={styles.contentView}>
         <Text style={styles.contentText}>{content}</Text>
-        {/* <TextInput 
-          multiline
-          placeholder="문구 입력..."
-          placeholderTextColor="#ecf0f1"
-          style={styles.input}
-        /> */}
       </View>
       {/* content */}
     </View>
@@ -49,7 +51,8 @@ export default ({ heart, comments, content, hashTag }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    width: "100%",
+    marginBottom: 10
   },
   // heart and comment
   countColumn: {
@@ -73,11 +76,11 @@ const styles = StyleSheet.create({
 
   //content
   contentView: {
-    paddingHorizontal: _WIDTH/15,
+    paddingHorizontal: 25,
   },
   contentText: {
-    fontSize: _WIDTH/27,
-    fontWeight: "500"
+    fontSize: 17,
+    fontWeight: "bold"
   },
 
   //textinput

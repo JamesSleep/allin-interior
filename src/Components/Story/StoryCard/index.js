@@ -17,7 +17,9 @@ export default ({ navigation, data, loginUser }) => (
         <ImageViewer 
           image={data.images[0].image_path}
         />
-        <Content />
+        <Content 
+          st_index={data.st_index}
+        />
       </View>
     </TouchableOpacity>
   </View>

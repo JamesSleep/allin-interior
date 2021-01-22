@@ -18,6 +18,12 @@ const App = () => {
             backgroundColor={"white"}
           />
         )}
+        { Platform.OS === "ios" && (
+          <StatusBar 
+            barStyle={"dark-content"}
+            backgroundColor={"white"}
+          />
+        )}
         <SafeAreaView style={{ flex: 1 }}>
           <Provider store={createStore(reducers)}>
             <BaseStackRouter/>

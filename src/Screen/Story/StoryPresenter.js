@@ -1,10 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, RefreshControl } from "react-native";
 import { backgroundColor, _WIDTH } from "../../common/theme";
 import StoryCard from "../../Components/Story/StoryCard";
 import Header from "../../Components/Story/Header";
 
-export default ({ navigation, userInfo, storyList=[] }) => (
+export default ({ navigation, userInfo, storyList=[], refreshing, onRefresh }) => (
   <View style={styles.container}>
     <Header navigation={navigation} />
     <ScrollView
@@ -12,6 +12,12 @@ export default ({ navigation, userInfo, storyList=[] }) => (
         paddingVertical: _WIDTH/30,
         paddingHorizontal: _WIDTH/25,
       }}
+      refreshControl={
+        <RefreshControl 
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
     >
       { storyList.length > 0 && (
         storyList.map((story, index) => (
@@ -25,7 +31,7 @@ export default ({ navigation, userInfo, storyList=[] }) => (
       )}
     </ScrollView>
   </View>
-) 
+);
 
 const styles = StyleSheet.create({
   container: {

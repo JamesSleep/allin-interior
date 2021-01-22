@@ -28,13 +28,13 @@ const PageMove = styled.Text`
 
 const ImageView = styled.View`
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const Image = styled.Image`
-  width: ${_WIDTH * 0.3}px;
-  height: ${_WIDTH * 0.3}px;
-  margin: 0px 1px;
+  width: ${_WIDTH * 0.28}px;
+  height: ${_WIDTH * 0.29}px;
+  margin-right: 15px;
   border-radius: 5px;
 `;
 
@@ -48,15 +48,18 @@ export default ({ storyList=[], navigation }) => (
     </TitleView>
     { storyList.length > 0 && (
       <ImageView>
-        <TouchableOpacity onPress={()=>navigation.navigate("Story", { screen: "Detail", params: { data: storyList[0] } })}>
-          <Image source={{ uri: imagePathFormat(storyList[0].images[0].image_path) }} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate("Story", { screen: "Detail", params: { data: storyList[2] } })}>
-          <Image source={{ uri: imagePathFormat(storyList[2].images[0]?.image_path) }} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate("Story", { screen: "Detail", params: { data: storyList[1] } })}>
-          <Image source={{ uri: imagePathFormat(storyList[1].images[0]?.image_path) }} />
-        </TouchableOpacity>
+        { storyList.map((story, index) => (
+          <TouchableOpacity 
+            key={index}
+            onPress={()=>{
+              //navigation.navigate("Story", { screen: "Detail", params: { data: story } });
+              //navigation.push("Story");
+              navigation.navigate("Story", { screen: "Detail", params: { data: story } });
+            }}
+          >
+            <Image source={{ uri: imagePathFormat(story.images[0].image_path) }} />
+          </TouchableOpacity>
+        ))}
       </ImageView>
     )}
   </Container>

@@ -56,3 +56,8 @@ export const NewCartAPI = async postData => getDataPOST("CART/NewCart", postData
 export const GetCartAPI = async postData => getDataPOST("CART/GetCart", postData, JSON_HEADERS); // 장바구니 load
 export const UpdateCartAPI = async postData => getDataPOST("CART/UpdateCart", postData, JSON_HEADERS); // 장바구니 수정
 export const DeleteCartAPI = async postData => getDataPOST("CART/DeleteCart", postData, JSON_HEADERS); // 장바구니 삭제
+export const NewCommentAPI = async postData => getDataPOST("COMMENT/NewComment", postData, JSON_HEADERS); // 댓글 작성
+export const GetCommentAPI = async postData => getDataPOST("COMMENT/GetComment", postData, JSON_HEADERS); // 댓글 불러오기
+export const GetHeartAPI = async postData => getDataPOST("HEART/GetHeart", postData, JSON_HEADERS); // 좋아요불러오기
+export const NewHeartAPI = async postData => getDataPOST("HEART/NewHeart", postData, JSON_HEADERS); // 좋아요추가
+export const DeleteHeartAPI = async postData => getDataPOST("HEART/DeleteHeart", postData, JSON_HEADERS); // 좋아요취소

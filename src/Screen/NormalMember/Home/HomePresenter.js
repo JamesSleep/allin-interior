@@ -13,9 +13,9 @@ const Container = styled.View`
 
 const Scroll = styled.ScrollView``;
 
-export default ({ storyList=[], navigation }) => (
+export default ({ storyList=[], navigation, selected, setSelected, shopList }) => (
   <Container>
-    <Search />
+    <Search navigation={navigation} />
     <Scroll>
       <Banner />
       <BestStory 
@@ -24,6 +24,9 @@ export default ({ storyList=[], navigation }) => (
       />
       <BestShop 
         navigation={navigation}
+        tab={selected}
+        setTab={setSelected}
+        shopList={shopList}
       />
     </Scroll>
   </Container>

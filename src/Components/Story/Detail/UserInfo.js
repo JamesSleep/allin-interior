@@ -15,7 +15,8 @@ export default ({ profile, nickname }) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: "100%",
+    height: _WIDTH * 0.18,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: _WIDTH/15,

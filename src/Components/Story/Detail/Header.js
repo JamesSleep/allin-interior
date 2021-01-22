@@ -15,6 +15,14 @@ export default ({ navigation, nickname }) => (
         />
       </TouchableOpacity>
     </View>
+    <View style={styles.home}>
+      <TouchableOpacity onPress={() => navigation.replace("Story")}>
+        <AntDesign
+          name="home"
+          size={_WIDTH / 19}
+        />
+      </TouchableOpacity>
+    </View>
   </View>
 );
 
@@ -38,4 +46,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: _WIDTH/20,
   },
+  home: {
+    position: "absolute",
+    right: _WIDTH/20,
+  }
 });

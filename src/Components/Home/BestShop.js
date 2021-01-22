@@ -52,11 +52,7 @@ const Line = styled.View`
   margin: 0px 15px;
 `;
 
-const Image = styled.Image``;
-
-export default ({ navigation }) => {
-  const [tab, setTab] = useState(true);
-
+export default ({ navigation, tab, setTab, shopList }) => {
   return (
     <Container>
       <TitleView>
@@ -78,10 +74,16 @@ export default ({ navigation }) => {
         <ScrollView
           horizontal
         >
-          <Product image={require("../../Image/product1.jpeg")} />
-          <Product image={require("../../Image/product2.jpeg")} />
-          <Product image={require("../../Image/product3.jpeg")} />
-          <Product image={require("../../Image/product4.jpeg")} />
+          { shopList.map((item, index) => {
+            if (index < 6) 
+            return (
+              <Product 
+                key={index}
+                info={item}
+                navigation={navigation}
+              />
+            )
+          })}
         </ScrollView>
       </ImageView>
     </Container>
