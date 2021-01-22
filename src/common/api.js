@@ -50,4 +50,9 @@ export const NewEstimateAPI = async postData => getDataPOST("Estimate/NewEstimat
 export const GetEstimateAPI = async postData => getDataPOST("Estimate/GetEstimate", postData, JSON_HEADERS); // 주문 조회
 export const GetFollowAPI = async postData => getDataPOST("USER/GetFollow", postData, JSON_HEADERS); // 팔로우 조회
 export const UpdateEstimateAPI = async postData => getDataPOST("Estimate/UpdateEstimate", postData, JSON_HEADERS); // 주문 업데이트
-export const GetProductAPI = async postData => getDataPOST("PRODUCT/GetProduct", postData, JSON_HEADERS);
+export const GetProductAPI = async postData => getDataPOST("PRODUCT/GetProduct", postData, JSON_HEADERS); // 상품 조회
+export const GetOneProductAPI = async postData => getDataPOST("PRODUCT/GetOneProduct", postData, JSON_HEADERS); // 상품 하나 조회
+export const NewCartAPI = async postData => getDataPOST("CART/NewCart", postData, JSON_HEADERS); // 장바구니 상품추가
+export const GetCartAPI = async postData => getDataPOST("CART/GetCart", postData, JSON_HEADERS); // 장바구니 load
+export const UpdateCartAPI = async postData => getDataPOST("CART/UpdateCart", postData, JSON_HEADERS); // 장바구니 수정
+export const DeleteCartAPI = async postData => getDataPOST("CART/DeleteCart", postData, JSON_HEADERS); // 장바구니 삭제

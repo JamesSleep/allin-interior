@@ -8,15 +8,18 @@ import Head from "../../../../Components/ShoppingDetail/Head";
 import ImageView from "../../../../Components/ShoppingDetail/ImageView";
 import ProductInfo from "../../../../Components/ShoppingDetail/ProductInfo";
 import TitleView from "../../../../Components/ShoppingDetail/TitleView";
+import CartMessage from "../../../../Components/ShoppingDetail/CartMessage";
 
 const Container = styled.View`
   flex: 1;
   background-color: ${backgroundColor};
+  justify-content: center;
+  align-items: center;
 `;
 
 const ScrollView = styled.ScrollView``;
 
-export default ({ navigation, info }) => (
+export default ({ navigation, info, message, setMessage }) => (
   <Container>
     <Head navigation={navigation} />
     <ScrollView>
@@ -28,6 +31,13 @@ export default ({ navigation, info }) => (
     <ButtonLogic
       navigation={navigation}
       info={info}
+      message={message}
+      setMessage={setMessage}
     />
+    { message && (
+      <CartMessage 
+        navigation={navigation}
+      />
+    )}
   </Container>
 )

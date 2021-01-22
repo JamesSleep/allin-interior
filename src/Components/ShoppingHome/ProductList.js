@@ -65,31 +65,6 @@ const ModalList = [
 export default ({ navigation, category, filters, setFilter, list }) => {
   const [visible, setVisible] = useState(false);
 
-  /* const filterSet = (array = []) => {
-    switch (filters) {
-      case "신상품순": {
-        return array;
-      }
-      case "인기순": {
-        array.sort(function (a, b) {
-          if (a.heart > b.heart) return -1;
-          if (a.heart === b.heart) return 0;
-          if (a.heart < b.heart) return 1;
-        });
-        return array;
-      }
-      case "낮은가격순": {
-        array.sort(function (a, b) {
-          if (Number(a.payment) > Number(b.payment)) return 1;
-          if (Number(a.payment) === Number(b.payment)) return 0;
-          if (Number(a.payment) < Number(b.payment)) return -1;
-        });
-        return array;
-      }
-      default: break;
-    }
-  } */
-
   return (
     <Container>
       <Modal

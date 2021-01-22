@@ -28,7 +28,7 @@ const TextInput = styled.TextInput`
   margin-left: 5px;
 `;
 
-export default () => (
+export default ({ navigation }) => (
   <Container>
     <SearchBar>
       <Ionicons
@@ -47,7 +47,7 @@ export default () => (
         size={_WIDTH / 15}
       />
     </TouchableOpacity>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
       <Ionicons
         name="cart-outline"
         color="#353b48"

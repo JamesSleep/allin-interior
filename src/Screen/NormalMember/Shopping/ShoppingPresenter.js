@@ -11,7 +11,7 @@ const Container = styled.View`
 
 export default ({ navigation }) => (
   <Container>
-    <Search />
+    <Search navigation={navigation} />
     <ShoppingHomeTopTab />
   </Container>
 ) 

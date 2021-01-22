@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { _WIDTH } from "../../common/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { imagePathFormat } from "../../utils/imagePathFormat";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Container = styled.View`
   width: ${_WIDTH * 0.45}px;
@@ -45,20 +46,25 @@ const Markcount = styled.Text`
 `;
 
 export default ({ navigation, info }) => (
-  <Container onTouchEnd={() => navigation.navigate("Detail", { data: info })}>
-    <Image source={{ uri: imagePathFormat(info.image) }} />
-    <Brand>{info.brand}</Brand>
-    <Name>{info.name}</Name>
-    <Payment>{numbering(info.sale_price)}</Payment>
-    <Bookmark>
-      <AntDesign
-        name="heart"
-        size={_WIDTH / 32}
-        color="gray"
-      />
-      <Markcount>{info.bookmark}</Markcount>
-    </Bookmark>
-  </Container>
+  <TouchableOpacity
+    onPress={() => navigation.navigate("Detail", { data: info })}
+    activeOpacity={1}
+  >
+    <Container>
+      <Image source={{ uri: imagePathFormat(info.image) }} />
+      <Brand>{info.brand}</Brand>
+      <Name>{info.name}</Name>
+      <Payment>{numbering(info.sale_price)}</Payment>
+      <Bookmark>
+        <AntDesign
+          name="heart"
+          size={_WIDTH / 32}
+          color="gray"
+        />
+        <Markcount>{info.bookmark}</Markcount>
+      </Bookmark>
+    </Container>
+  </TouchableOpacity>
 );
 
 const numbering = (pay = "") => {
