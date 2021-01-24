@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StatusBar, SafeAreaView, Platform } from 'react-native';
 import BaseStackRouter from './src/Router/BaseStackRouter';
-
+import SplashScreen from "react-native-splash-screen";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "./src/redux/reducers";
 
 const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  }, []);
   return (
     <SafeAreaProvider>
       <NavigationContainer>

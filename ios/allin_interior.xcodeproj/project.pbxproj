@@ -15,6 +15,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* allin_interiorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* allin_interiorTests.m */; };
+		396ECC7425BD99610016BB81 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 396ECC7325BD99610016BB81 /* SplashScreen.storyboard */; };
 		39FDF30B252CA01D00F8ADED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39FDF30A252CA01D00F8ADED /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BAE995B166EE5DD72BA93FB8 /* libPods-allin_interior-allin_interiorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FEE721CC30671FC454538D /* libPods-allin_interior-allin_interiorTests.a */; };
@@ -64,6 +65,7 @@
 		2D02E4901E0B4A5D006451C7 /* allin_interior-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "allin_interior-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		365ACB353CC6467E9608FD4E /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		383CFC7B5A1770CC6C7CA71A /* Pods-allin_interior-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-allin_interior-tvOS.release.xcconfig"; path = "Target Support Files/Pods-allin_interior-tvOS/Pods-allin_interior-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		396ECC7325BD99610016BB81 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		39FDF30A252CA01D00F8ADED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4E1A88004540F79CCFA424 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		3EACF445B2B8417F9CCD1583 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				396ECC7325BD99610016BB81 /* SplashScreen.storyboard */,
 			);
 			name = allin_interior;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				396ECC7425BD99610016BB81 /* SplashScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				39FDF30B252CA01D00F8ADED /* GoogleService-Info.plist in Resources */,
 			);
