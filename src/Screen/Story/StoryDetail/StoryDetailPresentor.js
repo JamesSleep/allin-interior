@@ -18,6 +18,8 @@ export default ({ navigation, data, comment, setComment, postData, list, heart, 
       <UserInfo 
         profile={data.user_info.profile}
         nickname={data.nick_name}
+        data={data}
+        mb_index={mb_index}
       />
       <ImageLayout 
         imageList={data.images}
