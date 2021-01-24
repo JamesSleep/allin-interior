@@ -23,10 +23,13 @@ const EmptyText = styled.Text`
   font-weight: 600;
 `;
 
-export default ({ navigation, list, updateCart, deleteCart, count, price, checkList, setCheckList, allCheck, delAllCart }) => ( 
+export default ({ 
+  navigation, cartList, checkCount, allCheck,
+  deleteAllCart, price, handleCheck, deleteCart, updateCart
+}) => ( 
   <Container>
     <Head navigation={navigation} />
-    { list.length > 0 ? (
+    { cartList.length > 0 ? (
       <>
       <ScrollView
         contentContainerStyle={{
@@ -34,27 +37,25 @@ export default ({ navigation, list, updateCart, deleteCart, count, price, checkL
         }}
       >
         <CheckView 
-          count={count}
-          checkCount={checkList.length}
+          cartCount={cartList.length}
+          checkCount={checkCount}
           allCheck={allCheck}
-          setCheckList={setCheckList}
-          deleteCart={delAllCart}
+          deleteAllCart={deleteAllCart}
         />
-        { list.map(item => (
+        { cartList.map(item => (
             <CartBox 
               key={item.ct_index}
               info={item}
-              updateCart={updateCart}
+              handleCheck={handleCheck}
               deleteCart={deleteCart}
-              checkList={checkList}
-              setCheckList={setCheckList}
+              updateCart={updateCart}
             />
           ))
-        }
+        } 
       </ScrollView>
       <OrderView 
         navigation={navigation}
-        count={checkList.length}
+        count={checkCount}
         price={price}
       />
       </>

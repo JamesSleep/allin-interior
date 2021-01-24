@@ -16,6 +16,7 @@ const Container = styled.View`
 
 const ComboView = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 const CheckBox = styled.View`
@@ -39,27 +40,23 @@ const DeleteText = styled.Text`
   font-size: 13px;
 `;
 
-export default ({ deleteCart, count, checkCount, allCheck, setCheckList }) => (
+export default ({ cartCount, checkCount, allCheck, deleteAllCart }) => (
   <Container>
     <ComboView>
       <TouchableOpacity
-        onPress={() => {
-          if (count === checkCount) {
-            setCheckList([]);
-          } else {
-            allCheck();
-          }
-        }}
+        onPress={() => allCheck()}
       >
         <CheckBox>
-          { count === checkCount && (
+          { checkCount === cartCount && (
             <Icon name="check" size={24} color={buttonColor} />
           )}
         </CheckBox>
       </TouchableOpacity>
-      <Text>{`전체선택(${checkCount}/${count})`}</Text>
+      <Text>{`전체선택(${checkCount}/${cartCount})`}</Text>
     </ComboView>
-    <TouchableOpacity onPress={() => deleteCart()}>
+    <TouchableOpacity 
+      onPress={() => deleteAllCart()}
+    >
       <DeleteButton>
         <DeleteText>전체삭제</DeleteText>
       </DeleteButton>

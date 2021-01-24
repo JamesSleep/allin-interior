@@ -131,98 +131,75 @@ const PriceWon = styled.Text`
   color: gray;
 `;
 
-export default ({ info, updateCart, deleteCart, checkList, setCheckList }) => {
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    getProduct();
-  }, []);
-
-  const getProduct = async () => {
-    const data = JSON.stringify({ "pr_index": info.pr_index });
-    const result = await GetOneProductAPI(data);
-    setProduct(result[1]);
-  }
-
-  const isCheck = () => {
-    const array = checkList.filter(check => check.ct_index === info.ct_index);
-    if (array.length > 0) return true;
-    else return false;
-  }
-
-  const checking = () => {
-    if (isCheck()) {
-      setCheckList(checkList.filter(check => check.ct_index !== info.ct_index ));
-    } else {
-      setCheckList([...checkList, info]);
-    }
-  }
-
-  return (
-    <Container>
-      <TitleView>
-        <ComboView>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => checking()}
-          >
-            <CheckBox>
-              { isCheck() && (
-                <Icon name="check" size={24} color={buttonColor} />
-              )}
-            </CheckBox>
-          </TouchableOpacity>
-          <Title>{product.name}</Title>
-        </ComboView>
+export default ({ info, handleCheck, deleteCart, updateCart }) => (
+  <Container>
+    <TitleView>
+      <ComboView>
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() => deleteCart(info.ct_index)}
+          onPress={() => handleCheck(info.ct_index)}
         >
-          <EvilIcon name="close" size={24} color={"black"} />
+          <CheckBox>
+            { info.check && (
+              <Icon name="check" size={24} color={buttonColor} />
+            )}
+          </CheckBox>
         </TouchableOpacity>
-      </TitleView>
-      <ImageView>
-        { product.image && (
-          <Image source={{ uri: imagePathFormat(product.image) }} />
-        )}
-        <OptionText>{info.option}</OptionText>
-        <ButtonView>
-          <ChangeView>
-            <TouchableOpacity
-              onPress={() => {
-                if (Number(info.quantity) === 1 ) return;
-                updateCart(info.ct_index, Number(info.quantity)-1);
-              }}
-            >
-              <Minus>
-                <AntDesign name="minus" size={_WIDTH / 24} color="#95a5a6" />
-              </Minus>
-            </TouchableOpacity>
-            <Quantity>
-              <QuantityText>{info.quantity}</QuantityText>
-            </Quantity>
-            <TouchableOpacity
-              onPress={() => {
-                updateCart(info.ct_index, Number(info.quantity)+1);
-              }}
-            >
-              <Plus>
-                <AntDesign name="plus" size={_WIDTH / 24} color="#95a5a6" />
-              </Plus>
-            </TouchableOpacity>
-          </ChangeView>
-        </ButtonView>
-      </ImageView>
-      <PriceView>
-        <PriceTitle>판매가</PriceTitle>
-        <PriceText>
-          {numbering((Number(info.price) * Number(info.quantity)).toString())}
-          <PriceWon>원</PriceWon>
-        </PriceText>
-      </PriceView>
-    </Container>
-  )
-}
+        <Title>{info.product.name}</Title>
+      </ComboView>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => deleteCart(info.ct_index)}
+      >
+        <EvilIcon name="close" size={24} color={"black"} />
+      </TouchableOpacity>
+    </TitleView>
+    <ImageView>
+      { info.product.image && (
+        <Image source={{ uri: imagePathFormat(info.product.image) }} />
+      )}
+      <OptionText>{info.option}</OptionText>
+      <ButtonView>
+        <ChangeView>
+          <TouchableOpacity
+            onPress={() => 
+              updateCart(
+                info.ct_index,
+                Number(info.quantity) - 1
+              )
+            }
+          >
+            <Minus>
+              <AntDesign name="minus" size={_WIDTH / 24} color="#95a5a6" />
+            </Minus>
+          </TouchableOpacity>
+          <Quantity>
+            <QuantityText>{info.quantity}</QuantityText>
+          </Quantity>
+          <TouchableOpacity
+            onPress={() => 
+              updateCart(
+                info.ct_index,
+                Number(info.quantity) + 1
+              )
+            }
+          >
+            <Plus>
+              <AntDesign name="plus" size={_WIDTH / 24} color="#95a5a6" />
+            </Plus>
+          </TouchableOpacity>
+        </ChangeView>
+      </ButtonView>
+    </ImageView>
+    <PriceView>
+      <PriceTitle>판매가</PriceTitle>
+      <PriceText>
+        {numbering((Number(info.price) * Number(info.quantity)).toString())}
+        <PriceWon>원</PriceWon>
+      </PriceText>
+    </PriceView>
+  </Container>
+)
 
 const numbering = (pay = "") => {
   const len = pay.length;
