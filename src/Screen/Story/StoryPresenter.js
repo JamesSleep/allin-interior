@@ -24,7 +24,7 @@ export default ({ navigation, userInfo, storyList=[], refreshing, onRefresh }) =
           <StoryCard 
             key={index}
             data={story}
-            loginUser={userInfo}
+            userInfo={userInfo}
             navigation={navigation}
           />
         ))

@@ -8,11 +8,16 @@ import Content from "../../../Components/Story/Detail/Content";
 import CommentView from "../../../Components/Story/Detail/CommentView";
 import TextInputView from "../../../Components/Story/Detail/TextInputView";
 
-export default ({ navigation, data, comment, setComment, postData, list, heart, addHeart, delHeart, mb_index }) => (
+export default ({ 
+  navigation, data, comment, setComment, postData, list, heart, 
+  addHeart, delHeart, mb_index, screen, deleteStory, follow, 
+  email, newFollow, deleteFollow 
+}) => (
   <View style={styles.container}>
     <Header 
       navigation={navigation}
       nickname={data.nick_name}
+      screen={screen}
     />
     <ScrollView>
       <UserInfo 
@@ -20,6 +25,11 @@ export default ({ navigation, data, comment, setComment, postData, list, heart, 
         nickname={data.nick_name}
         data={data}
         mb_index={mb_index}
+        deleteStory={deleteStory}
+        follow={follow.followingList}
+        userInfo={email}
+        deleteFollow={deleteFollow}
+        newFollow={newFollow}
       />
       <ImageLayout 
         imageList={data.images}

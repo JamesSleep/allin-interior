@@ -24,7 +24,7 @@ const EmptyText = styled.Text`
 `;
 
 export default ({ 
-  navigation, cartList, checkCount, allCheck,
+  navigation, cartList, checkCount, allCheck, goToPayment,
   deleteAllCart, price, handleCheck, deleteCart, updateCart
 }) => ( 
   <Container>
@@ -54,9 +54,9 @@ export default ({
         } 
       </ScrollView>
       <OrderView 
-        navigation={navigation}
         count={checkCount}
         price={price}
+        goToPayment={goToPayment}
       />
       </>
     ) : (

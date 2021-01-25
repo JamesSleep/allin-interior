@@ -8,11 +8,12 @@ import { _WIDTH } from "../../../common/theme";
 const Container = styled.View`
   width: 100%;
   padding: 0px 20px 20px 20px;
+  margin-top: 14px;
 `;
 
 const CommentList = styled.View`
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   padding: 2px 5px;
 `;
 

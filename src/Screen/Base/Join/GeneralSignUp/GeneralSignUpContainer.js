@@ -71,6 +71,10 @@ export default ({ navigation }) => {
         signUpData.password1,
         { accessible: KeyChain.ACCESSIBLE.WHEN_UNLOCKED }
       );
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'MemberTabRouter' }],
+      })
     }
   }
   return (

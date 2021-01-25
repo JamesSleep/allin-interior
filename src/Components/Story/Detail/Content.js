@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
   },
   contentText: {
-    fontSize: 17,
-    fontWeight: "bold"
+    fontSize: 16,
+    fontWeight: "500"
   },
 
   //textinput

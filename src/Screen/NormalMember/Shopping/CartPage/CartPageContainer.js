@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CartPagePresenter from "./CartPagePresenter";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GetCartAPI, UpdateCartAPI, DeleteCartAPI } from "../../../../common/api";
+import { postMessage } from "../../../../utils/postMessage";
 
 export default ({ navigation }) => {
   const [list, setList] = useState([]);
@@ -119,6 +120,20 @@ export default ({ navigation }) => {
     setPrice(result);
   }
 
+  const goToPayment = () => {
+    if (checkCount < 1) {
+      postMessage("선택된 상품이 없습니다.");
+      return;
+    }
+    const array = list.filter(item => item.check === true);
+    const data = {
+      list: array,
+      price,
+      checkCount
+    };
+    navigation.navigate("Payment", { data });
+  }
+
   return (
     <CartPagePresenter 
       navigation={navigation}
@@ -130,6 +145,7 @@ export default ({ navigation }) => {
       handleCheck={handleCheck}
       deleteCart={deleteCart}
       updateCart={updateCart}
+      goToPayment={goToPayment}
     />
   )
 }

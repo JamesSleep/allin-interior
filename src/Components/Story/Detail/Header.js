@@ -4,11 +4,18 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { backgroundColor, _WIDTH } from "../../../common/theme";
 
-export default ({ navigation, nickname }) => (
+export default ({ navigation, nickname, screen }) => (
   <View style={styles.header}>
     <Text style={styles.title}>{nickname}</Text>
     <View style={styles.leftArrow}>
-      <TouchableOpacity onPress={()=>navigation.goBack()}>
+      <TouchableOpacity 
+        onPress={()=>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Story' }],
+          })
+        }
+      >
         <AntDesign 
           name="arrowleft"
           size={_WIDTH/20}

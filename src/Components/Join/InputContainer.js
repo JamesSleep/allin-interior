@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginBottom: _WIDTH/35
   },
   input: {
-    height: _WIDTH/11,
+    height: _WIDTH/10,
     paddingBottom: _WIDTH/50,
     borderBottomWidth: 1,
     borderBottomColor: "black",

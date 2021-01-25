@@ -6,19 +6,22 @@ import ImageViewer from "./ImageViewer";
 import Content from "./Content";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default ({ navigation, data, loginUser }) => (
+export default ({ navigation, data, userInfo }) => (
   <View style={styles.container}>
-    <TouchableOpacity onPress={()=>navigation.navigate("Detail", { data: data })}>
+    <TouchableOpacity onPress={()=>navigation.navigate("Detail", { data: data, userInfo, screen: "StoryHome" })}>
       <View style={{ width: "100%", height: 350 }}>
         <Header 
           profile={data.user_info.profile}
           nickname={data.user_info.nick_name}
+          timestamp={data.timestamp}
         />
         <ImageViewer 
           image={data.images[0].image_path}
         />
         <Content 
-          st_index={data.st_index}
+          heart={data.heart}
+          comment={data.comment}
+          mb_index={userInfo.mb_index}
         />
       </View>
     </TouchableOpacity>

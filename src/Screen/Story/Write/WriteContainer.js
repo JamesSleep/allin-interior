@@ -28,6 +28,7 @@ export default ({ navigation }) => {
   }
 
   const postData = async () => {
+    const date = new Date();
     if(!story.content || storyImgs.length < 1) {
       postMessage("문구입력 및 사진등록을 해주세요");
       return;
@@ -35,7 +36,8 @@ export default ({ navigation }) => {
     const data = JSON.stringify({
       "nick_name": story.nick_name,
       "content": story.content,
-      "mb_index": Number(story.mb_index)
+      "mb_index": Number(story.mb_index),
+      "timestamp": date.getTime().toString()
     });
     console.log(data);
     const form = storyImgs.map((image, index) => ([

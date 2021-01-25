@@ -46,7 +46,7 @@ const OrderText = styled.Text`
   color: white;
 `;
 
-export default ({ navigation, price, count }) => (
+export default ({ price, count, goToPayment }) => (
   <Container>
     <PriceView>
       <CountText>{`총 ${count}개`}</CountText>
@@ -54,6 +54,7 @@ export default ({ navigation, price, count }) => (
     </PriceView>
     <TouchableOpacity
       activeOpacity={1}
+      onPress={() => goToPayment()}
     >
       <OrderButton>
         <OrderText>주문하기</OrderText>

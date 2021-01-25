@@ -197,7 +197,7 @@ export default ({
       ) : (
         <OptionBox>
           <ScrollView>
-            { info.option?.map((opt, index) => (
+            { info.option?.length > 0 ? info.option?.map((opt, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() => {
@@ -216,7 +216,26 @@ export default ({
                   </OptionText>
                 </OptionColumn>
               </TouchableOpacity>
-            ))}
+            )) : (
+              <TouchableOpacity
+                onPress={() => {
+                  setProductArray([
+                    ...productArray,
+                    { index: productIndex, option: "기본옵션", quantity: 1, price: Number(info.sale_price) }
+                  ]);
+                  setOpen(false);
+                  setProductIndex(productIndex + 1);
+                }}
+              >
+                <OptionColumn>
+                  <OptionText>{"기본옵션"}</OptionText>
+                  <OptionText>
+                    {numbering((Number(info.sale_price)).toString())}
+                  </OptionText>
+                </OptionColumn>
+              </TouchableOpacity>
+            )
+            }
           </ScrollView>
         </OptionBox>
       )}

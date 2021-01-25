@@ -5,9 +5,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 export default ({ navigation }) => {
   const [storyList, setStoryList] = useState([]);
-  const [userInfo, setUserInfo] = useState({
-    mb_index: "", email: "", nick_name: "",
-  });
+  const [userInfo, setUserInfo] = useState({});
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => { 
@@ -19,11 +17,7 @@ export default ({ navigation }) => {
     const { email } = JSON.parse(await AsyncStorage.getItem("loginData"));
     const data = JSON.stringify({ "email": email });
     const result = await UserInfoAPI(data);
-    setUserInfo({
-      email: result[1].email,
-      mb_index: result[1].mb_index,
-      nick_name: result[1].nick_name
-    });
+    setUserInfo(result[1]);
   }
 
   const filterSet = (array = []) => {

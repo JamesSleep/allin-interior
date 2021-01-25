@@ -4,7 +4,7 @@ import Feather from "react-native-vector-icons/Feather";
 import { imagePathFormat } from "../../../utils/imagePathFormat";
 import { _WIDTH } from "../../../common/theme";
 
-export default ({ profile, nickname }) => (
+export default ({ profile, nickname, timestamp }) => (
   <View style={styles.container}>
     <Image 
       source={{ uri: imagePathFormat(profile) }}
@@ -12,16 +12,22 @@ export default ({ profile, nickname }) => (
     />
     <View style={styles.textContainer}>
       <Text style={styles.username}>{nickname}</Text>
-      <Text style={styles.time}>6분전</Text>
+      <Text style={styles.time}>{timeChange(timestamp)}</Text>
     </View>
-    <Feather 
-      name="more-horizontal"
-      style={styles.more}
-      size={_WIDTH/20}
-      color="gray"
-    />
   </View>
 );
+
+const timeChange = (time) => {
+  const times = Number(time);
+  const write = new Date(times);
+  const now = new Date().getTime();
+  const gap = (now - times) / 1000;
+  if (gap < 60) return "방금전";
+  else if (gap < 3600) return `${(gap/60).toFixed(0)}분 전`;
+  else if (gap < 86400) return `${(gap/3600).toFixed(0)}시간 전`;
+  else if (gap < 2592000) return `${(gap/86400).toFixed(0)}일 전`;
+  else return `${write.getFullYear()}년 ${write.getMonth() + 1}월 ${write.getDate()}일`;
+}
 
 const styles = StyleSheet.create({
   container: {

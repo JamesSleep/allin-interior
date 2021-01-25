@@ -35,7 +35,7 @@ const FollowButton = styled.View`
   height: 30px;
   justify-content: center;
   align-items: center;
-  background-color: #ff7675;
+  background-color: ${props => props.followed ? "#cccccc" : "#ff7675"};
   border-radius: 20px;
 `;
 
@@ -71,7 +71,7 @@ const DeleteText = styled.Text`
   font-size: 13px;
 `;
 
-export default ({ profile, nickname, mb_index, data }) => (
+export default ({ profile, nickname, mb_index, data, deleteStory, follow, userInfo, newFollow, deleteFollow }) => (
   <Container>
     <Image 
       source={{ uri: imagePathFormat(profile) }}
@@ -80,21 +80,41 @@ export default ({ profile, nickname, mb_index, data }) => (
     <FollowView>
       { data.user_info.mb_index === mb_index ? (
         <>
-        <TouchableOpacity>
-          <ModifyButton>
-            <ModifyText>수정</ModifyText>
-          </ModifyButton>
-        </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteStory()}>
           <DeleteButton>
             <DeleteText>삭제</DeleteText>
           </DeleteButton>
         </TouchableOpacity>
         </>
       ) : (
-        <TouchableOpacity>
-          <FollowButton>
-            <FollowText>팔로잉</FollowText>
+        <TouchableOpacity
+          onPress={() => {
+            if (follow?.length > 0) {
+              const array = follow.filter(item => item.follower === userInfo);
+              if(array.length > 0) {
+                deleteFollow(array[0].fl_index);
+              } else {
+                newFollow();
+              }
+            } else {
+              newFollow();
+            }
+          }}
+        >
+          <FollowButton
+            followed={
+              follow?.length > 0 &&
+              follow.filter(item => item.follower === userInfo).length > 0
+            }
+          >
+            <FollowText>
+              { follow?.length > 0 ?
+                  follow.filter(item => item.follower === userInfo).length > 0 ?
+                    "팔로잉" : "팔로우"
+                  :
+                  "팔로우"
+              }
+            </FollowText>
           </FollowButton>
         </TouchableOpacity>
       )}

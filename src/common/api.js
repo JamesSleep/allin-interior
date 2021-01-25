@@ -46,6 +46,7 @@ export const CompanyInfoAPI = async postData => getDataPOST("COMPANY/GetCompany"
 export const CompanyOneInfoAPI = async postData => getDataPOST("COMPANY/GetOneCompany", postData, JSON_HEADERS); // 자기회사조회
 export const PostStoryAPI = async postData => getDataPOST("Story/Write", postData, JSON_HEADERS); // 스토리 공유
 export const GetStoryAPI = async postData => getDataPOST("Story/GetStory", postData, JSON_HEADERS);  // 스토리 리스트 조회
+export const DeleteStoryAPI = async postData => getDataPOST("Story/DeleteStory", postData, JSON_HEADERS);  // 스토리 삭제
 export const NewEstimateAPI = async postData => getDataPOST("Estimate/NewEstimate", postData, JSON_HEADERS); // 주문 등록
 export const GetEstimateAPI = async postData => getDataPOST("Estimate/GetEstimate", postData, JSON_HEADERS); // 주문 조회
 export const GetFollowAPI = async postData => getDataPOST("USER/GetFollow", postData, JSON_HEADERS); // 팔로우 조회
@@ -61,3 +62,6 @@ export const GetCommentAPI = async postData => getDataPOST("COMMENT/GetComment",
 export const GetHeartAPI = async postData => getDataPOST("HEART/GetHeart", postData, JSON_HEADERS); // 좋아요불러오기
 export const NewHeartAPI = async postData => getDataPOST("HEART/NewHeart", postData, JSON_HEADERS); // 좋아요추가
 export const DeleteHeartAPI = async postData => getDataPOST("HEART/DeleteHeart", postData, JSON_HEADERS); // 좋아요취소
+export const NewDeliveryAPI = async postData => getDataPOST("DELIVERY/NewDelivery", postData, JSON_HEADERS); // 쇼핑주문추가
+export const NewFollowAPI = async postData => getDataPOST("FOLLOW/NewFollow", postData, JSON_HEADERS);
+export const DeleteFollowAPI = async postData => getDataPOST("FOLLOW/DeleteFollow", postData, JSON_HEADERS);
