@@ -12,6 +12,9 @@ export default ({ navigation, route }) => {
       case "company":
         navigation.navigate("CompanySignUp")
         break;
+      case "shopCompany":
+        navigation.navigate("ShopCompanySignUp")
+        break;
       default:
         break;
     }

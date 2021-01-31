@@ -1,58 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import styled from "styled-components/native";
 import { backgroundColor } from "../../../../common/theme";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Header from "../../../../Components/Join/Header";
-import TypeCard from "../../../../Components/Join/SelectType/TypeCard";
+import Header from "../../../../Components/JoinType/Header";
+import CardSwiper from "../../../../Components/JoinType/CardSwiper";
 
-export default ({ navigation, joinList=[] }) => (
-  <View style={styles.container}>
+const Container = styled.View`
+  flex: 1;
+  background-color: ${backgroundColor};
+`;
+
+export default ({ navigation }) => (
+  <Container>
     <Header navigation={navigation} />
-    <View style={{ flex: 1, paddingHorizontal: 20, }}>
-      { joinList.map((join, index) => (
-        <TypeCard 
-          key={index}
-          navigation={navigation}
-          name={join.name}
-          uri={join.uri}
-          value={join.value}
-        />
-      ))}
-    </View>
-  </View>
+    <CardSwiper navigation={navigation} />
+  </Container>
 ) 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: backgroundColor
-  },
-  header: {
-    width: "100%",
-    height: 70,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  joinContainer: {
-    flex: 1,
-  },
-  button: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    zIndex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)"
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  text: {
-    position: "absolute",
-    zIndex: 2,
-    bottom: 20,
-    left: 20,
-    fontSize: 30,
-    color: "white",
-  }
-});

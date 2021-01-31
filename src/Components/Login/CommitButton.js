@@ -8,7 +8,8 @@ export default ({ navigation, submitLogin }) => (
     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
       <TouchableOpacity
         style={styles.joinButton}
-        onPress={() => navigation.navigate("Agreement", { option: "general" })}
+        //onPress={() => navigation.navigate("Agreement", { option: "general" })}
+        onPress={() => navigation.navigate("SelectJoinType")}
       >
         <Text style={styles.joinText}>회원가입</Text>
       </TouchableOpacity>
