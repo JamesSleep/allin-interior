@@ -65,3 +65,5 @@ export const DeleteHeartAPI = async postData => getDataPOST("HEART/DeleteHeart",
 export const NewDeliveryAPI = async postData => getDataPOST("DELIVERY/NewDelivery", postData, JSON_HEADERS); // 쇼핑주문추가
 export const NewFollowAPI = async postData => getDataPOST("FOLLOW/NewFollow", postData, JSON_HEADERS);
 export const DeleteFollowAPI = async postData => getDataPOST("FOLLOW/DeleteFollow", postData, JSON_HEADERS);
+export const NewShopAPI = async postData => getDataPOST("SHOP/NewShop", postData, JSON_HEADERS); // 쇼핑몰 추가
+export const GetShopAPI = async postData => getDataPOST("SHOP/GetShop", postData, JSON_HEADERS); // 쇼핑몰 추가

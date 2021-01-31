@@ -15,6 +15,12 @@ const Image = styled.Image`
 
 export default ({ imageUri }) => (
   <Container>
-    <Image source={{ uri: imagePathFormat(imageUri) }} />
+    <Image 
+      source={
+        imageUri ? 
+        { uri: imagePathFormat(imageUri) } :
+        require("../../Image/logo.png")
+      }
+    />
   </Container>
 )

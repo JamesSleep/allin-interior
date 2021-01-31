@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Container = styled.View`
   width: 100%;
-  height: ${_HEIGHT * 0.8}px;
+  height: ${_HEIGHT - 110}px;
   padding-bottom: 10px;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,11 @@ export default ({ info, navigation }) => (
     <TouchableOpacity onPress={() => navigation.navigate("CompanyInfo", { info })}>
       <View>
         <Image
-          source={{ uri: imagePathFormat(info.landscape) }}
+          source={
+            info.landscape ? 
+            { uri: imagePathFormat(info.landscape) } :
+            require("../../Image/logo.png")
+          }
           style={styles.background}
         />
         <Votes />
@@ -18,7 +22,11 @@ export default ({ info, navigation }) => (
       <View style={styles.cardContent}>
         <View style={styles.profileOuter}>
           <Image
-            source={{ uri: imagePathFormat(info.profile) }}
+            source={
+              info.landscape ? 
+              { uri: imagePathFormat(info.profile) } :
+              require("../../Image/logo.png")
+            }
             style={styles.profile}
           />
         </View>

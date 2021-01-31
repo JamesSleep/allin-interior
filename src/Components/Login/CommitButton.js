@@ -20,13 +20,6 @@ export default ({ navigation, submitLogin }) => (
         <Text style={styles.loginText}>로그인</Text>
       </TouchableOpacity>
     </View>
-    <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 10 }}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Agreement", { option: "company" })}
-      >
-        <Text style={styles.joinText}>업체회원가입</Text>
-      </TouchableOpacity>
-    </View>
   </View>
 );
 

@@ -13,7 +13,7 @@ export default ({ navigation, route }) => {
         navigation.navigate("CompanySignUp")
         break;
       case "shopCompany":
-        navigation.navigate("ShopCompanySignUp")
+        navigation.navigate("ShopCompany")
         break;
       default:
         break;
