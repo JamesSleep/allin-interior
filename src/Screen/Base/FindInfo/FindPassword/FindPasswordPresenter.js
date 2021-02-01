@@ -4,9 +4,9 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { backgroundColor, _WIDTH } from "../../../../common/theme";
 import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Keyboard, KeyboardAvoidingView, Platform } from "react-native";
-import DescriptView from "../../../../Components/FindEmail/DescriptView";
-import InputContainer from "../../../../Components/FindEmail/InputContainer";
-import ReturnEmail from "../../../../Components/FindEmail/ReturnEmail";
+import DescriptView from "../../../../Components/FindPassword/DescriptView";
+import InputContainer from "../../../../Components/FindPassword/InputContainer";
+import ReturnEmail from "../../../../Components/FindPassword/ReturnEmail";
 
 const Container = styled.View`
   width: 100%;

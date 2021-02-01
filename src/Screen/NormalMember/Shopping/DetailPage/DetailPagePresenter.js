@@ -26,7 +26,7 @@ export default ({ navigation, info, message, setMessage }) => (
       <ImageView imageUrl={info.image} />
       <TitleView info={info} />
       <ProductInfo info={info} />
-      <DetailTab />
+      <DetailTab info={info} />
     </ScrollView>
     <ButtonLogic
       navigation={navigation}

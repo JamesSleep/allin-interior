@@ -9,6 +9,8 @@ import CompanySignUp from "../Screen/Base/Join/CompanySignUp";
 import ShopCompany from "../Screen/Base/Join/ShopCompany";
 import MemberTabRouter from "./Member/MemberTabRouter";
 import CompanyTabRouter from "./Company/CompanyTabRouter";
+import FindEmail from "../Screen/Base/FindInfo/FindEmail";
+import FindPassword from "../Screen/Base/FindInfo/FindPassword";
 
 const Stack = createStackNavigator();
 
@@ -23,5 +25,7 @@ export default () => (
     <Stack.Screen name="ShopCompany" component={ShopCompany} />
     <Stack.Screen name="MemberTabRouter" component={MemberTabRouter} />
     <Stack.Screen name="CompanyTabRouter" component={CompanyTabRouter} />
+    <Stack.Screen name="FindEmail" component={FindEmail} />
+    <Stack.Screen name="FindPassword" component={FindPassword} />
   </Stack.Navigator>
 )

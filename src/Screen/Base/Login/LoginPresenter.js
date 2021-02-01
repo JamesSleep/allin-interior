@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableWithoutFeedback, Keyboard, View, StyleSheet } from "react-native";
+import { TouchableWithoutFeedback, Keyboard, View, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { backgroundColor, _WIDTH } from "../../../common/theme";
 import Logo from "../../../Components/Login/Logo";
 import FindInfo from "../../../Components/Login/FindInfo";
@@ -9,24 +9,29 @@ import CommitButton from "../../../Components/Login/CommitButton";
 import Social from "../../../Components/Login/Social";
 
 export default ({ loginInfo, setState, navigation, submit }) => (
-  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={styles.container}>
-      <Logo />
-      <View style={styles.loginContainer}>
-        <FindInfo navigation={navigation}/>
-        <InputData 
-          email={loginInfo.email}
-          password={loginInfo.password}
-          setState={setState}
-        />
-        <CommitButton 
-          navigation={navigation}
-          submitLogin={submit}
-        />
+  <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : null}
+    style={{ flex: 1 }}
+  >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Logo />
+        <View style={styles.loginContainer}>
+          <FindInfo navigation={navigation}/>
+          <InputData 
+            email={loginInfo.email}
+            password={loginInfo.password}
+            setState={setState}
+          />
+          <CommitButton 
+            navigation={navigation}
+            submitLogin={submit}
+          />
+        </View>
+        <Social />
       </View>
-      <Social />
-    </View>
-  </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback>
+  </KeyboardAvoidingView>
 );
 
 const styles = StyleSheet.create({

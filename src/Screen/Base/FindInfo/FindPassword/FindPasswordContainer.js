@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FindEmailPresenter from "./FindEmailPresenter";
+import FindPasswordPresenter from "./FindPasswordPresenter";
 
 export default ({ navigation }) => {
   const [value, setValue] = useState({
@@ -26,7 +26,7 @@ export default ({ navigation }) => {
   }
 
   return (
-    <FindEmailPresenter 
+    <FindPasswordPresenter 
       navigation={navigation}
       value={value}
       setValue={setValue}

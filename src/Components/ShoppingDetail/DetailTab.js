@@ -32,7 +32,7 @@ const TabText = styled.Text`
   color: ${props => props.select ? buttonColor : "black"};
 `;
 
-export default () => {
+export default ({ info }) => {
   const [tabName, setTabName] = useState("상품정보");
 
   return (
@@ -59,7 +59,7 @@ export default () => {
           </TabButton>
         </TouchableOpacity>
       </TabView>
-      { tabName === "상품정보" && <DetailInfo />}
+      { tabName === "상품정보" && <DetailInfo info={info} />}
       { tabName === "리뷰" && <Review />}
       { tabName === "문의" && <Qa />}
       { tabName === "배송/교환" && <Policy />}

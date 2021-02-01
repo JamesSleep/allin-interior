@@ -10,13 +10,13 @@ import { _WIDTH } from "../../common/theme";
 export default ({ navigation }) => (
   <View style={styles.container}>
     <TouchableOpacity 
-      //onPress={()=>navigation.navigate("FindMemberId")}
+      onPress={()=>navigation.navigate("FindEmail")}
     >
       <Text style={styles.findInfoText}>아이디 찾기</Text>
     </TouchableOpacity>
     <Text> / </Text>
     <TouchableOpacity 
-      //onPress={()=>navigation.navigate("FindMemberPW")}
+      onPress={()=>navigation.navigate("FindPassword")}
     >
       <Text style={styles.findInfoText}>비밀번호 찾기</Text>
     </TouchableOpacity>

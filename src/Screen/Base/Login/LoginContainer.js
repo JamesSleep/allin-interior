@@ -71,9 +71,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
       }));
       setUserInfo(userInfo[1]);
       if (result[1] === "member") {
-        navigation.navigate("MemberTabRouter");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemberTabRouter' }],
+        });
       } else {
-        navigation.navigate("CompanyTabRouter");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'CompanyTabRouter' }],
+        });
       }
     }
   }
@@ -120,16 +126,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      style={{ flex: 1 }}
-    >
-      <LoginPresenter
-        navigation={navigation}
-        loginInfo={loginInfo}
-        setState={setState}
-        submit={submitControll}
-      />
-    </KeyboardAvoidingView>
+    <LoginPresenter
+      navigation={navigation}
+      loginInfo={loginInfo}
+      setState={setState}
+      submit={submitControll}
+    />
   )
 });
