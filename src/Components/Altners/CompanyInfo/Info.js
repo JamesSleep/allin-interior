@@ -1,12 +1,12 @@
 import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
-import { _WIDTH } from "../../common/theme";
+import { _WIDTH } from "../../../common/theme";
 
 export default ({ ceoName, year, city }) => (
   <Container>
     <StarView>
-      <Star source={require("../../Image/star.png")} />
+      <Star source={require("../../../Image/star.png")} />
       <StarText>4.5</StarText>
     </StarView>
     <InfoColumn>

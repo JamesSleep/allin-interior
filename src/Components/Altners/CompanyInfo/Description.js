@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { _WIDTH } from "../../common/theme";
+import { _WIDTH } from "../../../common/theme";
 
 const Container = styled.View`
   padding: 0px 30px;

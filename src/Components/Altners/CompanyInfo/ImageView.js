@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
-import { _WIDTH } from "../../common/theme";
-import { imagePathFormat } from "../../utils/imagePathFormat";
+import { _WIDTH } from "../../../common/theme";
+import { imagePathFormat } from "../../../utils/imagePathFormat";
 
 const Container = styled.View`
   width: 100%;
@@ -19,7 +19,11 @@ export default ({ imageUri }) => (
       source={
         imageUri ? 
         { uri: imagePathFormat(imageUri) } :
-        require("../../Image/logo.png")
+        require("../../../Image/logo.png")
+      }
+      resizeMode={
+        imageUri ?
+        "cover": "contain"
       }
     />
   </Container>

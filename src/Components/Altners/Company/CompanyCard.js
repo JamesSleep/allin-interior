@@ -1,21 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { _WIDTH, backgroundColor } from "../../common/theme";
-import { imagePathFormat } from "../../utils/imagePathFormat";
-import Votes from "./Votes";
+import { _WIDTH, backgroundColor } from "../../../common/theme";
+import { imagePathFormat } from "../../../utils/imagePathFormat";
+import Votes from "../Votes";
 
 export default ({ info, navigation }) => (
   <View style={styles.container}>
-    <TouchableOpacity onPress={() => navigation.navigate("CompanyInfo", { info })}>
+    <TouchableOpacity onPress={() => navigation.navigate("상세정보", { info })}>
       <View>
         <Image
           source={
             info.landscape ? 
             { uri: imagePathFormat(info.landscape) } :
-            require("../../Image/logo.png")
+            require("../../../Image/logo.png")
           }
-          style={styles.background}
+          style={
+            info.landscape ?
+            styles.background : styles.nonBack
+          }
+          resizeMode={
+            info.landscape ?
+            "cover" : "contain"
+          }
         />
         <Votes />
       </View>
@@ -25,7 +32,7 @@ export default ({ info, navigation }) => (
             source={
               info.landscape ? 
               { uri: imagePathFormat(info.profile) } :
-              require("../../Image/logo.png")
+              require("../../../Image/logo.png")
             }
             style={styles.profile}
           />
@@ -67,6 +74,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
+  nonBack: {
+    width: "100%",
+    height: 170,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: "white"
+  },
   cardContent: {
     flexDirection: "row",
     height: 110,
@@ -80,14 +94,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.7,
+    shadowOpacity: 0.3,
     shadowRadius: 3,
     elevation: 5,
-    overflow: "hidden"
+    //overflow: "hidden"
   },
   profile: {
     width: 70,
     height: 70,
+    borderRadius: 10
   },
   itemColumn: {
     width: "70%",

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
 import Shopping from "../Shopping/ShoppingStackRouter";
-import AltnersRouter from "./AltnersStackRouter";
+import AltnersRouter from "../Altners/AltnersDrawerRouter";
 import Story from "../StoryStackRouter";
 import MyPageRouter from "../../Router/Member/MyPageStackRouter";
 import { buttonColor, _WIDTH } from "../../common/theme";

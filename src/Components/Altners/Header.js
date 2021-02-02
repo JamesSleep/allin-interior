@@ -1,17 +1,30 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { backgroundColor, _WIDTH } from "../../common/theme";
-import AntIcon from "react-native-vector-icons/AntDesign";
+import MaterialCI from "react-native-vector-icons/MaterialCommunityIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default ({ navigation }) => (
+export default ({ navigation, screen }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>올트너스</Text>
+    <Text style={styles.title}>
+      {screen}
+    </Text>
     <View style={styles.icon}>
-      <TouchableOpacity onPress={() => navigation.navigate("Request", { gate: "main" })}>
-        <AntIcon name="form" size={_WIDTH / 20} />
+      <TouchableOpacity 
+        onPress={() => navigation.openDrawer()}
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <MaterialCI name="menu" size={30} />
+        <Text style={{ fontSize: 8 }}>MENU</Text>
       </TouchableOpacity>
     </View>
+    { screen === "상세정보" && (
+      <View style={styles.backButton}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialCI name="arrow-left" size={25} />
+        </TouchableOpacity>
+      </View>
+    )}
   </View>
 );
 
@@ -35,4 +48,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: _WIDTH / 20,
   },
+  backButton: {
+    position: "absolute",
+    left: _WIDTH / 20,
+  }
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { _WIDTH } from "../../common/theme";
+import { _WIDTH } from "../../../common/theme";
 
 const Container = styled.View`
   width: 100%;
@@ -43,19 +43,19 @@ export default () => (
     <Title>전문분야</Title>
     <IconView>
       <IconTile>
-        <Icon source={require("../../Image/comprehensive.png")} />
+        <Icon source={require("../../../Image/comprehensive.png")} />
         <Text>종합시공</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/partial_construction.png")} />
+        <Icon source={require("../../../Image/partial_construction.png")} />
         <Text>부분시공</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/residential.png")} />
+        <Icon source={require("../../../Image/residential.png")} />
         <Text>주거공간</Text>
       </IconTile>
       <IconTile>
-        <Icon source={require("../../Image/commercial_space.png")} />
+        <Icon source={require("../../../Image/commercial_space.png")} />
         <Text>상업공간</Text>
       </IconTile>
     </IconView>
