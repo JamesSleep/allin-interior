@@ -7,13 +7,50 @@ import SplashScreen from "react-native-splash-screen";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "./src/redux/reducers";
-
+import { checkMultiple, request, requestMultiple, PERMISSIONS, RESULTS, openLimitedPhotoLibraryPicker } from "react-native-permissions";
+ 
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
+      askPermission();
     }, 1000);
   }, []);
+
+  const askPermission = async () => {
+    let CAMERA = null, PHOTO = null;
+    if (Platform.OS === "ios") {
+      CAMERA = PERMISSIONS.IOS.CAMERA;
+      PHOTO = PERMISSIONS.IOS.PHOTO_LIBRARY;
+    }
+    else {
+      CAMERA = PERMISSIONS.ANDROID.CAMERA;
+      PHOTO = PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+    }
+    checkMultiple([CAMERA, PHOTO]).then((staus) => {
+      /* console.log(`${Platform.OS} camera :`,staus[CAMERA]);
+        console.log(`${Platform.OS} photo :`,staus[PHOTO]); */
+        requestMultiple([CAMERA, PHOTO]).then((result) => {
+          /* console.log(`${Platform.OS} camera :`, result);
+          console.log(`${Platform.OS} photo :`, result); */
+        })
+      /* if (staus[CAMERA] !== RESULTS.GRANTED) {
+        request(CAMERA).then(result => {
+          console.log(`${Platform.OS} camera :` , result);
+        })
+      } else if (staus[PHOTO] !== RESULTS.GRANTED) {
+        request(PHOTO).then(result => {
+          console.log(`${Platform.OS} photo :` , result);
+        })
+      } else {
+        requestMultiple([CAMERA, PHOTO]).then((result) => {
+          console.log(`${Platform.OS} camera :`, result);
+          console.log(`${Platform.OS} photo :`, result);
+        })
+      } */
+    })
+  }
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>

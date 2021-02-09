@@ -15,7 +15,12 @@ target 'allin_interior' do
     :path => '../node_modules/rn-fetch-blob'
 
   pod 'Firebase/Auth'
-    
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+ 
   target 'allin_interiorTests' do
     inherit! :complete
     # Pods for testing

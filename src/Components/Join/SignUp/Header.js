@@ -9,9 +9,9 @@ export default ({ navigation, step, setStep }) => (
       name="angle-left"
       style={{
         position: "absolute",
-        left: 15,
+        left: 20,
       }}
-      size={_WIDTH/15}
+      size={25}
       onPress={()=>{
         step === 0 ? 
         navigation.goBack():

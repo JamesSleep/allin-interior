@@ -10,6 +10,7 @@ export default ({ value, setValue }) => {
         style={styles.input}
         multiline
         scrollEnabled={false}
+        value={value.discription}
         textAlignVertical="top"
         onChangeText={text=>setValue({...value, discription: text})}
       />

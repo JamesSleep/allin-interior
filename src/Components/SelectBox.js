@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 import { _WIDTH, buttonColor } from "../common/theme";
 
 export default ({ list=[], property, selected, setSelect }) => {

@@ -7,7 +7,10 @@ import Votes from "../Votes";
 
 export default ({ info, navigation }) => (
   <View style={styles.container}>
-    <TouchableOpacity onPress={() => navigation.navigate("상세정보", { info })}>
+    <TouchableOpacity 
+      onPress={() => navigation.navigate("상세정보", { info })}
+      activeOpacity={1}
+    >
       <View>
         <Image
           source={

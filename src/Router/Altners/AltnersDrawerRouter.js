@@ -2,6 +2,7 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Main from "./InteriorStackRouter";
 import Company from "./CompanyStackRouter";
+import Request from "./RequestStackRouter";
 
 const Drawer = createDrawerNavigator();
 
@@ -19,6 +20,11 @@ export default () => (
       name="Company" 
       component={Company} 
       options={{ drawerLabel: "업체목록" }}
+    />
+    <Drawer.Screen 
+      name="Request" 
+      component={Request} 
+      options={{ drawerLabel: "견적신청" }}
     />
   </Drawer.Navigator>
 )

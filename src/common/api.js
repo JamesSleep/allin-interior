@@ -67,3 +67,5 @@ export const NewFollowAPI = async postData => getDataPOST("FOLLOW/NewFollow", po
 export const DeleteFollowAPI = async postData => getDataPOST("FOLLOW/DeleteFollow", postData, JSON_HEADERS);
 export const NewShopAPI = async postData => getDataPOST("SHOP/NewShop", postData, JSON_HEADERS); // 쇼핑몰 추가
 export const GetShopAPI = async postData => getDataPOST("SHOP/GetShop", postData, JSON_HEADERS); // 쇼핑몰 추가
+export const NewInteriorAPI = async postData => getDataPOST("INTERIOR/NewInterior", postData, JSON_HEADERS); // 견적신청
+export const InteriorImgAPI = async postData => imageRequest("INTERIOR/ImageUpload", postData, FORM_HEADERS); // 견적신청

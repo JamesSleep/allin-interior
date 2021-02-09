@@ -112,6 +112,10 @@ PODS:
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
+  - Permission-Camera (3.0.0):
+    - RNPermissions
+  - Permission-PhotoLibrary (3.0.0):
+    - RNPermissions
   - PromisesObjC (1.2.10)
   - RCTRequired (0.63.2)
   - RCTTypeSafety (0.63.2):
@@ -366,17 +370,19 @@ PODS:
     - RNFBApp
   - RNGestureHandler (1.6.1):
     - React
-  - RNImageCropPicker (0.33.2):
+  - RNImageCropPicker (0.33.4):
     - React-Core
     - React-RCTImage
-    - RNImageCropPicker/QBImagePickerController (= 0.33.2)
+    - RNImageCropPicker/QBImagePickerController (= 0.33.4)
     - TOCropViewController
-  - RNImageCropPicker/QBImagePickerController (0.33.2):
+  - RNImageCropPicker/QBImagePickerController (0.33.4):
     - React-Core
     - React-RCTImage
     - TOCropViewController
   - RNKeychain (6.2.0):
     - React
+  - RNPermissions (3.0.0):
+    - React-Core
   - RNReanimated (1.13.0):
     - React
   - RNScreens (2.9.0):
@@ -414,6 +420,8 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.41.1)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -450,6 +458,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -491,6 +500,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -559,6 +572,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNKeychain:
     :path: "../node_modules/react-native-keychain"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -593,6 +608,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
+  Permission-Camera: 358081c7b8210849958af181ce9ddeb11932aa82
+  Permission-PhotoLibrary: 79f74cef889ed76e1712fee9fe9a187e9a15dec1
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   RCTRequired: f13f25e7b12f925f1f6a6a8c69d929a03c0129fe
   RCTTypeSafety: 44982c5c8e43ff4141eb519a8ddc88059acd1f3a
@@ -626,8 +643,9 @@ SPEC CHECKSUMS:
   RNFBApp: a74d8259d827c8bf55100e759cffa2e50ba6fe30
   RNFBAuth: ccae9605207f4a3bc6e03cd0adb5433872ef4418
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNImageCropPicker: 82f4caef16a37c07cbb0171be95aa5584f99bd9d
+  RNImageCropPicker: 530e8b69d97f80e03bc9f3b2cb64412312824330
   RNKeychain: b8e0711b959a19c5b057d1e970d3c83d159b6da5
+  RNPermissions: 350964d19150b183796a88180fb7ec62a1e41422
   RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNVectorIcons: da6fe858f5a65d7bbc3379540a889b0b12aa5976
@@ -635,6 +653,6 @@ SPEC CHECKSUMS:
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9731bb48634041a916c81083f59a1c151bde5d79
+PODFILE CHECKSUM: acc458f77b7b567118bb96181f7f1039df44e988
 
 COCOAPODS: 1.9.3

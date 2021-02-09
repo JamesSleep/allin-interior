@@ -8,6 +8,7 @@ import * as KeyChain from "react-native-keychain";
 import DeviceInfo from "react-native-device-info";
 import { createSalt, cryptoGraphic } from "../../../../utils/cryptographic";
 import { CompanySignUpAPI, ImageUploadAPI } from "../../../../common/api";
+import CompanySignUpPresenter4 from "./CompanySignUpPresenter4";
 
 const SIGN_UP_LIST = [
   { value: "email", title: "이메일", keyboardType: "email-address" },
@@ -39,6 +40,11 @@ export default ({ navigation }) => {
       name: "구/군 선택",
       id: 0
     },
+    totalConstruction: "",
+    partConstruction: "",
+    residential: "",
+    commercial: "",
+    cleaning: ""
   });
   const [profile, setProfile] = useState({
     image_data: null,
@@ -68,6 +74,11 @@ export default ({ navigation }) => {
       "description": signUpData.description,
       "city": signUpData.city.name,
       "district": signUpData.district.name,
+      "total_construction": signUpData.totalConstruction,
+      "part_construction": signUpData.partConstruction,
+      "residential": signUpData.residential,
+      "commercial": signUpData.commercial,
+      "cleaning": signUpData.cleaning
     });
     const profile_form = [
       { name: "image", filename: "image.jpg", type: "image/jpg", data: profile.image_data },
@@ -135,6 +146,16 @@ export default ({ navigation }) => {
         />
       )}
       { step === 2 && (
+        <CompanySignUpPresenter4 
+          navigation={navigation}
+          signList={SIGN_UP_LIST}
+          step={step}
+          setStep={setStep}
+          value={signUpData}
+          setValue={setState}
+        />
+      )}
+      { step === 3 && (
         <CompanySignUpPresenter3 
           value={signUpData}
           setValue={setSignUpData}
