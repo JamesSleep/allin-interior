@@ -15,7 +15,6 @@ export default ({ navigation }) => {
     squareFeet: "",
     preCost: "",
     preConDate: "",
-    structureStyle: "",
     managed: "",
     ref_index: "",
     memo: "",
@@ -114,10 +113,19 @@ export default ({ navigation }) => {
       if (!success) console.log(data);
     }
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: '견적신청' }],
-    });
+    const page = [
+      { title: "이름", value: userInfo.user_name },
+      { title: "휴대폰 번호", value: userInfo.phone_number },
+      { title: "공간 종류", value: value.spaceStyle },
+      { title: "공사 예정일", value: value.preConDate },
+      { title: "평수", value: `${value.squareFeet}평` },
+      { title: "주소", value: `${value.address1} ${value.address2}` },
+      { title: "예상 비용", value: value.preCost },
+      { title: "운영 여부", value: value.managed },
+      { title: "요청사항", value: value.memo }
+    ];
+    navigation.navigate("Result", { data: page, option: "request" });
+    
   }
 
   return (

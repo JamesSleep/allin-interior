@@ -28,7 +28,7 @@ const Text = styled.Text`
 
 export default ({ value, setValue }) => (
   <Container>
-    <Title>업종 유형</Title>
+    <Title>공간 유형</Title>
     <ListView>
       {list.map((item, index) => (
         <TouchableOpacity
@@ -48,6 +48,7 @@ export default ({ value, setValue }) => (
 )
 
 const list = [
+  "아파트", "빌라", "주택", "원룸",
   "사무실", "상가/매장", "카페/식당", "학원/교육",
   "숙박/병원", "기타"
 ];

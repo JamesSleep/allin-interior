@@ -19,7 +19,7 @@ export default ({ imageList=[] }) => (
     <Swiper 
       renderPagination={imageList.length > 1 && renderPagination}
     >
-      { imageList.map((image, index) => (
+      { imageList.length > 0 && imageList.map((image, index) => (
         <View 
           key={index}
           style={styles.imageView}

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Screen/NormalMember/Home";
 import Shopping from "../../Screen/NormalMember/Shopping";
 import Story from "../StoryStackRouter";
-import AltnersRouter from "../Member/AltnersStackRouter";
+import AltnersRouter from "../Altners/AltnersDrawerRouter";
 import MyPageRouter from "./MyPageStackRouter";
 import { buttonColor, _WIDTH } from "../../common/theme";
 import { StyleSheet } from "react-native";
@@ -65,7 +65,7 @@ export default () => (
         )
       }}
     />
-    <Tab.Screen
+{/*     <Tab.Screen
       name="Story"
       component={Story}
       options={{
@@ -78,7 +78,7 @@ export default () => (
           />
         )
       }}
-    />
+    /> */}
     <Tab.Screen
       name="MyPageRouter"
       component={MyPageRouter}

@@ -1,40 +1,23 @@
 import React, { useState, useEffect } from "react";
 import LoginPresenter from "./LoginPresenter";
-import { KeyboardAvoidingView, Platform } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import * as KeyChain from "react-native-keychain";
 import DeviceInfo from "react-native-device-info";
 import { SaltReturnAPI, LoginAPI, UserInfoAPI } from "../../../common/api";
 import { cryptoGraphic } from "../../../utils/cryptographic";
 import { postMessage } from "../../../utils/postMessage";
-import { connect } from "react-redux";
-import ActionCreators from "../../../redux/action";
 
-const mapStateToProps = state => {
-  return {
-    user_info: state.user_info
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setUserInfo: (user_info) => {
-      dispatch(ActionCreators.setUserInfo(user_info))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUserInfo }) => {
+export default ({ navigation }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
-    autoLogin: true,
-  })
+  });
 
   useEffect(() => {
-    setOption();
+    autoLoginHandler();
   }, []);
 
+  // 로그인정보 텍스트 입력
   const setState = (property, value) => {
     setLoginInfo({
       ...loginInfo,
@@ -42,13 +25,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     });
   }
 
-  const setOption = async () => {
+  // 로그인 정보 확인 
+  const autoLoginHandler = async () => {
     const loginData = JSON.parse(await AsyncStorage.getItem("loginData"));
-    if (!loginData) return;
-    if (loginData.autoLogin)
-      autoLogin(loginData);
+    if (loginData !== null) autoLogin(loginData);
   }
 
+  // 로그인 시도
   const login = async (email, password) => {
     const postData = JSON.stringify({
       "email": email,
@@ -58,32 +41,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     return result;
   }
 
+  // 자동 로그인
   const autoLogin = async (loginData) => {
     const { email } = loginData;
     const {
       username, password
     } = await KeyChain.getInternetCredentials(DeviceInfo.getUniqueId());
     const password_ = cryptoGraphic(password, username);
-    const result = await login(email, password_);
-    if (result[0]) {
-      const userInfo = await UserInfoAPI(JSON.stringify({
-        "email": email
-      }));
-      setUserInfo(userInfo[1]);
-      if (result[1] === "member") {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'MemberTabRouter' }],
-        });
-      } else {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'CompanyTabRouter' }],
-        });
-      }
+    const [success, data] = await login(email, password_);
+    if (success) {
+      pageHandler(data);
     }
   }
 
+  // 일반 로그인
   const submitControll = async () => {
     if (!loginInfo.email || !loginInfo.password) {
       postMessage("로그인 정보를 입력해주세요!");
@@ -108,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
     }
     await AsyncStorage.setItem("loginData", JSON.stringify({
       "email": loginInfo.email,
-      "autoLogin": loginInfo.autoLogin
+      "type": result[1]
     }));
     await KeyChain.setInternetCredentials(
       DeviceInfo.getUniqueId(),
@@ -116,13 +87,28 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
       loginInfo.password,
       { accessible: KeyChain.ACCESSIBLE.WHEN_UNLOCKED }
     );
-    if (result[1] === "member") {
-      const userInfo = await UserInfoAPI(postData);
-      setUserInfo(userInfo[1]);
-      navigation.navigate("MemberTabRouter");
+    pageHandler(result[1]);
+  }
+
+  // 페이지 이동
+
+  const pageHandler = (type) => {
+    switch (type) {
+      case "member": {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemberTabRouter' }],
+        });
+        break;
+      }
+      case "company": {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'CompanyTabRouter' }],
+        });
+        break;
+      }
     }
-    else
-      navigation.navigate("CompanyTabRouter");
   }
 
   return (
@@ -133,4 +119,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(({ navigation, setUs
       submit={submitControll}
     />
   )
-});
+};

@@ -17,7 +17,14 @@ export default ({ navigation }) => {
     const { email } = JSON.parse(await AsyncStorage.getItem("loginData"));
     const data = JSON.stringify({ "email": email });
     const result = await UserInfoAPI(data);
-    setUserInfo(result[1]);
+    if (result[0]) {
+      setUserInfo(result[1]);
+    } else {
+      setUserInfo({
+        mb_index: "0",
+        email: email
+      })
+    }
   }
 
   const filterSet = (array = []) => {

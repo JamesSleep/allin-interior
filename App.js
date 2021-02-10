@@ -34,20 +34,6 @@ const App = () => {
           /* console.log(`${Platform.OS} camera :`, result);
           console.log(`${Platform.OS} photo :`, result); */
         })
-      /* if (staus[CAMERA] !== RESULTS.GRANTED) {
-        request(CAMERA).then(result => {
-          console.log(`${Platform.OS} camera :` , result);
-        })
-      } else if (staus[PHOTO] !== RESULTS.GRANTED) {
-        request(PHOTO).then(result => {
-          console.log(`${Platform.OS} photo :` , result);
-        })
-      } else {
-        requestMultiple([CAMERA, PHOTO]).then((result) => {
-          console.log(`${Platform.OS} camera :`, result);
-          console.log(`${Platform.OS} photo :`, result);
-        })
-      } */
     })
   }
 

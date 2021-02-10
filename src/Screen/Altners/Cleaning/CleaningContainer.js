@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ResidentialPresenter from "./ResidentialPresenter";
+import CleaningPresenter from "./CleaningPresenter";
 import ImagePicker from "react-native-image-crop-picker";
 import AsyncStorage from "@react-native-community/async-storage";
 import { postMessage } from "../../../utils/postMessage";
@@ -11,17 +11,17 @@ export default ({ navigation }) => {
     zipcode: "",
     address1: "",
     address2: "",
-    construction: "",
     squareFeet: "",
-    preCost: "",
-    preConDate: "",
+    cleaningStyle: "",
+    cleaningDate: "",
+    moved: "",
     structureStyle: "",
     room: 0,
     veranda: 0,
     restroom: 0,
-    ref_index: "",
     memo: "",
   });
+  const [page, setPage] = useState(0);
   const [currentPhoto, setCurrentPhoto] = useState([]);
   const [userInfo, setUserInfo] = useState();
 
@@ -70,7 +70,7 @@ export default ({ navigation }) => {
   const requestInterior = async () => {
     for (const property in value ) {
       if (property !== "memo" && property !== "ref_index" && property !== "construction") {
-        if (value[property] === "" || value[property] === 0) {
+        if (value[property] === "") {
           console.log(property);
           postMessage("필수사항을 모두 입력해주세요");
           return;
@@ -83,8 +83,11 @@ export default ({ navigation }) => {
     }
 
     const postData = JSON.stringify({
-      "request_style": "100",
+      "request_style": "300",
       "space_style": value.spaceStyle,
+      "cleaning_style": value.cleaningStyle,
+      "cleaning_date": value.cleaningDate,
+      "moved": value.moved,
       "mb_index": userInfo.mb_index,
       "zip_code": value.zipcode,
       "address1": value.address1,
@@ -123,6 +126,7 @@ export default ({ navigation }) => {
     const page = [
       { title: "이름", value: userInfo.user_name },
       { title: "휴대폰 번호", value: userInfo.phone_number },
+      { title: "청소 종류", value: value.cleaningStyle },
       { title: "공간 종류", value: value.spaceStyle },
       { title: "평수", value: `${value.squareFeet}평` },
       { title: "공간구조", value: value.structureStyle },
@@ -130,18 +134,21 @@ export default ({ navigation }) => {
       { title: "화장실", value: `${value.restroom}개` },
       { title: "베란다", value: `${value.veranda}개` },
       { title: "주소", value: `${value.address1} ${value.address2}` },
-      { title: "예상 비용", value: value.preCost },
-      { title: "공사 예정일", value: value.preConDate },
+      { title: "청소 날짜", value: value.cleaningDate },
+      value.moved !== "" &&
+      { title: "이사짐여부", value: value.moved },
       { title: "요청사항", value: value.memo }
     ];
     navigation.navigate("Result", { data: page, option: "request" });
   }
 
   return (
-    <ResidentialPresenter 
+    <CleaningPresenter 
       navigation={navigation}
       value={value}
       setValue={setValue}
+      page={page}
+      setPage={setPage}
       imagePicker={imagePicker}
       imageClean={imageClean}
       current={currentPhoto}

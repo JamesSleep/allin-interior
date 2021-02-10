@@ -33,6 +33,7 @@ export default ({ value, setValue }) => (
     <InputView>
       <TextInput 
         maxLength={3}
+        value={value.squareFeet}
         keyboardType="number-pad"
         onChangeText={text => setValue({...value, squareFeet: text})}
       />
