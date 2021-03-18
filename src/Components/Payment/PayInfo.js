@@ -34,8 +34,8 @@ const Text = styled.Text`
 export default ({ info }) => (
   <Container>
     <Title>
-      {info.estimate_style === "Residential" ? "주거공간" : "상업공간"}
-      ({info.space_style})  /  전체 리모델링
+      {requestStyle(info.request_style)}
+      ({info.space_style}) / 리모델링
     </Title>
     <BoldText>최종 결제 금액</BoldText>
     <PayView>
@@ -46,6 +46,14 @@ export default ({ info }) => (
     </PayView>
   </Container>
 );
+
+const requestStyle = (number) => {
+  switch (number) {
+    case "100": return "주거공간";
+    case "200": return "상업공간";
+    case "300": return "청소";
+  }
+}
 
 const numbering = (pay = "") => {
   const len = pay.length;

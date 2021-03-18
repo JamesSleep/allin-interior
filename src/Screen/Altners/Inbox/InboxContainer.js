@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import InboxPresenter from "./InboxPresenter";
 import AsyncStorage from "@react-native-community/async-storage";
-import { GetInteriorAPI, UserInfoAPI, DeleteInteriorAPI, CompanyInfoAPI } from "../../../common/api";
+import { GetInteriorAPI, UserInfoAPI, DeleteInteriorAPI, CompanyInfoAPI, UpdateInteriorAPI } from "../../../common/api";
 import { Alert } from "react-native";
+import { postMessage } from "../../../utils/postMessage";
 
 export default ({ navigation, route }) => {
   const screen = route.name;
@@ -20,7 +21,7 @@ export default ({ navigation, route }) => {
     setType(type);
     if (type === "member") {
       const [success, data] = await UserInfoAPI(JSON.stringify({ "email": email }));
-      setUserInfo(dat);
+      setUserInfo(data);
       const postData = JSON.stringify({ "mb_index": data.mb_index });
       const [success2, data2] = await GetInteriorAPI(postData);
       if (success2) {
@@ -30,7 +31,7 @@ export default ({ navigation, route }) => {
       }
     } else if (type === "company") {
       const [success, data] = await CompanyInfoAPI(JSON.stringify({ "email": email}));
-      setUserInfo(data);
+      setUserInfo(data[0]);
       const [success2, data2] = await GetInteriorAPI();
       if (success2) {
         let array = data2;
@@ -43,11 +44,11 @@ export default ({ navigation, route }) => {
   const filterSet = (array = []) => {
     switch (tab) {
       case "대기중": {
-        array = array.filter(item => item.state === "100" || item.state === "200");
+        array = array.filter(item => item.state === "100");
         return array;
       }
       case "진행중": {
-        array = array.filter(item => item.state === "300" || item.state === "400");
+        array = array.filter(item => item.state === "200" || item.state === "300" || item.state === "400");
         return array;
       }
       case "완료": {
@@ -67,8 +68,8 @@ export default ({ navigation, route }) => {
     switch (info.request_style) {
       case "100": {
         page = [
-          { title: "이름", value: userInfo.user_name },
-          { title: "휴대폰 번호", value: userInfo.phone_number },
+          { title: "이름", value: info.user_info.user_name },
+          { title: "휴대폰 번호", value: info.user_info.phone_number },
           { title: "공간 종류", value: info.space_style },
           { title: "평수", value: `${info.square_feet}평` },
           { title: "공간구조", value: info.structure_style },
@@ -84,8 +85,8 @@ export default ({ navigation, route }) => {
       }
       case "200": {
         page = [
-          { title: "이름", value: userInfo.user_name },
-          { title: "휴대폰 번호", value: userInfo.phone_number },
+          { title: "이름", value: info.user_info.user_name },
+          { title: "휴대폰 번호", value: info.user_info.phone_number },
           { title: "공간 종류", value: info.space_style },
           { title: "공사 예정일", value: info.pre_con_date },
           { title: "평수", value: `${info.square_feet}평` },
@@ -150,6 +151,97 @@ export default ({ navigation, route }) => {
     );
   }
 
+  const updateInterior = async (postData) => {
+    const [success, data] = await UpdateInteriorAPI(postData);
+    if (success) {
+      console.log(data);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: '견적수신함' }],
+      });
+    }
+  }
+
+  const requestAccept = async (index) => {
+    const postData = JSON.stringify({
+      "it_index": index,
+      "co_index": userInfo.co_index,
+      "state": "200",
+    });
+    Alert.alert(
+      "",
+      "견적을 수락하시겠습니까?",
+      [
+        {
+          text: "예",
+          onPress: async () => updateInterior(postData)
+        },
+        {
+          text: "아니요",
+          onPress: () => { return },
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const startInterior = async (index) => {
+    const postData = JSON.stringify({
+      "it_index": index,
+      "co_index": userInfo.co_index,
+      "state": "300",
+    });
+    Alert.alert(
+      "",
+      "시공을 시작하시겠습니까?",
+      [
+        {
+          text: "예",
+          onPress: async () => updateInterior(postData)
+        },
+        {
+          text: "아니요",
+          onPress: () => { return },
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const endInterior = async (index) => {
+    const postData = JSON.stringify({
+      "it_index": index,
+      "co_index": userInfo.co_index,
+      "state": "400",
+    });
+    Alert.alert(
+      "",
+      "완료처리 하시겠습니까?",
+      [
+        {
+          text: "예",
+          onPress: async () => updateInterior(postData)
+        },
+        {
+          text: "아니요",
+          onPress: () => { return },
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const payHandler = async (info) => {
+    if (info.payment === null) {
+      postMessage("결제금액이 입력되지 않았습니다");
+      return;
+    }
+    navigation.navigate("Payment", { data: info });
+  }
+
   return (
     <InboxPresenter 
       navigation={navigation}
@@ -160,6 +252,10 @@ export default ({ navigation, route }) => {
       requestList={list}
       inboxHandler={inboxHandler}
       calcelHandler={calcelHandler}
+      accept={requestAccept}
+      startInterior={startInterior}
+      endInterior={endInterior}
+      payHandler={payHandler}
     />
   )
 }

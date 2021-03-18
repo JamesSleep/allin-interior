@@ -30,7 +30,11 @@ const Text = styled.Text`
   margin-top: 10px;
 `;
 
-export default ({ navigation, screen, type, tab, setTab, requestList=[], inboxHandler, calcelHandler }) => (
+export default ({ 
+  navigation, screen, type, tab, setTab, requestList=[], 
+  inboxHandler, calcelHandler, accept, startInterior, endInterior,
+  payHandler
+}) => (
   <Container>
     <Header navigation={navigation} screen={screen} />
     <FilterTab tab={tab} setTab={setTab} list={list} />
@@ -50,6 +54,11 @@ export default ({ navigation, screen, type, tab, setTab, requestList=[], inboxHa
               type={type}
               inboxHandler={inboxHandler} 
               cancelHandler={calcelHandler} 
+              accept={accept}
+              startInterior={startInterior}
+              endInterior={endInterior}
+              navigation={navigation}
+              payHandler={payHandler}
             />
           )) : (
           <ZeroList>

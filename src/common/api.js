@@ -71,3 +71,4 @@ export const NewInteriorAPI = async postData => getDataPOST("INTERIOR/NewInterio
 export const InteriorImgAPI = async postData => imageRequest("INTERIOR/ImageUpload", postData, FORM_HEADERS); // 견적신청이미지
 export const GetInteriorAPI = async postData => getDataPOST("INTERIOR/GetInterior", postData, JSON_HEADERS); // 견적조회
 export const DeleteInteriorAPI = async postData => getDataPOST("INTERIOR/DeleteInterior", postData, JSON_HEADERS); // 견적삭제
+export const UpdateInteriorAPI = async postData => getDataPOST("INTERIOR/UpdateInterior", postData, JSON_HEADERS); // 견적업데이트

@@ -53,6 +53,16 @@ const Detail = styled.View`
   border-right-color: #e8e8e8;
 `;
 
+const Detail2 = styled.View`
+  width: ${_WIDTH * 0.8}px;
+  height: 45px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-right-width: 1px;
+  border-right-color: #e8e8e8;
+`;
+
 const DetailText = styled.Text`
   margin-left: 5px;
   font-size: 13px;
@@ -99,7 +109,7 @@ const RejectText = styled.Text`
   font-size: 13px;
 `;
 
-export default ({ info, inboxHandler, cancelHandler, type }) => (
+export default ({ info, inboxHandler, cancelHandler, type, accept, startInterior, endInterior, navigation, payHandler }) => (
   <Container>
     <Content>
       <Title>
@@ -108,18 +118,38 @@ export default ({ info, inboxHandler, cancelHandler, type }) => (
       <Address>
         {`${info.address1} ${info.address2}`}
       </Address>
-      <State>업체 승인을 기다리는중입니다</State>
+      <State>
+        {info.state === "100" && "업체 승인을 기다리는중입니다"}
+        {info.state === "200" && "상담을 진행중입니다"}
+        {info.state === "300" && "시공 진행중입니다"}
+        {info.state === "400" && "결제 대기중입니다"}
+        {info.state === "500" && "시공이 완료되었습니다!"}
+      </State>
     </Content>
     <ButtonView>
       <TouchableOpacity onPress={() => inboxHandler(info)}>
-        <Detail type={type}>
-          <MaterialCI name="file-document-outline" size={20} />
-          <DetailText>견적서보기</DetailText>
-        </Detail>
+        { (info.state === "100" || info.state === "200" || info.state === "300") && (
+          <Detail type={type}>
+            <MaterialCI name="file-document-outline" size={20} />
+            <DetailText>견적서보기</DetailText>
+          </Detail>
+        )}
+        { info.state === "400" && (
+          <Detail>
+            <MaterialCI name="file-document-outline" size={20} />
+            <DetailText>견적서보기</DetailText>
+          </Detail>
+        )}
+        { info.state === "500" && (
+          <Detail2>
+            <MaterialCI name="file-document-outline" size={20} />
+            <DetailText>견적서보기</DetailText>
+          </Detail2>
+        )}
       </TouchableOpacity>
-      { type === "company" ? (
+      { type === "company" && info.state === "100" && (
         <>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => accept(info.it_index)}>
           <Accept>
             <MaterialCI name="check-circle-outline" size={20} />
             <AcceptText>수락</AcceptText>
@@ -131,12 +161,75 @@ export default ({ info, inboxHandler, cancelHandler, type }) => (
             <RejectText>거절</RejectText>
           </Reject>
         </TouchableOpacity>
-        </>
-      ) : (
+        </>)}
+      { type === "company" && info.state === "200" && (
+        <>
+        <TouchableOpacity onPress={() => startInterior(info.it_index)}>
+          <Accept>
+            <MaterialCI name="hammer-wrench" size={20} />
+            <AcceptText>시공시작</AcceptText>
+          </Accept>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => cancelHandler(info.it_index)}>
+          <Reject>
+            <MaterialCI name="close-circle-outline" size={20} />
+            <RejectText>취소</RejectText>
+          </Reject>
+        </TouchableOpacity>
+        </>)}
+      { type === "company" && info.state === "300" && (
+      <>
+        <TouchableOpacity onPress={() => endInterior(info.it_index)}>
+          <Accept>
+            <MaterialCI name="check-circle-outline" size={20} />
+            <AcceptText>시공완료</AcceptText>
+          </Accept>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => cancelHandler(info.it_index)}>
+          <Reject>
+            <MaterialCI name="close-circle-outline" size={20} />
+            <RejectText>시공중단</RejectText>
+          </Reject>
+        </TouchableOpacity>
+      </>)}
+      { type === "company" && info.state === "400" && (
+      <>
+        <TouchableOpacity onPress={() => navigation.navigate("InputPrice", { data: info })}>
+          <Cancel>
+            <MaterialCI name="calculator" size={20} />
+            <AcceptText>정산하기</AcceptText>
+          </Cancel>
+        </TouchableOpacity>
+      </>)}
+      { (type === "member" || type === "shop") && info.state === "100" && (
         <TouchableOpacity onPress={() => cancelHandler(info.it_index)}>
           <Cancel>
             <MaterialCI name="cancel" size={20} />
             <CancelText>취소</CancelText>
+          </Cancel>
+        </TouchableOpacity>
+      )}
+      { (type === "member" || type === "shop") && info.state === "200" && (
+        <TouchableOpacity onPress={() => cancelHandler(info.it_index)}>
+          <Cancel>
+            <MaterialCI name="cancel" size={20} />
+            <CancelText>취소</CancelText>
+          </Cancel>
+        </TouchableOpacity>
+      )}
+      { (type === "member" || type === "shop") && info.state === "300" && (
+        <TouchableOpacity onPress={() => cancelHandler(info.it_index)}>
+          <Cancel>
+            <MaterialCI name="cancel" size={20} />
+            <CancelText>시공중단</CancelText>
+          </Cancel>
+        </TouchableOpacity>
+      )}
+      { (type === "member" || type === "shop") && info.state === "400" && (
+        <TouchableOpacity onPress={() => payHandler(info)}>
+          <Cancel>
+            <MaterialCI name="check-circle-outline" size={20} />
+            <AcceptText>결제하기</AcceptText>
           </Cancel>
         </TouchableOpacity>
       )}

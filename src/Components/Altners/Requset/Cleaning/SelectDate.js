@@ -4,7 +4,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Modal from "react-native-modal";
 import Calendars from "../../../Calendars";
 import { buttonColor } from "../../../../common/theme";
-import { ceil } from "react-native-reanimated";
 
 const Container = styled.View`
   flex: 1;

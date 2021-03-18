@@ -28,9 +28,9 @@ const FilterText = styled.Text`
   margin-left: 5px;
 `;
 
-export default () => (
+export default ({ len }) => (
   <Container>
-    <Count>총 12건의 인테리어</Count>
+    <Count>총 {len}건의 인테리어</Count>
     <TouchableOpacity>
       <FilterView>
         <AntDesign name="filter" size={20} />

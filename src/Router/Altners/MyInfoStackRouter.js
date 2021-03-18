@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-community/async-storage";
 import Inbox from "../../Screen/Altners/Inbox";
 import Result from "../../Screen/Altners/RequestResult";
+import InputPrice from "../../Screen/Altners/InputPrice";
+import Payment from "../../Screen/Payment";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,8 @@ export default () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name={inbox} component={Inbox} />
       <Stack.Screen name="Result" component={Result} />
+      <Stack.Screen name="InputPrice" component={InputPrice} />
+      <Stack.Screen name="Payment" component={Payment} />
     </Stack.Navigator>
   )
 }
